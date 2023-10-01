@@ -1,0 +1,3 @@
+{
+  hubble = ./hubble;
+}
