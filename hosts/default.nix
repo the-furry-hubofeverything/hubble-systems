@@ -56,6 +56,7 @@ in {
         nixos-hardware.omen-15-en0010ca
 
         inputs.lanzaboote.nixosModules.lanzaboote
+        outputs.nixosModules.wireshark
         outputs.nixosModules.lanzaboote
       ];
   };

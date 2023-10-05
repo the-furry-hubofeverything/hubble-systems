@@ -7,4 +7,5 @@
   nix-alien = import ./nix-alien.nix;
   hyprland = import ./hyprland.nix;
   lanzaboote = import ./lanzaboote.nix;
+  wireshark = import ./wireshark.nix;
 }
