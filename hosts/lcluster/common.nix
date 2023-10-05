@@ -8,6 +8,7 @@
     # ./common/
 
     ../common/nix-settings.nix
+    ../common/hubbleGroups.nix
   ];
   # TODO implement auto update to github flake, add action to update flake.lock
   # system.autoUpgrade.enable = true;

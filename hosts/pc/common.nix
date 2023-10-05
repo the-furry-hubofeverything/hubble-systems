@@ -12,6 +12,7 @@
     ./common/security.nix
 
     ../common/nix-settings.nix
+    ../common/hubbleGroups.nix
 
     # ../common/
   ];

@@ -27,7 +27,7 @@ Files migrated from machine configs -
 - [x] lanzaboote.nix
 - [x] nix-alien.nix
 - [x] hyprland.nix
-- [ ] hubble.nix
+- [x] hubble.nix
 - [ ] development.nix
 - [ ] gaming.nix
 - [ ] gnome.nix
