@@ -28,7 +28,7 @@ Files migrated from machine configs -
 - [x] nix-alien.nix
 - [x] hyprland.nix
 - [x] hubble.nix
-- [ ] development.nix
+- [x] development.nix
 - [ ] gaming.nix
 - [ ] gnome.nix
 - [ ] kdeconnect.nix

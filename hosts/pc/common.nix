@@ -8,6 +8,7 @@
 }: {
   imports = [
     ./common/desktop.nix
+    ./common/development.nix
     ./common/performance-tweaks.nix
     ./common/security.nix
 
