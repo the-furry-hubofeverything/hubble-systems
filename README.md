@@ -29,7 +29,7 @@ Files migrated from machine configs -
 - [x] hyprland.nix
 - [x] hubble.nix
 - [x] development.nix
-- [ ] gaming.nix
+- [x] gaming.nix
 - [ ] gnome.nix
 - [ ] kdeconnect.nix
 - [ ] network-wait-online-mitigation.nix

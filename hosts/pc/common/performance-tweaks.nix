@@ -22,4 +22,7 @@
 
   # Automatic nice daemon
   services.ananicy.enable = true;
+
+  # Switch to tsc (time stamp counter) at the cost of precision
+  boot.kernelParams = ["tsc=reliable" "clocksource=tsc"];
 }

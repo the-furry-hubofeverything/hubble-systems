@@ -38,6 +38,12 @@
     open = true;
   };
 
+  # Gaming gpu power thing
+  programs.gamemode.settings.gpu = {
+    apply_gpu_optimisations = "accept-responsibility";
+    nv_powermizer_mode = 1;
+  };
+
   # HIP workaround
   systemd.tmpfiles.rules = [
     "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.hip}"
