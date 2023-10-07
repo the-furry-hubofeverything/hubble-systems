@@ -22,11 +22,6 @@
   # TODO setup remote jobs using best practices
   nix.settings.trusted-users = [ "@wheel" "hubble" ];
 
-  # Copy the NixOS configuration file and link it from the resulting system
-  # (/run/current-system/configuration.nix). This is useful in case you
-  # accidentally delete configuration.nix.
-  system.copySystemConfiguration = true;
-
   # Since we can't manually respond to a panic, just reboot.
   boot.kernelParams = [ "panic=1" "boot.panic_on_fail" "vga=0x317" "nomodeset" ];
 
