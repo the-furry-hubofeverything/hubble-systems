@@ -202,11 +202,11 @@
     },
     "hardware": {
       "locked": {
-        "lastModified": 1695887975,
-        "narHash": "sha256-u3+5FR12dI305jCMb0fJNQx2qwoQ54lv1tPoEWp0hmg=",
+        "lastModified": 1696614066,
+        "narHash": "sha256-nAyYhO7TCr1tikacP37O9FnGr2USOsVBD3IgvndUYjM=",
         "owner": "nixos",
         "repo": "nixos-hardware",
-        "rev": "adcfd6aa860d1d129055039696bc457af7d50d0e",
+        "rev": "bb2db418b616fea536b1be7f6ee72fb45c11afe0",
         "type": "github"
       },
       "original": {
@@ -409,28 +409,13 @@
         "type": "github"
       }
     },
-    "nixpkgs-testing": {
-      "locked": {
-        "lastModified": 1695814080,
-        "narHash": "sha256-KdZKsYzbxiSi/OXdkFYti8UW7LC+OW5Kz7nJIwtXf6g=",
-        "owner": "the-furry-hubofeverything",
-        "repo": "nixpkgs",
-        "rev": "ec68439bdc77ee684a4b2846f03677c5c50920a9",
-        "type": "github"
-      },
-      "original": {
-        "owner": "the-furry-hubofeverything",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "nixpkgs-unstable": {
       "locked": {
-        "lastModified": 1696019113,
-        "narHash": "sha256-X3+DKYWJm93DRSdC5M6K5hLqzSya9BjibtBsuARoPco=",
+        "lastModified": 1696375444,
+        "narHash": "sha256-Sv0ICt/pXfpnFhTGYTsX6lUr1SljnuXWejYTI2ZqHa4=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "f5892ddac112a1e9b3612c39af1b72987ee5783a",
+        "rev": "81e8f48ebdecf07aab321182011b067aafc78896",
         "type": "github"
       },
       "original": {
@@ -458,11 +443,11 @@
     },
     "nixpkgs_3": {
       "locked": {
-        "lastModified": 1695825837,
-        "narHash": "sha256-4Ne11kNRnQsmSJCRSSNkFRSnHC4Y5gPDBIQGjjPfJiU=",
+        "lastModified": 1696374741,
+        "narHash": "sha256-gt8B3G0ryizT9HSB4cCO8QoxdbsHnrQH+/BdKxOwqF0=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "5cfafa12d57374f48bcc36fda3274ada276cf69e",
+        "rev": "8a4c17493e5c39769f79117937c79e1c88de6729",
         "type": "github"
       },
       "original": {
@@ -513,7 +498,6 @@
         "nix-colors": "nix-colors",
         "nixd": "nixd",
         "nixpkgs": "nixpkgs_3",
-        "nixpkgs-testing": "nixpkgs-testing",
         "nixpkgs-unstable": "nixpkgs-unstable"
       }
     },
