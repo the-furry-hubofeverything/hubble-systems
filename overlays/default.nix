@@ -19,9 +19,5 @@
       system = final.system;
       config.allowUnfree = true;
     };
-    testing = import inputs.nixpkgs-testing {
-      system = final.system;
-      config.allowUnfree = true;
-    };
   };
 }
