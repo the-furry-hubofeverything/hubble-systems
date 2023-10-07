@@ -41,8 +41,9 @@ Files migrated from machine configs -
     - [x] git-credential-oauth.nix
 
 ### titan-razer-lcluster
-- [ ] configuration.nix
-- [ ] hardware-configuration.nix
+- [x] configuration.nix
+- [x] hardware-configuration.nix
+- [x] server.nix
 ## Stacked overlays
 ### `pkgs.unstable`
 nixpkgs unstable

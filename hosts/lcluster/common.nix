@@ -5,7 +5,7 @@
   ...
 }: {
   imports = [
-    # ./common/
+    ./common/server.nix
 
     ../common/nix-settings.nix
     ../common/hubbleGroups.nix
