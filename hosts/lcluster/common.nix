@@ -6,6 +6,7 @@
 }: {
   imports = [
     ./common/server.nix
+    ./common/k3s.nix
 
     ../common/nix-settings.nix
     ../common/hubbleGroups.nix
