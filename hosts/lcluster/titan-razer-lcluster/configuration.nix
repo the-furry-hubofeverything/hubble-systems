@@ -12,7 +12,5 @@
 
   networking.hostName = "titan-razer-lcluster"; # Define your hostname.
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
   system.stateVersion = "23.05";
 }
