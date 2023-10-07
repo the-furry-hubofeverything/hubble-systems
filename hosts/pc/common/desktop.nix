@@ -64,4 +64,6 @@
 
     kitty
   ];
+
+  hardware.enableAllFirmware = true;
 }
