@@ -11,8 +11,9 @@
 
   networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
 
-  environment.systemPackages = [
-    pkgs.kitty.terminfo
+  environment.systemPackages = with pkgs; [
+    kitty.terminfo
+    git
   ];
 
   services.avahi.enable = true;
