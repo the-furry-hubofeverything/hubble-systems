@@ -10,7 +10,7 @@
     dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
   };
 
-  envirnment.systemPackages = [
+  environment.systemPackages = [
     pkgs.protonup-ng
     pkgs.gamescope
   ];
