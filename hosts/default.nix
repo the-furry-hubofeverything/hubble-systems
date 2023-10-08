@@ -34,6 +34,8 @@ in {
       lCluster.modules
       ++ [
         ./lcluster/titan-razer-lcluster/configuration.nix
+        
+        inputs.nix-minecraft.nixosModules.minecraft-servers
       ];
   };
 

@@ -34,6 +34,9 @@
     nix-alien.url = "github:thiagokokada/nix-alien";
     # Nix language server
     nixd.url = "github:nix-community/nixd/release/1.2";
+
+    # Minecraft server utils
+    nix-minecraft.url = "github:Infinidoge/nix-minecraft";
   };
 
   outputs = {
