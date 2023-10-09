@@ -6,5 +6,6 @@
 in {
   # Common modules
   modules = [
+    inputs.sops-nix.nixosModules.sops
   ];
 }
