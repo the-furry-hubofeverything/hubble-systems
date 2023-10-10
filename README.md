@@ -33,7 +33,7 @@ Files migrated from machine configs -
 - [x] gnome.nix
 - [x] kdeconnect.nix
 - [x] network-wait-online-mitigation.nix
-- [ ] wayland.nix
+- [x] wayland.nix
 - [ ] waydroid.nix
 - [ ] libvirt.nix
 - home-manager configs

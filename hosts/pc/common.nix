@@ -13,6 +13,7 @@
     ./common/logitechWheelSupport.nix
     ./common/performance-tweaks.nix
     ./common/security.nix
+    ./common/wayland.nix
 
     ../common/nix-settings.nix
     ../common/development.nix
