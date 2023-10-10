@@ -35,7 +35,7 @@ Files migrated from machine configs -
 - [x] network-wait-online-mitigation.nix
 - [x] wayland.nix
 - [x] waydroid.nix
-- [ ] libvirt.nix
+- [x] libvirt.nix
 - home-manager configs
     - [ ] home.nix
     - [x] git-credential-oauth.nix
