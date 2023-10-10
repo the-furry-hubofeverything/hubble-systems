@@ -60,6 +60,7 @@ in {
         inputs.lanzaboote.nixosModules.lanzaboote
         outputs.nixosModules.wireshark
         outputs.nixosModules.lanzaboote
+        outputs.nixosModules.waydroid
       ];
   };
 }

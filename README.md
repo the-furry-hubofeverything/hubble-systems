@@ -34,7 +34,7 @@ Files migrated from machine configs -
 - [x] kdeconnect.nix
 - [x] network-wait-online-mitigation.nix
 - [x] wayland.nix
-- [ ] waydroid.nix
+- [x] waydroid.nix
 - [ ] libvirt.nix
 - home-manager configs
     - [ ] home.nix
