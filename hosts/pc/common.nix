@@ -8,13 +8,13 @@
 }: {
   imports = [
     ./common/desktop.nix
-    ./common/development.nix
     ./common/gaming.nix
     ./common/logitechWheelSupport.nix
     ./common/performance-tweaks.nix
     ./common/security.nix
 
     ../common/nix-settings.nix
+    ../common/development.nix
     ../common/hubbleGroups.nix
 
     # ../common/
