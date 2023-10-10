@@ -9,5 +9,6 @@ in {
     nixos-hardware.common-pc
     outputs.nixosModules.nix-alien
     inputs.sops-nix.nixosModules.sops
+    outputs.nixosModules.kdeconnect
   ];
 }

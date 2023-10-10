@@ -9,6 +9,7 @@
   imports = [
     ./common/desktop.nix
     ./common/gaming.nix
+    ./common/gnome.nix
     ./common/logitechWheelSupport.nix
     ./common/performance-tweaks.nix
     ./common/security.nix

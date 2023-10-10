@@ -30,8 +30,8 @@ Files migrated from machine configs -
 - [x] hubble.nix
 - [x] development.nix
 - [x] gaming.nix
-- [ ] gnome.nix
-- [ ] kdeconnect.nix
+- [x] gnome.nix
+- [x] kdeconnect.nix
 - [ ] network-wait-online-mitigation.nix
 - [ ] wayland.nix
 - [ ] waydroid.nix

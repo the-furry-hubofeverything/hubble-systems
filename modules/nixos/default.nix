@@ -6,6 +6,7 @@
 
   nix-alien = import ./nix-alien.nix;
   hyprland = import ./hyprland.nix;
+  kdeconnect = import ./kdeconnect.nix;
   lanzaboote = import ./lanzaboote.nix;
   wireshark = import ./wireshark.nix;
 }
