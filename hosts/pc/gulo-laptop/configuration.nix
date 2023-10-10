@@ -10,6 +10,11 @@
     ../common.nix
     ./hardware-configuration.nix
   ];
+
+  # === WORKAROUND ===
+  # TODO determine exact issue and when to remove
+  systemd.services.NetworkManager-wait-online.enable = false;
+
   # === HARDWARE SPECIFIC CONFIG ===
   hardware.bluetooth.enable = true;
   boot.supportedFilesystems = ["ntfs"];

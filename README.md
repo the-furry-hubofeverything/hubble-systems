@@ -32,7 +32,7 @@ Files migrated from machine configs -
 - [x] gaming.nix
 - [x] gnome.nix
 - [x] kdeconnect.nix
-- [ ] network-wait-online-mitigation.nix
+- [x] network-wait-online-mitigation.nix
 - [ ] wayland.nix
 - [ ] waydroid.nix
 - [ ] libvirt.nix
