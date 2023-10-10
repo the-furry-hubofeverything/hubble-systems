@@ -1,17 +1,17 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, lua5_3
-, openssl
-, curl
-, git
-, gnat
-, zlib
-, boost
-, websocketpp
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  lua5_3,
+  openssl,
+  curl,
+  git,
+  gnat,
+  zlib,
+  boost,
+  websocketpp,
 }:
-
 stdenv.mkDerivation rec {
   pname = "beammp-server";
   version = "3.1.1";
@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/BeamMP/BeamMP-Server";
     changelog = "https://github.com/BeamMP/BeamMP-Server/blob/${src.rev}/Changelog.md";
     broken = true; # Potential license conflict
-    license = with licenses; [ unfree ];
-    maintainers = with maintainers; [ ];
+    license = with licenses; [unfree];
+    maintainers = with maintainers; [];
   };
 }

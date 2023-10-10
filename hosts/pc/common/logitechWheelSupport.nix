@@ -1,6 +1,5 @@
 # TODO - move to module?
-
-{ pkgs, ... }: {
+{pkgs, ...}: {
   # steering wheel driver
   hardware.new-lg4ff.enable = true;
   # Xbox controller driver

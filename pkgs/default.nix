@@ -2,6 +2,6 @@
 # You can build them using 'nix build .#example'
 pkgs: {
   # example = pkgs.callPackage ./example { };
-  xwaylandvideobridge = pkgs.libsForQt5.callPackage ./xwaylandvideobridge/default.nix { };
-  beammp-server = pkgs.callPackage ./beammp-server/default.nix { };
+  xwaylandvideobridge = pkgs.libsForQt5.callPackage ./xwaylandvideobridge/default.nix {};
+  beammp-server = pkgs.callPackage ./beammp-server/default.nix {};
 }
