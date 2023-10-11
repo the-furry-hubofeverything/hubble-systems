@@ -4,4 +4,5 @@ pkgs: {
   # example = pkgs.callPackage ./example { };
   xwaylandvideobridge = pkgs.libsForQt5.callPackage ./xwaylandvideobridge/default.nix {};
   beammp-server = pkgs.callPackage ./beammp-server/default.nix {};
+  flamenco = pkgs.callPackage ./flamenco/default.nix {};
 }
