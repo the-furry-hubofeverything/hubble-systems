@@ -31,8 +31,8 @@
 
   fileSystems."/run/media/hubble/Data" = {
     device = "/dev/disk/by-uuid/19A1DDD769D8ADCF";
-    fsType = "ntfs";
-    options = ["uid=1000" "gid=100" "rw" "user" "exec" "umask=000"];
+    fsType = "ntfs3";
+    options = ["uid=1000" "gid=100" "rw" "user" "umask=000"];
   };
 
   swapDevices = [
