@@ -15,10 +15,10 @@
     ./common/security.nix
     ./common/wayland.nix
 
+    ../common/security.nix
     ../common/nix-settings.nix
     ../common/development.nix
     ../common/hubbleGroups.nix
-
     # ../common/
   ];
   boot.loader.systemd-boot.configurationLimit = 3;

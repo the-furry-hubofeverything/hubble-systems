@@ -8,8 +8,6 @@
     "net.core.netdev_max_backlog" = 16384;
     "net.core.somaxconn" = 8192;
     "net.ipv4.tcp_fastopen" = 3;
-    "net.ipv4.conf.default.log_martians" = 1;
-    "net.ipv4.conf.all.log_martians" = 1;
 
     "vm.swappiness" = 10;
 

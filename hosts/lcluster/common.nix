@@ -7,10 +7,12 @@
   imports = [
     ./common/server.nix
     ./common/k3s.nix
+    ./common/security.nix
 
     ../common/nix-settings.nix
     ../common/hubbleGroups.nix
     ../common/development.nix
+    ../common/security.nix
   ];
   # TODO implement auto update to github flake, add action to update flake.lock
   # system.autoUpgrade.enable = true;
