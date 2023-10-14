@@ -28,6 +28,12 @@
       Experimental = true;
     };
   };
+
+  # v4l2loopback
+  boot.extraModulePackages = [
+    config.boot.kernelPackages.v4l2loopback
+  ];
+
   # Better codecs for Bluetooth devices
   environment.etc = {
     "wireplumber/bluetooth.lua.d/51-bluez-config.lua".text = ''

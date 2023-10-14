@@ -46,6 +46,20 @@
     open = true;
   };
 
+  # GPU switch
+  environment.systemPackages = with pkgs; [
+    cudatoolkit
+    gnomeExtensions.supergfxctl-gex
+  ];
+  services.supergfxd.enable = true;
+  services.supergfxd.settings = {
+    vfio_enable = true;
+    vfio_save = false;
+    hotplug_type = "Asus";
+  };
+  services.logind.killUserProcesses = true; # Hyprland supergfxctl fix
+
+
   # Gaming gpu power thing
   programs.gamemode.settings.gpu = {
     apply_gpu_optimisations = "accept-responsibility";

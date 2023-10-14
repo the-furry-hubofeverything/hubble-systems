@@ -7,7 +7,7 @@
   programs.kdeconnect = {
     enable = true;
     package =
-      if config.services.xservers.desktopManager.gnome.enable
+      if config.services.xserver.desktopManager.gnome.enable
       then pkgs.gnomeExtensions.gsconnect
       else config.programs.kdeconnect.package.default;
   };
