@@ -40,13 +40,6 @@
     xkbVariant = "";
   };
 
-  # === NIX SETTINGS ===
-  nixpkgs = {
-    overlays = [
-      inputs.nixd.overlays.default
-    ];
-  };
-
   nix = {
     settings = {
       substituters = [

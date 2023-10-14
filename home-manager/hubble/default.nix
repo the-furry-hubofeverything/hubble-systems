@@ -11,19 +11,20 @@
   # You can import other home-manager modules here
   imports = [
     outputs.homeManagerModules.git-credential-oauth
+    ./hyprland.nix
   ];
 
   nixpkgs = {
     # You can add overlays here
     overlays = [
+      inputs.nixd.overlays.default
+
       # Add overlays your own flake exports (from overlays and pkgs dir):
       outputs.overlays.additions
       outputs.overlays.modifications
-      outputs.overlays.unstable-packages
+      outputs.overlays.stacked
 
-      inputs.blender-bin.overlays.default
-      # You can also add overlays exported from other flakes:
-      # neovim-nightly-overlay.overlays.default
+      # inputs.blender-bin.overlays.default
 
       # Or define it inline, for example:
       # (final: prev: {
@@ -44,19 +45,43 @@
   home = {
     username = "hubble";
     homeDirectory = "/home/hubble";
+    stateVersion = "23.05"; # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
+    packages = with pkgs; [
+      # dev packages
+      nixpkgs-fmt
+      nixd
+
+      easyeffects
+    ];
   };
 
-  # Add stuff for your user as you see fit:
-  # programs.neovim.enable = true;
-  # home.packages = with pkgs; [ steam ];
-
   # Enable home-manager and git
-  programs.home-manager.enable = true;
-  programs.git.enable = true;
+  programs = {
+    home-manager.enable = true;
+
+    vscode = {
+      enable = true;
+      package = pkgs.vscodium;
+    };
+    git = {
+      enable = true;
+      package = pkgs.gitFull;
+      userEmail = "53921912+the-furry-hubofeverything@users.noreply.github.com";
+      userName = "the-furry-hubofeverything";
+      extraConfig = {
+        core.autocrlf = "input";
+      };
+    };
+  };
+
+  # Bluetooth Media controls
+  systemd.user.services.mpris-proxy = {
+    Unit.Description = "Mpris proxy";
+    Unit.After = ["network.target" "sound.target"];
+    Service.ExecStart = "${pkgs.bluez}/bin/mpris-proxy";
+    Install.WantedBy = ["default.target"];
+  };
 
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";
-
-  # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
-  home.stateVersion = "23.05";
 }

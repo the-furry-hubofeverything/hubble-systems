@@ -63,6 +63,7 @@
 
     # individual machines setup in ./hosts
     hosts = import ./hosts {inherit inputs outputs;};
+    users = import ./home-manager {};
 
     # This is a function that generates an attribute by calling a function you
     # pass to it, with each system as an argument
@@ -104,16 +105,19 @@
 
     # Standalone home-manager configuration entrypoint
     # Available through 'home-manager --flake .#your-username@your-hostname'
-    # TODO Setup home-manager
-    homeConfigurations = {
-      "your-username@your-hostname" = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
-        extraSpecialArgs = {inherit inputs outputs;};
-        modules = [
-          # > Our main home-manager configuration file <
-          ./home-manager/home.nix
-        ];
-      };
-    };
+    # TODO Setup home-managerfor multi host
+    homeConfigurations =
+      nixpkgs.lib.mapAttrs (
+        _user: home:
+          home-manager.lib.homeManagerConfiguration {
+            # Home-manager requires 'pkgs' instance
+            pkgs = nixpkgs.legacyPackages.x86_64-linux;
+            extraSpecialArgs = {inherit inputs outputs;};
+            modules = [
+              home
+            ];
+          }
+      )
+      users;
   };
 }
