@@ -44,12 +44,16 @@ buildGoModule rec {
   '';
 
   buildPhase = ''
+    runHook preBuild
+
     make -s webapp-static
     make -s flamenco-manager-without-webapp GOOS=linux GOARCH=amd64
     make -s flamenco-worker GOOS=linux GOARCH=amd64
+
+    runHook postBuild
   '';
 
-  installPhase = ''
+  postInstall = ''
     mkdir -p "$out/bin"
     cp flamenco-manager flamenco-worker $out/bin
   '';
@@ -69,6 +73,8 @@ buildGoModule rec {
     description = "Production render farm manager for Blender";
     homepage = "https://flamenco.blender.org/";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ ];
+    # TODO Wanted: maintainer for darwin
+    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [ hubble ];
   };
 }
