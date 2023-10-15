@@ -1,3 +1,3 @@
-{ ... }: {
+{...}: {
   security.lockKernelModules = true;
 }

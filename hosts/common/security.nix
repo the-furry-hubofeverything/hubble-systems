@@ -1,4 +1,5 @@
-{ lib, ... }: with lib; {
+{lib, ...}:
+with lib; {
   boot.kernel.sysctl = {
     # Restrict ptrace() usage to processes with a pre-defined relationship
     # (e.g., parent/child)
@@ -79,7 +80,7 @@
     "ufs"
   ];
 
-  nix.settings.allowed-users = mkDefault [ "@users" ];
+  nix.settings.allowed-users = mkDefault ["@users"];
 
   environment.memoryAllocator.provider = mkDefault "scudo";
   environment.variables.SCUDO_OPTIONS = mkDefault "ZeroContents=1";
