@@ -50,6 +50,7 @@
       # dev packages
       nixpkgs-fmt
       nixd
+      sops
 
       easyeffects
     ];
