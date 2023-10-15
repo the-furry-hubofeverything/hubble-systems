@@ -3,6 +3,7 @@
 {
   config,
   pkgs,
+  lib,
   ...
 }: {
   # Boot configuration
@@ -20,7 +21,7 @@
     "vfio_pci"
     "vfio"
     "vfio_iommu_type1"
-    "vfio_virqfd"
+    (if lib.versionOlder config.boot.kernelPackages.kernel.version "6.2" then "vfio_virqfd" else "")
   ];
 
   # Fix bridge interface stopping
