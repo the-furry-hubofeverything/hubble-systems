@@ -82,9 +82,6 @@ with lib; {
 
   nix.settings.allowed-users = mkDefault ["@users"];
 
-  environment.memoryAllocator.provider = mkDefault "scudo";
-  environment.variables.SCUDO_OPTIONS = mkDefault "ZeroContents=1";
-
   security.apparmor.enable = mkDefault true;
   security.apparmor.killUnconfinedConfinables = mkDefault true;
 }
