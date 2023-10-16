@@ -6,7 +6,7 @@
 }: {
   imports = [
     ./common/server.nix
-    ./common/k3s.nix
+    # ./common/k3s.nix
     ./common/security.nix
 
     ../common/nix-settings.nix
