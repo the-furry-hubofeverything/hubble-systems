@@ -4,8 +4,14 @@
   config,
   pkgs,
   lib,
+  outputs,
   ...
 }: {
+
+  imports = [
+    outputs.nixosModules.virt-manager
+  ];
+
   # Boot configuration
   boot.kernelParams = [
     "vfio_iommu_type1.allow_unsafe_interrupts=1"
@@ -43,7 +49,7 @@
 
   virtualisation.libvirtd.extraConfig = "max_client_requests = 25 \nmax_clients = 100 \nmax_requests = 100";
 
-  programs.dconf.enable = true;
+  programs.virt-manager.enable = true;
 
   # Enable libvirtd
   virtualisation.libvirtd = {
@@ -81,7 +87,7 @@
   # VFIO Packages installed
   environment.systemPackages = with pkgs; [
     virtiofsd
-    virt-manager
+    # virt-manager
     libguestfs # needed to virt-sparsify qcow2 files
   ];
 }

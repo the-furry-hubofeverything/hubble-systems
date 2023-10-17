@@ -8,6 +8,7 @@
   hyprland = import ./hyprland.nix;
   kdeconnect = import ./kdeconnect.nix;
   lanzaboote = import ./lanzaboote.nix;
+  virt-manager = import ./virt-manager.nix;
   waydroid = import ./waydroid.nix;
   wireshark = import ./wireshark.nix;
 }
