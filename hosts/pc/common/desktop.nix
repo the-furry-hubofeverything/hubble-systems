@@ -83,8 +83,10 @@
     noto-fonts-emoji
     liberation_ttf
     unifont
-    ubuntu_font_family
     winePackages.fonts
+    
+    quicksand
+    ubuntu_font_family
   ];
 
   fonts.fontDir.enable = true;
