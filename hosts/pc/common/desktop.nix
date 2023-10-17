@@ -85,7 +85,7 @@
     unifont
     winePackages.fonts
     
-    quicksand
+    # quicksand
     ubuntu_font_family
   ];
 
