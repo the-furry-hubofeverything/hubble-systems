@@ -53,10 +53,11 @@ in {
 
         serverProperties = {
           gamemode = "creative";
-          motd = "Fane's building place thing";
+          motd = "Attention Everyone, Blue Line Trains are NOT RUNNING; Please use ORANGE LINE TRAINS";
           spawn-monsters = false;
           white-list = true;
           server-port = 25566;
+          view-distance = 16;
 
           op-permission-level = 2;
         };
