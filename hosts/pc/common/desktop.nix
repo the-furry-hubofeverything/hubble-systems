@@ -22,6 +22,8 @@
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
+    wireplumber.enable = true;
+
     # If you want to use JACK applications, uncomment this
     #jack.enable = true;
   };
@@ -38,18 +40,6 @@
     config.boot.kernelPackages.v4l2loopback
   ];
 
-  # Better codecs for Bluetooth devices
-  # environment.etc = {
-  #   "wireplumber/bluetooth.lua.d/51-bluez-config.lua".text = ''
-  #     bluez_monitor.properties = {
-  #       ["bluez5.enable-sbc-xq"] = true,
-  #       ["bluez5.enable-msbc"] = true,
-  #       ["bluez5.enable-hw-volume"] = true,
-  #       ["bluez5.headset-roles"] = "[ hsp_hs hsp_ag hfp_hf hfp_ag ]"
-  #     }
-  #   '';
-  # };
-
   # Logitech Wireless peripheral udev support (including unify)
   hardware.logitech.wireless.enable = true;
   hardware.logitech.wireless.enableGraphical = true;
@@ -65,7 +55,6 @@
   # Common packages
   environment.systemPackages = with pkgs; [
     libfido2 # u2f support
-    wireplumber # screenshare stuffs
     file
 
     nvtop
