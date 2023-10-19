@@ -53,6 +53,8 @@
       sops
 
       easyeffects
+
+      inkscape
     ];
   };
 
