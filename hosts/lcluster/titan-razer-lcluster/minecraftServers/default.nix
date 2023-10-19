@@ -7,12 +7,12 @@
   ...
 }: let
   fabricServerOptimizations = pkgs.fetchPackwizModpack {
-    url = "https://github.com/the-furry-hubofeverything/fabric-server-optimizations/raw/1.19.4/pack.toml";
+    url = "https://github.com/the-furry-hubofeverything/fabric-server-optimizations/raw/a4d9559ceeac6657443f21a599ce7d22e080ad6f/pack.toml";
     packHash = "sha256-E/kChdScTNEuonlswl59T1U7LdJ9iADMfWSQJs+oqUk=";
   };
   fanesTrainShenanigans = pkgs.fetchPackwizModpack {
-    url = "https://github.com/the-furry-hubofeverything/fanes-train-shenanigans/raw/master/pack.toml";
-    packHash = "sha256-t6yx7AOCHhznxqLylvropviLEg1B9Vt7gJt/e1sg/zY=";
+    url = "https://github.com/the-furry-hubofeverything/fanes-train-shenanigans/raw/45c524b352c2961416cffb1b6a031cfecea2bcfd/pack.toml";
+    packHash = "sha256-eEJyHGhkJ7rZ+C3A3BA4OIAzTeqrebulAC2fETR+Rg4=";
   }; 
 
   modpack = fabricServerOptimizations.addFiles {
