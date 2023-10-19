@@ -50,6 +50,7 @@ in {
       "creative" = {
         enable = true;
         package = pkgs.fabricServers.fabric-1_19_4;
+        jvmOpts = "-Xmx8G -Xms1G";
 
         serverProperties = {
           gamemode = "creative";
