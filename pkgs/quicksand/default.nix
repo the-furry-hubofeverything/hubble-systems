@@ -8,7 +8,7 @@ stdenvNoCC.mkDerivation {
     owner = "andrew-paglinawan";
     repo = "QuicksandFamily";
     rev = "be4b9d638e1c79fa42d4a0ab0aa7fe29466419c7";
-    hash = "sha256-0a4jNjhe2BCQzM/NVjiS7H5pzdtCRThI8nseob+My+w=";
+    hash = "sha256-zkxm2u35Ll2qyCoUeuA0eumVjNSel+y1kkWoHxeNI/g=";
     sparseCheckout = ["fonts"];
   };
 
