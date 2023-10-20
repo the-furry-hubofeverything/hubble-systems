@@ -5,6 +5,7 @@
   # my-module = import ./my-module.nix;
 
   nix-alien = import ./nix-alien.nix;
+  flamenco = import ./flamenco.nix;
   hyprland = import ./hyprland.nix;
   kdeconnect = import ./kdeconnect.nix;
   lanzaboote = import ./lanzaboote.nix;
