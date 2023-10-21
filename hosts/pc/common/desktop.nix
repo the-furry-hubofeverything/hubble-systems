@@ -62,6 +62,7 @@
     killall
 
     kitty
+    netbird-ui
   ];
 
   hardware.enableAllFirmware = true;
@@ -98,5 +99,10 @@
     # Create an FHS mount to support flatpak host icons/fonts
     "/usr/share/icons" = mkRoSymBind (config.system.path + "/share/icons");
     "/usr/share/fonts" = mkRoSymBind (aggregatedFonts + "/share/fonts");
+  };
+
+  # Netbird VPN
+  services.netbird = {
+    enable = true;
   };
 }
