@@ -69,7 +69,7 @@
     git = {
       enable = true;
       package = pkgs.gitFull;
-      userEmail = "53921912+the-furry-hubofeverything@users.noreply.github.com";
+      userEmail = "hubblethewolverine@gmail.com";
       userName = "the-furry-hubofeverything";
       extraConfig = {
         core.autocrlf = "input";
