@@ -73,6 +73,7 @@
       userName = "the-furry-hubofeverything";
       extraConfig = {
         core.autocrlf = "input";
+        http.postBuffer = "524288000";
       };
     };
   };
