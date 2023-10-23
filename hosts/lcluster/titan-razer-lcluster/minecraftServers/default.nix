@@ -11,8 +11,8 @@
     packHash = "sha256-E/kChdScTNEuonlswl59T1U7LdJ9iADMfWSQJs+oqUk=";
   };
   fanesTrainShenanigans = pkgs.fetchPackwizModpack {
-    url = "https://github.com/the-furry-hubofeverything/fanes-train-shenanigans/raw/45c524b352c2961416cffb1b6a031cfecea2bcfd/pack.toml";
-    packHash = "sha256-eEJyHGhkJ7rZ+C3A3BA4OIAzTeqrebulAC2fETR+Rg4=";
+    url = "https://github.com/the-furry-hubofeverything/fanes-train-shenanigans/raw/599f90a85c95e43b4631d1b5221e8e57bf6ab816/pack.toml";
+    packHash = "sha256-MOyP6/X3Mwl4ONX7DZJYM+0pu3wPKiBYsMFdF6SoaWE=";
   }; 
 
   modpack = fabricServerOptimizations.addFiles {
