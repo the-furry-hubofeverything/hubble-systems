@@ -19,7 +19,7 @@
     git
 
     # Experiemental
-    flamenco
+    # flamenco
   ];
 
   services.avahi.enable = true;
