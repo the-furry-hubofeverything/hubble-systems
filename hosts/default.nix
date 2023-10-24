@@ -8,7 +8,15 @@
 
   nixos-hardware = inputs.hardware.nixosModules;
 in {
+  # TODO: use *-common configs to easily replicate configs for debugging instead of machine specific ones.
+  # That way, we all can use a VM to see if we can replicate a bug, without worrying about machine specifics.
+
   # === Pi cluster ===
+  picluster-common = {
+    platform = "aarch64-linux";
+    modules = piCluster.modules ++ [ ./picluster/common.nix ];
+  };
+
   brain-pi4-picluster = {
     platform = "aarch64-linux";
     modules =
@@ -28,6 +36,11 @@ in {
   };
 
   # === Laptop cluster ===
+  lCluster-common = {
+    platform = "x86_64-linux";
+    modules = lCluster.modules ++ [ ./lcluster/common.nix ];
+  };
+
   titan-razer-lcluster = {
     platform = "x86_64-linux";
     modules =
@@ -49,6 +62,11 @@ in {
   };
 
   # === Personal computers ===
+  pc-common = {
+    platform = "x86_64-linux";
+    modules = pc.modules ++ [ ./pc/common.nix ];
+  };
+
   Gulo-Laptop = {
     platform = "x86_64-linux";
     modules =
