@@ -2,6 +2,10 @@
 
 Each folder should only contain machine specific `configuration.nix` and `hardware-configuration.nix`. Everything else should either be imported or exist as an module. **No NixOS module is to be imported in machine specific `configuration.nix`.** 
 
+> [!NOTE]
+> Workarounds are listed [here](./workarounds.md).<br>
+> When debugging, its best to start here.
+
 ## Add a machine type
 
 1. Create folder in `./hosts` (this directory), named whatever you want the machine type to be.

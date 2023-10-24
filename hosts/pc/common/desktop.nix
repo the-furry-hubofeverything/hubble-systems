@@ -79,10 +79,11 @@
     ubuntu_font_family
   ];
 
-  fonts.fontDir.enable = true;
-
   # https://github.com/NixOS/nixpkgs/issues/119433#issuecomment-1326957279
   # Workaround for 119433
+  
+  fonts.fontDir.enable = true;
+
   system.fsPackages = [pkgs.bindfs];
   fileSystems = let
     mkRoSymBind = path: {
