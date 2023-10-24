@@ -2,11 +2,30 @@
   inputs,
   outputs,
 }: let
-  lCluster = import ./lcluster/modules.nix {inherit inputs outputs;};
-  piCluster = import ./picluster/modules.nix {inherit inputs outputs;};
-  pc = import ./pc/modules.nix {inherit inputs outputs;};
-
   nixos-hardware = inputs.hardware.nixosModules;
+
+  sharedModules = {
+    lCluster = [
+      nixos-hardware.common-pc
+      nixos-hardware.common-pc-hdd
+      nixos-hardware.common-pc-ssd
+      nixos-hardware.common-pc-laptop
+      nixos-hardware.common-pc-laptop-hdd
+
+      inputs.sops-nix.nixosModules.sops
+    ];
+
+    piCluster = [
+      inputs.sops-nix.nixosModules.sops
+    ];
+
+    pc = [
+      nixos-hardware.common-pc
+      outputs.nixosModules.nix-alien
+      inputs.sops-nix.nixosModules.sops
+      outputs.nixosModules.kdeconnect
+    ];
+  };
 in {
   # TODO: use *-common configs to easily replicate configs for debugging instead of machine specific ones.
   # That way, we all can use a VM to see if we can replicate a bug, without worrying about machine specifics.
@@ -14,13 +33,13 @@ in {
   # === Pi cluster ===
   picluster-common = {
     platform = "aarch64-linux";
-    modules = piCluster.modules ++ [ ./picluster/common.nix ];
+    modules = sharedModules.piCluster ++ [./picluster/common.nix];
   };
 
   brain-pi4-picluster = {
     platform = "aarch64-linux";
     modules =
-      piCluster.modules
+      sharedModules.piCluster
       ++ [
         ./picluster/brain-pi4-picluster/configuration.nix
         nixos-hardware.raspberry-pi-4
@@ -29,7 +48,7 @@ in {
   pinky-pi3-piCluster = {
     platform = "aarch64-linux";
     modules =
-      piCluster.modules
+      sharedModules.piCluster
       ++ [
         ./picluster/pinky-pi3-picluster/configuration.nix
       ];
@@ -38,13 +57,13 @@ in {
   # === Laptop cluster ===
   lCluster-common = {
     platform = "x86_64-linux";
-    modules = lCluster.modules ++ [ ./lcluster/common.nix ];
+    modules = sharedModules.lCluster ++ [./lcluster/common.nix];
   };
 
   titan-razer-lcluster = {
     platform = "x86_64-linux";
     modules =
-      lCluster.modules
+      sharedModules.lCluster
       ++ [
         ./lcluster/titan-razer-lcluster/configuration.nix
 
@@ -55,7 +74,7 @@ in {
   enterprise-asus-lcluster = {
     platform = "x86_64-linux";
     modules =
-      lCluster.modules
+      sharedModules.lCluster
       ++ [
         ./lcluster/enterprise-asus-lcluster/configuration.nix
       ];
@@ -64,13 +83,13 @@ in {
   # === Personal computers ===
   pc-common = {
     platform = "x86_64-linux";
-    modules = pc.modules ++ [ ./pc/common.nix ];
+    modules = sharedModules.pc ++ [./pc/common.nix];
   };
 
   Gulo-Laptop = {
     platform = "x86_64-linux";
     modules =
-      pc.modules
+      sharedModules.pc
       ++ [
         ./pc/gulo-laptop/configuration.nix
         nixos-hardware.omen-15-en0010ca
