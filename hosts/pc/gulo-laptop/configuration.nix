@@ -7,11 +7,8 @@
   ...
 }: {
   imports = [
-    ../common/libvirt.nix
-    ./win10vm.nix
-
-    ../common.nix
     ./hardware-configuration.nix
+    ./win10vm.nix
   ];
 
   # === WORKAROUND ===

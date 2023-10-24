@@ -6,6 +6,8 @@
 
   sharedModules = {
     lCluster = [
+      ./lcluster/common.nix
+
       nixos-hardware.common-pc
       nixos-hardware.common-pc-hdd
       nixos-hardware.common-pc-ssd
@@ -16,10 +18,14 @@
     ];
 
     piCluster = [
+      ./picluster/common.nix
+
       inputs.sops-nix.nixosModules.sops
     ];
 
     pc = [
+      ./pc/common.nix
+
       nixos-hardware.common-pc
       outputs.nixosModules.nix-alien
       inputs.sops-nix.nixosModules.sops

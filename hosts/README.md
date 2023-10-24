@@ -1,10 +1,33 @@
 # Hosts
 
-## Instructions 
-
 Each folder should only contain machine specific `configuration.nix` and `hardware-configuration.nix`. Everything else should either be imported or exist as an module. **No NixOS module is to be imported in machine specific `configuration.nix`.** 
 
-### Add a machine
+## Add a machine type
+
+1. Create folder in `./hosts` (this directory), named whatever you want the machine type to be.
+2. Create a file named `common.nix`, and use that as configuration that applies to all machines in the folder.
+  - you can also create a "common" folder for decluttering the main `common.nix`.
+3. Add entry to `sharedModules` in `./hosts/default.nix`:
+```
+  sharedModules = {
+    lCluster = [
+      # the machine type's common config
+      ./lcluster/common.nix
+
+      # any modules you want to apply across all machines in type
+      nixos-hardware.common-pc
+      nixos-hardware.common-pc-hdd
+      nixos-hardware.common-pc-ssd
+      nixos-hardware.common-pc-laptop
+      nixos-hardware.common-pc-laptop-hdd
+
+      inputs.sops-nix.nixosModules.sops
+    ];
+  };
+```
+4. follow the rest of the instructions in (see [Add a machine](#add-a-machine))
+
+## Add a machine
 
 Let's add `Gulo-Laptop`!
 
@@ -19,7 +42,7 @@ Let's add `Gulo-Laptop`!
     # Modules specific to machine
     modules =
       # adding shared modules for the `pc` machine type
-      pc.modules 
+      sharedModules.pc 
       ++ [
         # machine specific configuration.nix
         ./pc/gulo-laptop/configuration.nix
@@ -33,18 +56,9 @@ Let's add `Gulo-Laptop`!
   };
 [...]
 ```
-3. Don't forget to import common configs in `configuration.nix` for `Gulo-Laptop`
-```
-  imports = [
-    ../common.nix
-  ] 
-```
 
-### Modules
-Modules that are shared with each machine type is declared with `default.nix` in those folders. Specific modules are declared in `systems/default.nix` for tidiness.
-
-### Configrations
-#### Setting timezones
+## Configurations
+### Setting timezones
 Timezones are all in the common.nix folders for each machine type, under `time.timeZone`
 
 ## Machine types
