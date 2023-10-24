@@ -85,6 +85,7 @@ in {
           sync-chunk-writes = false;
           simulation-distance = 6;
           network-compression-threshold = 256;
+          enable-command-block = true;
 
           op-permission-level = 2;
         };
