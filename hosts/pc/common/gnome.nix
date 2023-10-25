@@ -1,8 +1,15 @@
 {
   config,
   pkgs,
+  outputs,
   ...
 }: {
+
+  disabledModules = [ "services/desktops/gnome/tracker-miners.nix" ];
+  imports = [
+    outputs.nixosModules.tracker-miners
+  ];
+
   services.udev.packages = with pkgs; [gnome.gnome-settings-daemon];
 
   programs.dconf.enable = true;
@@ -54,4 +61,25 @@
 
   # GNOME integration for dual gpu
   services.switcherooControl.enable = true;
+
+  # tracker-miner workaround 
+  services.gnome.tracker-miners = {
+    enable = true;
+    package =
+    pkgs.unstable.tracker-miners.overrideAttrs (attrs: {
+      version = "3.5.3-patched";
+      patches = attrs.patches ++ [
+        (pkgs.fetchpatch {
+          name = "sched_get_priority-fix.patch";
+          url = "https://gitlab.gnome.org/GNOME/tracker-miners/-/merge_requests/495/diffs.patch";
+          hash = "sha256-hR4IzkCzr1BI/jTzsmMnvE34zIuNVK6A9jfjB16dLY0=";
+        })
+        (pkgs.fetchpatch {
+          name = "preempt_registry_creation-fix.patch";
+          url = "https://gitlab.gnome.org/GNOME/tracker-miners/-/merge_requests/496/diffs.patch";
+          hash = "sha256-2/Hw94tqmbqru+gnV7q6lK9gdGzMOlW5l485dnvSz8w=";
+        })
+      ];
+    });
+  };
 }
