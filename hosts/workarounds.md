@@ -120,4 +120,40 @@ Example
     allowedUDPPorts = [ 137 138 ];
   };
 ```
+
+### tracker-miner crash
+
+See issue #14
+
+Thanks to Carlos Garnacho from Gnome and Jan Tojnar from NixOS, we figured out the problem.
+
+Well, more like they did and I just provided them with logs.
+
+This involves two patches. One can't work without the other. 
+
+To be removed when MRs are merged and a new release comes out.
+
+```nix
+  services.gnome.tracker-miners = {
+    enable = true;
+    package =
+    pkgs.unstable.tracker-miners.overrideAttrs (attrs: {
+      version = "3.5.3-patched";
+      patches = attrs.patches ++ [
+        (pkgs.fetchpatch {
+          name = "sched_get_priority-fix.patch";
+          url = "https://gitlab.gnome.org/GNOME/tracker-miners/-/merge_requests/495/diffs.patch";
+          hash = "sha256-hR4IzkCzr1BI/jTzsmMnvE34zIuNVK6A9jfjB16dLY0=";
+        })
+        (pkgs.fetchpatch {
+          name = "preempt_registry_creation-fix.patch";
+          url = "https://gitlab.gnome.org/GNOME/tracker-miners/-/merge_requests/496/diffs.patch";
+          hash = "sha256-2/Hw94tqmbqru+gnV7q6lK9gdGzMOlW5l485dnvSz8w=";
+        })
+      ];
+    });
+  };
+```
+
+
 ## picluster
