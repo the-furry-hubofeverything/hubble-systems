@@ -100,7 +100,7 @@ But support for hooks has been merged since NixOS/nixpkgs#232250, so it probably
 
 ```nix
   # Temporary fix to https://github.com/NixOS/nixpkgs/issues/51152, to be changed when libvirtd.hookModule is implemented
-  # TODO migrate to a more paramatric form instead a WHOLLLE script
+  # TODO migrate to a more parametric form instead a WHOLLLE script
   systemd.services.libvirtd.preStart = let
     qemuHook = pkgs.writeScript "qemu-hook" ''
       #!${pkgs.stdenv.shell}
