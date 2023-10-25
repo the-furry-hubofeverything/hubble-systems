@@ -96,7 +96,6 @@
   ];
 
   # SMB for second drive
-  # TODO secure SMB
   services.samba = {
     enable = true;
     extraConfig = ''
@@ -115,6 +114,11 @@
     shares = {
       Data = {path = "/run/media/hubble/Data";};
     };
-    openFirewall = true;
+    openFirewall = false;
+  };
+  # Workaround for interface specific "openFirewall"
+  networking.firewall.interfaces."virbr1" = {
+    allowedTCPPorts = [ 139 445 ];
+    allowedUDPPorts = [ 137 138 ];
   };
 }

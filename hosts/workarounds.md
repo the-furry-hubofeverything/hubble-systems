@@ -106,4 +106,18 @@ But support for hooks has been merged since NixOS/nixpkgs#232250, so it probably
       #!${pkgs.stdenv.shell}
 ```
 
+### Firewall for specific interfaces (openFirewall in modules)
+
+After light research, there's no way to limit `openFirewall` to specific interfaces.
+
+So currently, for these following services, I've manually defined open ports on interfaces:
+- Samba
+
+Example
+```nix
+  networking.firewall.interfaces."virbr1" = {
+    allowedTCPPorts = [ 139 445 ];
+    allowedUDPPorts = [ 137 138 ];
+  };
+```
 ## picluster
