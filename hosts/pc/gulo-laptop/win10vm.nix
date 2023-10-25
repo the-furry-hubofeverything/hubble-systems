@@ -121,4 +121,15 @@
     allowedTCPPorts = [ 139 445 ];
     allowedUDPPorts = [ 137 138 ];
   };
+
+  # VRChat firewall ports
+  networking.firewall.interfaces."virbr0" = {
+    allowedUDPPorts = [5055 5056 5058];
+    allowedUDPPortRanges = [
+      {
+        from = 27000;
+        to = 27100;
+      }
+    ];
+  };
 }

@@ -14,17 +14,4 @@
     pkgs.protonup-ng
     pkgs.gamescope
   ];
-
-  # VRChat firewall ports
-  # TODO secure ports
-  networking.firewall = {
-    allowedTCPPorts = [80 443];
-    allowedUDPPorts = [5055 5056 5058];
-    allowedUDPPortRanges = [
-      {
-        from = 27000;
-        to = 27100;
-      }
-    ];
-  };
 }
