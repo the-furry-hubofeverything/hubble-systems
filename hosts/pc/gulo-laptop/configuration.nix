@@ -8,7 +8,7 @@
 }: {
   imports = [
     ./hardware-configuration.nix
-    ./win10vm.nix
+    ./programs/libvirt-win10vm.nix
   ];
 
   # === WORKAROUND ===
