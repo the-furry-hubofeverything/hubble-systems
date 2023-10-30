@@ -1,4 +1,12 @@
-{ config, ... }: {
+{ config, lib, ... }: 
+let 
+  ips = {
+    # might change later
+    titan-razer-lcluster = "100.106.179.153";
+    enterprise-asus-lcluster = "100.106.28.233";
+  };
+in 
+{
   assertions = [
     {
       assertion = config.services.nginx.enable && config.services.nginx.virtualHosts ? "${config.networking.hostName}.gulo.dev";
@@ -42,9 +50,11 @@
 
       customDNS = {
         mapping = {
-          # might change later
-          "titan-razer-lcluster.gulo.dev" = "100.106.179.153";
-          "enterprise-asus-lcluster.gulo.dev" = "100.106.28.233";
+          "titan-razer-lcluster.gulo.dev" = ips.titan-razer-lcluster;
+          "enterprise-asus-lcluster.gulo.dev" = ips.enterprise-asus-lcluster;
+
+          # Services
+          "grocy.gulo.dev" = ips.enterprise-asus-lcluster;
         };
       };
       

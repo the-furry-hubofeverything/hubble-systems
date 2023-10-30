@@ -5,4 +5,5 @@
   # my-module = import ./my-module.nix;
 
   flamenco = import ./flamenco.nix;
+  grocy = import ./grocy.nix;
 }

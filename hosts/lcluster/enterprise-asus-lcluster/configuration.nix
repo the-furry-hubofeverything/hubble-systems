@@ -1,6 +1,7 @@
 {
   imports = [
     ./hardware-configuration.nix
+    ./services/grocy.nix
   ];
 
   hardware.nvidia.prime = {
