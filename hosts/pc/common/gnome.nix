@@ -67,19 +67,11 @@
     enable = true;
     package =
     pkgs.unstable.tracker-miners.overrideAttrs (attrs: {
-      version = "3.5.3-patched";
-      patches = attrs.patches ++ [
-        (pkgs.fetchpatch {
-          name = "sched_get_priority-fix.patch";
-          url = "https://gitlab.gnome.org/GNOME/tracker-miners/-/merge_requests/495/diffs.patch";
-          hash = "sha256-hR4IzkCzr1BI/jTzsmMnvE34zIuNVK6A9jfjB16dLY0=";
-        })
-        (pkgs.fetchpatch {
-          name = "preempt_registry_creation-fix.patch";
-          url = "https://gitlab.gnome.org/GNOME/tracker-miners/-/merge_requests/496/diffs.patch";
-          hash = "sha256-2/Hw94tqmbqru+gnV7q6lK9gdGzMOlW5l485dnvSz8w=";
-        })
-      ];
+      version = "3.5.4";
+      src = pkgs.fetchurl {
+        url = "mirror://gnome/sources/tracker-miners/3.5/tracker-miners-3.5.4.tar.xz";
+        hash = "sha256-YC/wIeZuPXI9qlrt3KqOfGpQEVSW5M5QfX9enWe2qAs=";
+      };
     });
   };
 }
