@@ -77,6 +77,7 @@
     
     unstable.quicksand
     ubuntu_font_family
+    comic-neue
   ];
 
   # https://github.com/NixOS/nixpkgs/issues/119433#issuecomment-1326957279
