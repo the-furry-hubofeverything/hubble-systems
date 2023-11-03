@@ -55,6 +55,9 @@
       easyeffects
 
       inkscape
+    ] ++ [
+      # To be replaced when upgraded 23.11
+      (pkgs.unstable.blender.override ({ cudaSupport = true; hipSupport = true; }))
     ];
   };
 
