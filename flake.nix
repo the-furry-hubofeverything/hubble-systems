@@ -20,6 +20,9 @@
       inputs.nixpkgs.follows = "nixpkgs"; # use our nixpkgs
     };
 
+    # Hyprland
+    hyprland.url = "github:hyprwm/Hyprland";
+    
     # Secure boot
     lanzaboote = {
       url = "github:nix-community/lanzaboote/v0.3.0";
@@ -115,6 +118,7 @@
             extraSpecialArgs = {inherit inputs outputs;};
             modules = [
               home
+              inputs.hyprland.homeManagerModules.default
             ];
           }
       )

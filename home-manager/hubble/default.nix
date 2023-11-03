@@ -11,7 +11,7 @@
   # You can import other home-manager modules here
   imports = [
     outputs.homeManagerModules.git-credential-oauth
-    ./hyprland.nix
+    # ./hyprland.nix
   ];
 
   nixpkgs = {
