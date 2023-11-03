@@ -5,6 +5,7 @@ pkgs: {
   xwaylandvideobridge = pkgs.libsForQt5.callPackage ./xwaylandvideobridge/default.nix {};
   beammp-server = pkgs.callPackage ./beammp-server/default.nix {};
   flamenco = pkgs.callPackage ./flamenco/default.nix {};
+  koulen = pkgs.callPackage ./koulen/default.nix {};
   sheepit-client = pkgs.callPackage ./sheepit-client/default.nix {};
   # quicksand = pkgs.callPackage ./quicksand/default.nix {};
 }
