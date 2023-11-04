@@ -66,7 +66,7 @@
   services.gnome.tracker-miners = {
     enable = true;
     package =
-    pkgs.unstable.tracker-miners.overrideAttrs (attrs: {
+    pkgs.unstable.tracker-miners.overrideAttrs (_: {
       version = "3.5.4";
       src = pkgs.fetchurl {
         url = "mirror://gnome/sources/tracker-miners/3.5/tracker-miners-3.5.4.tar.xz";
