@@ -1,6 +1,6 @@
-# Disko config for lcluster
+# lcluster
 
-## Setup
+## Disko config for lcluster
 
 1. Copy disko-config.nix to `/tmp` on system running nixos installer
 2. REMEMBER TO CHANGE SETTINGS OUTLINED WITH COMMENTS
