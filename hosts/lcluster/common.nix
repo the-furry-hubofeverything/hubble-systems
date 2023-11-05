@@ -19,6 +19,14 @@
   # Set your time zone.
   time.timeZone = "America/Vancouver";
 
+  # btrfs related settings
+  boot.supportedFilesystems = ["btrfs"];
+  services.btrfs.autoScrub = {
+    enable = true;
+    interval = "monthly";
+    fileSystems = [ "/" ];
+  };
+
   # Select internationalisation properties.
   i18n.defaultLocale = "en_CA.UTF-8";
 
