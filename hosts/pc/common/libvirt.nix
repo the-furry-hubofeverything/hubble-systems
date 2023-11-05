@@ -15,7 +15,6 @@
   # Boot configuration
   boot.kernelParams = [
     "vfio_iommu_type1.allow_unsafe_interrupts=1"
-    # "video=efifb:off"
     "kvm.ignore_msrs=1"
     "vfio-pci.disable_idle_d3=1"
     "usbcore.autosuspend=-1"
@@ -80,14 +79,9 @@
     "virbr0"
   ];
 
-  # TODO Last attempt to fix vrchat chat issue -
-  # - disabling ipv6
-  # - opening ports
-
   # VFIO Packages installed
   environment.systemPackages = with pkgs; [
     virtiofsd
-    # virt-manager
     libguestfs # needed to virt-sparsify qcow2 files
   ];
 }
