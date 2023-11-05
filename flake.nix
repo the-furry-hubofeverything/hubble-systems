@@ -29,6 +29,9 @@
       inputs.nixpkgs.follows = "nixpkgs"; # use our nixpkgs
     };
 
+    # Impermanence
+    impermanence.url = "github:nix-community/impermanence";
+    
     # Secrets management
     sops-nix = {
       url = "github:Mic92/sops-nix";
