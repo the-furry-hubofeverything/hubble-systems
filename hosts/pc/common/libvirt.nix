@@ -26,7 +26,7 @@
     "vfio_pci"
     "vfio"
     "vfio_iommu_type1"
-    (if lib.versionOlder config.boot.kernelPackages.kernel.version "6.2" then "vfio_virqfd" else "")
+    (lib.optionalString (lib.versionOlder config.boot.kernelPackages.kernel.version "6.2") "vfio_virqfd")
   ];
 
   # Fix bridge interface stopping

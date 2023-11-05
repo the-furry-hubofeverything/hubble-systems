@@ -1,14 +1,10 @@
-{config, ...}: {
+{config, lib, ...}: {
   users.users.hubble = {
     isNormalUser = true;
     description = "Hubble";
     extraGroups =
       ["networkmanager" "wheel"]
-      ++ (
-        if config.programs.wireshark.enable
-        then ["wireshark"]
-        else []
-      );
+      ++ lib.optionals config.programs.wireshark.enable ["wireshark"];
   };
 
   users.motd = "🐾🐾🐾🐾";
