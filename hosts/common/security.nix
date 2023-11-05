@@ -84,4 +84,6 @@ with lib; {
 
   security.apparmor.enable = mkDefault true;
   security.apparmor.killUnconfinedConfinables = mkDefault true;
+  
+  security.sudo.execWheelOnly = true;
 }
