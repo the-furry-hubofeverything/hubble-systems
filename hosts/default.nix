@@ -15,6 +15,7 @@
       nixos-hardware.common-pc-laptop-hdd
 
       inputs.sops-nix.nixosModules.sops
+      inputs.impermanence.nixosModules.impermanence
     ];
 
     piCluster = [

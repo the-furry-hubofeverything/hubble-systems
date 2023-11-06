@@ -8,6 +8,7 @@
     ../common/nix-settings.nix
     ../common/hubbleGroups.nix
     ../common/security.nix
+    ../common/btrfs-with-rollback.nix
   ];
 
   boot.loader.raspberryPi.enable = true;

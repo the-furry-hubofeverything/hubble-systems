@@ -8,7 +8,9 @@
     ./common/server.nix
     # ./common/k3s.nix
     ./common/security.nix
+    ./common/impermanence.nix
 
+    ../common/btrfs-with-rollback.nix
     ../common/nix-settings.nix
     ../common/hubbleGroups.nix
     ../common/development.nix
@@ -18,14 +20,6 @@
   # system.autoUpgrade.enable = true;
   # Set your time zone.
   time.timeZone = "America/Vancouver";
-
-  # btrfs related settings
-  boot.supportedFilesystems = ["btrfs"];
-  services.btrfs.autoScrub = {
-    enable = true;
-    interval = "monthly";
-    fileSystems = [ "/" ];
-  };
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_CA.UTF-8";

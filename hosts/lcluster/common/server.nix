@@ -28,6 +28,13 @@
 
   services.netbird.enable = true;
 
+  environment.persistence."/persist" = {
+    directories = [
+      "/var/lib/netbird"
+      "/var/lib/acme"
+    ];
+  };
+
   # TODO setup remote jobs using best practices
   nix.settings.trusted-users = ["@wheel" "hubble"];
 
