@@ -51,9 +51,6 @@ in {
     eula = true;
     openFirewall = true;
 
-    # Uses persist folder
-    # TODO migrate to impermanence
-    dataDir = "/persist/minecraft";
     servers = {
       "SMP" = {
         enable = true;
@@ -95,5 +92,10 @@ in {
         };
       };
     };
+  };
+  environment.persistence."/persist" = {
+    directories = [
+      (config.services.minecraft-servers.dataDir)
+    ];
   };
 }
