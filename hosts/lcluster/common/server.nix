@@ -18,13 +18,12 @@
   boot.kernelModules = [
     "usb_storage"   # USB mass storage support
   ];
+  services.udisks2.enable = true; # userspace mount to /run/media
 
   environment.systemPackages = with pkgs; [
     kitty.terminfo
     git
     
-    udisks   # userspace mount to /run/media
-
     # Experiemental
     # flamenco
   ];
