@@ -3,6 +3,11 @@
   pkgs,
   ...
 }: {
+
+  imports = [
+    ./security.nix
+  ];
+  
   services.logind.lidSwitch = "ignore";
 
   # Enable the OpenSSH daemon.
