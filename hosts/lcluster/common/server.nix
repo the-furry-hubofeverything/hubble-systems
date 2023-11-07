@@ -14,9 +14,16 @@
 
   networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
 
+
+  boot.kernelModules = [
+    "usb_storage"   # USB mass storage support
+  ];
+
   environment.systemPackages = with pkgs; [
     kitty.terminfo
     git
+    
+    udisks   # userspace mount to /run/media
 
     # Experiemental
     # flamenco
