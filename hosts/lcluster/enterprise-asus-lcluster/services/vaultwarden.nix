@@ -34,12 +34,6 @@
     backupDir = "/tank/data/vw-backup";
   };
 
-  environment.persistence."/persist" = {
-    directories = [
-      "/var/lib/bitwarden_rs"
-    ];
-  };
-
   services.nginx.virtualHosts."vw.gulo.dev" = {
     useACMEHost = "gulo.dev";
     forceSSL = true;

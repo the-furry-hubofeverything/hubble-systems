@@ -3,11 +3,20 @@
   pkgs,
   ...
 }: {
+
+  imports = [
+    ./security.nix
+  ];
+  
   services.logind.lidSwitch = "ignore";
 
   # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
-
+  services.openssh = {
+    enable = true;
+    # Forbid root login through SSH.
+    settings.PermitRootLogin = "no";
+  };
+  
   # Enable sound.
   sound.enable = true;
   hardware.pulseaudio.enable = true;
@@ -30,13 +39,6 @@
   services.avahi.openFirewall = true;
 
   services.netbird.enable = true;
-
-  environment.persistence."/persist" = {
-    directories = [
-      "/var/lib/netbird"
-      "/var/lib/acme"
-    ];
-  };
 
   # TODO setup remote jobs using best practices
   nix.settings.trusted-users = ["@wheel" "hubble"];

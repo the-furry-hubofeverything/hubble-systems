@@ -38,6 +38,10 @@
       inputs.lanzaboote.nixosModules.lanzaboote
       inputs.nixpkgs-xr.nixosModules.nixpkgs-xr
     ];
+
+    remote = all ++ [
+      ./remote/common.nix
+    ];
   };
 in {
   # TODO: use *-common configs to easily replicate configs for debugging instead of machine specific ones.
@@ -120,6 +124,23 @@ in {
         nixos-hardware.omen-15-en0010ca
 
         inputs.hs-secrets.nixosModules.pc.Gulo-Laptop
+      ];
+  };
+
+  # === Remote servers ===
+  remote-common = {
+    platform = "x86_64-linux";
+    modules = sharedModules.remote ++ [./remote/common.nix];
+  };
+
+  alex-oracle-remote = {
+    platform = "x86_64-linux";
+    modules =
+      sharedModules.remote
+      ++ [
+        ./remote/alex-oracle-remote/configuration.nix
+
+        inputs.hs-secrets.nixosModules.remote.alex
       ];
   };
 }

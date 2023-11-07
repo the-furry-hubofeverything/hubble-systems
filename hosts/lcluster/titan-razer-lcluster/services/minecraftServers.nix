@@ -147,12 +147,6 @@ in {
     };
   };
 
-  environment.persistence."/persist" = {
-    directories = [
-      (config.services.minecraft-servers.dataDir)
-    ];
-  };
-
   services.nginx.virtualHosts."${config.networking.hostName}.gulo.dev" = lib.optionalAttrs (config.services.minecraft-servers.servers."creative".enable) {
     locations."/mtr-map/" = {
       proxyPass = "http://127.0.0.1:8888/";

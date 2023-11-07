@@ -89,3 +89,8 @@ Old laptops for builds and services. These should have ephemeral roots.
 | Nickname | Model | Hostname | CPU | GPU | Notes |
 |-|-|-|-|-|-|
 | Gulo-Laptop | HP OMEN 15-en0010ca | Gulo-Laptop | Ryzen 7 4800H | GTX 1660 Ti | Daily Driver |
+
+### [Cloud instances](remote/README.md)
+| Nickname | Model | Hostname | CPU | GPU | Notes |
+|-|-|-|-|-|-|
+| alex | Oracle Free Tier | alex-oracle-remote | 2 vCPU | - | 1 GB RAM, can't use nixos-anywhere |

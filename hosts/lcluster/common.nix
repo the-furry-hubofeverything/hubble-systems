@@ -5,10 +5,6 @@
   ...
 }: {
   imports = [
-    ./common/server.nix
-    ./common/security.nix
-    ./common/impermanence.nix
-
     # ACME+nginx reverse proxy   
     ./common/services/acme-nginx-rp.nix
 
@@ -24,6 +20,10 @@
     # flamenco worker
     ./common/services/flamenco-worker.nix
 
+
+    ../common/servers
+    
+    ../common/impermanence.nix
     ../common/nix-settings.nix
     ../common/hubbleGroups.nix
     ../common/development.nix

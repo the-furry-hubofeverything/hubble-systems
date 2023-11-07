@@ -101,10 +101,4 @@ in {
     };
     openFirewall = true;
   };
-
-  environment.persistence."/persist" = {
-    directories = [
-      "/var/lib/samba"
-    ];
-  };
 }
