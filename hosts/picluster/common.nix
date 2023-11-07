@@ -8,13 +8,10 @@
     ../common/nix-settings.nix
     ../common/hubbleGroups.nix
     ../common/security.nix
-    ../common/btrfs-with-rollback.nix
   ];
 
-  boot.loader.raspberryPi.enable = true;
-  boot.loader.raspberryPi.uboot.enable = true;
-  boot.loader.raspberryPi.firmwareConfig = ''
-  '';
+  boot.loader.grub.enable = false;
+  boot.loader.generic-extlinux-compatible.enable = true;
 
   # Set your time zone.
   time.timeZone = "America/Vancouver";
