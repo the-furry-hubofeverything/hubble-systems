@@ -4,7 +4,6 @@
   ...
 }: {
   imports = [
-    #   "${inputs.nixpkgs.sourceInfo.outPath}/nixos/modules/profiles/graphical.nix"
     ../common/nix-settings.nix
     ../common/hubbleGroups.nix
     ../common/security.nix

@@ -1,8 +1,4 @@
-{ pkgs, ... }:{
-  imports = [
-    ./hardware-configuration.nix
-  ];
-
+{ pkgs, lib, ... }:{
   hardware = {
     raspberry-pi."4".apply-overlays-dtmerge.enable = true;
     deviceTree = {
@@ -11,7 +7,6 @@
     };
   };
 
-  console.enable = false;
   networking.wireless.enable = true;
 
   environment.systemPackages = with pkgs; [
@@ -20,6 +15,11 @@
   ];
 
   networking.hostName = "brain-pi4-picluster"; # Define your hostname.
+
+  boot.initrd.availableKernelModules = [ "xhci_pci" "usbhid" ];
+  nixpkgs.hostPlatform = lib.mkDefault "aarch64-linux";
+  powerManagement.cpuFreqGovernor = lib.mkDefault "ondemand";
+  networking.useDHCP = lib.mkDefault true;
 
   system.stateVersion = "23.05";
 }
