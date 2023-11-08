@@ -48,5 +48,10 @@
   # Distribute irq over multiple cores
   services.irqbalance.enable = true;
 
+  # === OTHER TWEAKS ===
+  # As they are going to be sitting on a shelf (not to mention without internal HDDs), 
+  # Active drive protection is not necessary
+  services.hdapsd.enable = false;
+
   # TODO Setup HA sevices
 }
