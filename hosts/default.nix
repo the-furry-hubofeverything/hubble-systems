@@ -19,6 +19,7 @@ in {
   # === Pi cluster ===
   inherit (import ./picluster {inherit hostId-common inputs outputs sharedModules;})
     picluster-common
+    picluster-sd-installer
     brain-pi4-picluster
     pinky-pi3-picluster;
 
