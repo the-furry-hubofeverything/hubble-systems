@@ -16,6 +16,8 @@
 
       inputs.sops-nix.nixosModules.sops
       inputs.impermanence.nixosModules.impermanence
+
+      inputs.hs-secrets.nixosModules.lcluster.common
     ];
 
     piCluster = [
@@ -73,6 +75,7 @@ in {
       sharedModules.lCluster
       ++ [
         ./lcluster/titan-razer-lcluster/configuration.nix
+        inputs.hs-secrets.nixosModules.lcluster.titan
 
         inputs.nix-minecraft.nixosModules.minecraft-servers
       ];
