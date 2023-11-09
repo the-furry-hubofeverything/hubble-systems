@@ -53,5 +53,14 @@
   # Active drive protection is not necessary
   services.hdapsd.enable = false;
 
+  boot.kernelModules = [
+    # Filesystems I'd likely to be working with
+    "ntfs3"
+    "ext4"
+    "btrfs"
+    "zfs"
+    # "bcachefs"
+  ];
+
   # TODO Setup HA sevices
 }

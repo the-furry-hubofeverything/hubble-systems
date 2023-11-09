@@ -7,6 +7,7 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "enterprise-asus-lcluster"; # Define your hostname.
+  networking.hostId = "220895a0";
 
   system.stateVersion = "23.05";
 }

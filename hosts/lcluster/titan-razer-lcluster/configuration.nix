@@ -13,6 +13,7 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "titan-razer-lcluster"; # Define your hostname.
+  networking.hostId = "5cda25bf";
 
   system.stateVersion = "23.05";
 }
