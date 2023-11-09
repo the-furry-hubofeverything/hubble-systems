@@ -6,6 +6,9 @@
   fetchurl,
   ...
 }: let
+  owner = config.services.minecraft-servers.user;
+  group = config.services.minecraft-servers.group;
+
   fabricServerOptimizations = pkgs.fetchPackwizModpack {
     url = "https://github.com/the-furry-hubofeverything/fabric-server-optimizations/raw/f88e977440507469023fc9836aaf245e71bf802f/pack.toml";
     packHash = "sha256-bd/bzEMiryRP6yp2A126KweBw+LvdoZ4ijHh91WrMmQ=";
@@ -46,6 +49,14 @@ in {
     inputs.nix-minecraft.overlay
   ];
 
+  sops.secrets.minecraft-SMP-whitelist = {
+    inherit owner group;
+  };
+
+  sops.secrets.minecraft-creative-whitelist = {
+    inherit owner group;
+  };
+
   services.minecraft-servers = {
     enable = true;
     eula = true;
@@ -57,7 +68,6 @@ in {
         package = pkgs.paperServers.paper;
         jvmOpts = jvmOptimizationFlags;
 
-        # TODO declarative whitelist
         serverProperties = {
           gamemode = "survival";
           motd = "Hub's chill survival place thing";
@@ -65,6 +75,10 @@ in {
           white-list = true;
 
           op-permission-level = 1;
+        };
+
+        symlinks = {
+          "whitelist.json" = config.sops.secrets.minecraft-SMP-whitelist.path;
         };
       };
 
@@ -89,6 +103,7 @@ in {
 
         symlinks = {
           "mods" = "${modpack}/mods";
+          "whitelist.json" = config.sops.secrets.minecraft-creative-whitelist.path;
         };
       };
     };
