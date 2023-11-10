@@ -20,7 +20,7 @@
     ../common/nix-settings.nix
     ../common/development.nix
     ../common/hubbleGroups.nix
-    # ../common/
+    ../common/bash-config.nix
   ];
   boot.loader.systemd-boot.configurationLimit = 3;
 

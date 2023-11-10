@@ -8,6 +8,7 @@
     ../common/nix-settings.nix
     ../common/hubbleGroups.nix
     ../common/security.nix
+    ../common/bash-config.nix
   ];
 
   boot.loader.grub.enable = false;
