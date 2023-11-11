@@ -271,19 +271,16 @@
     },
     "hs-secrets": {
       "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ],
         "sops-nix": [
           "sops-nix"
         ]
       },
       "locked": {
-        "lastModified": 1699501091,
-        "narHash": "sha256-fzkNC0hU0AjnhMidrK983YnBbk/riSpHDgpT4YiKTy4=",
+        "lastModified": 1699505974,
+        "narHash": "sha256-kDCnTCtyYoo7len63mfoghl0dEurXG/eT28kSP+VwTs=",
         "ref": "refs/heads/master",
-        "rev": "cb09d297974cd6dd24d0c94c9a7ff89421e91a3f",
-        "revCount": 1,
+        "rev": "e800a1672a60a35b1b0ae3e4b443c8a03a465ad5",
+        "revCount": 2,
         "type": "git",
         "url": "file:///run/media/hubble/Data/GithubFurry/HS-secrets"
       },
@@ -301,11 +298,11 @@
         "xdph": "xdph"
       },
       "locked": {
-        "lastModified": 1699447387,
-        "narHash": "sha256-757r6PbNsKNqP68renCiz9kNpnBeCRUdje98duGrQKA=",
+        "lastModified": 1699663960,
+        "narHash": "sha256-eiKziDK6qEki5Raos/cDRVlAgioqjKKgGqCOG31yNB8=",
         "owner": "hyprwm",
         "repo": "Hyprland",
-        "rev": "c619e6976f8d7f9637b4bee098159935412c2e99",
+        "rev": "e44d6de555da72bd45ebd01c1293d53ea2700d3f",
         "type": "github"
       },
       "original": {
@@ -466,11 +463,11 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1699492773,
-        "narHash": "sha256-VsW4ZMGC/9LMs1iv3jVPjtbyKZ7sUejp6tpXILBXVWI=",
+        "lastModified": 1699668954,
+        "narHash": "sha256-R/6pOpxUuk5FBdt6MgI7nYv0zXarP180ZeHGggwRYFU=",
         "owner": "Infinidoge",
         "repo": "nix-minecraft",
-        "rev": "7be0b495e1413fdac957b1f223430190a4d27f81",
+        "rev": "46ef534128f452f8a8af7a5d106f743d4ae65172",
         "type": "github"
       },
       "original": {

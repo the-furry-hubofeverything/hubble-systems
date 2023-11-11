@@ -4,7 +4,6 @@
   inputs = {
     hs-secrets = {
       url = "/run/media/hubble/Data/GithubFurry/HS-secrets";
-      inputs.nixpkgs.follows = "nixpkgs";
       inputs.sops-nix.follows = "sops-nix";
     };
 
