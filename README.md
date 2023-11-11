@@ -13,7 +13,7 @@ Check `nix flake info` for outputs.
 
 `hosts` for machine type/machine specific configs.
  - You can read the documentation for the machine types [here](hosts/README.md).
- - the "machine types" are arbitrary, just a group of configs that happens to be common among configs.
+ - the "machine types" are arbitrary, just a group of service/program configs that happens to be common among machine configs.
 
 `overlays`, `pkgs`, `modules` for custom overlays, packages, and modules (that may or may not get upstream to nixpkgs).
 
