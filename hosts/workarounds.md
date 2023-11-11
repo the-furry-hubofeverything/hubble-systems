@@ -152,6 +152,11 @@ This entry will be removed after nixpkgs accepts either 3.5.4 or 3.6.2
     });
   };
 ```
+## Impermanence certificate owner handling
 
+Since the user is defined in nixpkgs, we'll use the same logic as they do.
+```nix
+  sops.secrets.porkbun-api-key.owner = if config.security.acme.useRoot then "root" else "acme";
+```
 
 ## picluster

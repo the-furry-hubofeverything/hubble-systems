@@ -276,11 +276,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1699505974,
-        "narHash": "sha256-kDCnTCtyYoo7len63mfoghl0dEurXG/eT28kSP+VwTs=",
+        "lastModified": 1699691291,
+        "narHash": "sha256-crT7wxb2lJEZdmk/KXsAwt5o1O4uCLkgqKQ34qYElSM=",
         "ref": "refs/heads/master",
-        "rev": "e800a1672a60a35b1b0ae3e4b443c8a03a465ad5",
-        "revCount": 2,
+        "rev": "a5da3719c74f145ea391451e6f1d4e49602b931b",
+        "revCount": 4,
         "type": "git",
         "url": "file:///run/media/hubble/Data/GithubFurry/HS-secrets"
       },

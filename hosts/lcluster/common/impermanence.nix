@@ -4,12 +4,6 @@
     Defaults lecture = never
   '';
 
-  environment.etc = {
-    "group".source = "/persist/etc/group";
-    "passwd".source = "/persist/etc/passwd";
-    "shadow".source = "/persist/etc/shadow";
-  };
-
  environment.persistence."/persist" = {
   hideMounts = true;
   directories = [
@@ -21,10 +15,6 @@
   files = [
     "/etc/adjtime"
     "/etc/machine-id"
-
-    "/etc/group"
-    "/etc/passwd"
-    "/etc/shadow"
 
     "/etc/ssh/ssh_host_ed25519_key"
     "/etc/ssh/ssh_host_rsa_key"
