@@ -10,6 +10,9 @@
     ./common/security.nix
     ./common/impermanence.nix
 
+    # ACME+nginx reverse proxy   
+    ./common/acme-nginx-rp.nix
+
     ../common/btrfs-with-rollback.nix
     ../common/nix-settings.nix
     ../common/hubbleGroups.nix
