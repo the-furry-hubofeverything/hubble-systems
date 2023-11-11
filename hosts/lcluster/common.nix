@@ -13,6 +13,9 @@
     # ACME+nginx reverse proxy   
     ./common/acme-nginx-rp.nix
 
+    # DNS server/ad-blocker with DoH
+    ./common/blocky.nix
+
     ../common/btrfs-with-rollback.nix
     ../common/nix-settings.nix
     ../common/hubbleGroups.nix

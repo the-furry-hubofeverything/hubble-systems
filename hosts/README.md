@@ -92,7 +92,7 @@ Old laptops for builds and services. These should have ephemeral roots.
 
 ## Services wishlist
 
-- DNS
+- ~~DNS~~
 - With rotating keys
   - SSH
   - Wireguard
