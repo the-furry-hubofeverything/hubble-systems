@@ -23,6 +23,7 @@
   };
 
   boot.initrd.luks.devices."luks-5e0abd4a-5371-4ad3-ab11-5b3035b01476".device = "/dev/disk/by-uuid/5e0abd4a-5371-4ad3-ab11-5b3035b01476";
+  boot.initrd.luks.devices."luks-56d11093-118b-4120-9675-5567ed5976bd".device = "/dev/disk/by-uuid/56d11093-118b-4120-9675-5567ed5976bd";
 
   fileSystems."/boot/efi" = {
     device = "/dev/disk/by-uuid/4CB2-9AD4";
@@ -30,9 +31,9 @@
   };
 
   fileSystems."/run/media/hubble/Data" = {
-    device = "/dev/disk/by-uuid/19A1DDD769D8ADCF";
-    fsType = "ntfs3";
-    options = ["uid=1000" "gid=100" "rw" "user" "exec" "umask=000"];
+    device = "/dev/disk/by-uuid/aa1ff7b1-1b4f-45f7-ab3b-09bc2de9da4d";
+    fsType = "ext4";
+    options = ["rw" "user" "exec" "errors=remount-ro"];
   };
 
   swapDevices = [

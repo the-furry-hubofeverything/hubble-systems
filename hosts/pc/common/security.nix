@@ -11,4 +11,6 @@
   # rtkit is optional but recommended
   security.rtkit.enable = true;
   security.polkit.enable = true;
+
+  security.tpm2.enable = true;
 }
