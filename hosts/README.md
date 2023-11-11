@@ -3,7 +3,7 @@
 Each folder should only contain machine specific `configuration.nix` and `hardware-configuration.nix`. Everything else should either be imported or exist as an module. **No NixOS module is to be imported in machine specific `configuration.nix`.** 
 
 > [!NOTE]
-> Workarounds are listed [here](./workarounds.md).<br>
+> Workarounds are listed [here](workarounds.md).<br>
 > When debugging, its best to start here.
 
 ## Add a machine type
@@ -69,7 +69,7 @@ Timezones are all in the common.nix folders for each machine type, under `time.t
 ### Lighthouse
 Coming soon. Plan to use various free/droplet tiers (Linode, Oracle, etc).
 
-### Pi cluster
+### [Pi cluster](picluster/README.md)
 Pis for lightweight services.
 
 | Nickname | Model | Hostname | Notes |
@@ -77,7 +77,7 @@ Pis for lightweight services.
 | pinky | Raspberry Pi 3B v1.2 | pinky-pi3-picluster |  |
 | brain | Raspberry Pi 4B | brain-pi4-picluster| |
 
-### Laptop cluster
+### [Laptop cluster](lcluster/README.md)
 Old laptops for builds and services. These should have ephemeral roots.
 
 | Nickname | Model | Hostname | CPU | GPU | Notes |
@@ -85,24 +85,7 @@ Old laptops for builds and services. These should have ephemeral roots.
 | titan | Razer Blade 15 RZ09-01953 | titan-razer-lcluster | i7-7700HQ | GTX 1060 |Battery available, but no ethernet or screen |
 | enterprise | ASUS FX53VD | enterprise-asus-lcluster | i7-7700HQ | GTX 1050 | DVD drive available, no battery |
 
-### Personal Computers
+### [Personal Computers](pc/README.md)
 | Nickname | Model | Hostname | CPU | GPU | Notes |
 |-|-|-|-|-|-|
 | Gulo-Laptop | HP OMEN 15-en0010ca | Gulo-Laptop | Ryzen 7 4800H | GTX 1660 Ti | Daily Driver |
-
-## Services wishlist
-
-- ~~DNS~~
-- With rotating keys
-  - SSH
-  - Wireguard
-- Distributed storage
-- Blender rendering (local and remote combied)
-- Certificate updates
-- Vaultwarden
-- Kopia
-- Grocy
-- Samba
-- nextcloud (?)
-- Video encoding
-- Speech transcription/recognition

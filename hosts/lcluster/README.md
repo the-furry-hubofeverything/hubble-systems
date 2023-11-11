@@ -9,3 +9,20 @@
   - For example, with btrfs root mounted on `/mntroot`,  run `sudo btrfs subvolume snapshot -r /mntroot/root /mntroot/root-blank`
 5. Run `sudo nixos-generate-config --root /mnt`
 6. Profit!!! (hopefully)
+
+## Services wishlist
+
+- ~~DNS~~
+- With rotating keys
+  - SSH
+  - Wireguard
+- Distributed storage
+- Blender rendering (local and remote combied)
+- Certificate updates
+- Vaultwarden
+- Kopia
+- Grocy
+- Samba
+- nextcloud (?)
+- Video encoding
+- Speech transcription/recognition

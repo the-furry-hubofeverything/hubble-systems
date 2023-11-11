@@ -12,13 +12,11 @@ Check `nix flake info` for outputs.
 `home-manager` for user configs.
 
 `hosts` for machine type/machine specific configs.
+ - You can read the documentation for the machine types [here](hosts/README.md).
+ - the "machine types" are arbitrary, just a group of configs that happens to be common among configs.
 
-`modules` for configs that enable software.
-
-`overlays`, `pkgs` for custom overlays and packages.
+`overlays`, `pkgs`, `modules` for custom overlays, packages, and modules (that may or may not get upstream to nixpkgs).
 
 ## Stacked overlays
 ### `pkgs.unstable`
 nixpkgs unstable
-### `pkgs.testing`
-the-furry-hubofeverything fork of nixpkgs (master branch)

@@ -5,6 +5,12 @@
   # Machine categories
   machineType = import ./machineType {inherit inputs outputs;};
 
+  sharedModules = {
+    machineType = [
+      # Insert common modules for machine type here
+    ];
+  };
+
   nixos-hardware = inputs.hardware.nixosModules;
 in {
   # TODO change hostname
