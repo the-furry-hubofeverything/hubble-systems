@@ -115,9 +115,10 @@ in {
   };
 
   services.nginx.virtualHosts."${config.networking.hostName}.gulo.dev" = lib.optionalAttrs (config.services.minecraft-servers.servers."creative".enable) {
-    locations."/mtr-map" = {
-      proxyPass = "http://127.0.0.1:8888";
+    locations."/mtr-map/" = {
+      proxyPass = "http://127.0.0.1:8888/";
       extraConfig =
+        "proxy_set_header Host $host;" +
         # required when the target is also TLS server with multiple hosts
         "proxy_ssl_server_name on;";
     };
