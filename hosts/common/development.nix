@@ -1,7 +1,11 @@
 {pkgs, ...}: {
   # Not needed as it's handled in home-manager
   environment.systemPackages = with pkgs; [
-    nurl
+    (nurl.overrideAttrs (_: prev: {
+      patches = prev.patches ++ [
+        ./nurl-flake.patch
+      ];
+    }))
     nix-output-monitor
   ];
 

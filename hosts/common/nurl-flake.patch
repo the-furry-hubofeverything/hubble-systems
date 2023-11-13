@@ -1,0 +1,22 @@
+diff --git a/src/prefetch.rs b/src/prefetch.rs
+index 7cfc49d..b7dd822 100644
+--- a/src/prefetch.rs
++++ b/src/prefetch.rs
+@@ -92,7 +92,7 @@ pub fn url_prefetch(url: String, unpack: bool) -> Result<String> {
+ }
+ 
+ pub fn fod_prefetch(expr: String) -> Result<String> {
+-    info!("$ nix build --experimental-features nix-command --impure --no-link --expr '{expr}'");
++    info!("$ nix build --experimental-features 'nix-command flakes' --impure --no-link --expr '{expr}'");
+ 
+     let Output {
+         stdout,
+@@ -101,7 +101,7 @@ pub fn fod_prefetch(expr: String) -> Result<String> {
+     } = Command::new("nix")
+         .arg("build")
+         .arg("--experimental-features")
+-        .arg("nix-command")
++        .arg("nix-command flakes")
+         .arg("--impure")
+         .arg("--no-link")
+         .arg("--expr")
