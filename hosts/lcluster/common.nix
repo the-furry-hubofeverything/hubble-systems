@@ -6,15 +6,17 @@
 }: {
   imports = [
     ./common/server.nix
-    # ./common/k3s.nix
     ./common/security.nix
     ./common/impermanence.nix
 
     # ACME+nginx reverse proxy   
-    ./common/acme-nginx-rp.nix
+    ./common/services/acme-nginx-rp.nix
 
     # DNS server/ad-blocker with DoH
-    ./common/blocky.nix
+    ./common/services/blocky.nix
+
+    # k3s
+    # ./common/services/k3s.nix
 
     ../common/btrfs-with-rollback.nix
     ../common/nix-settings.nix
