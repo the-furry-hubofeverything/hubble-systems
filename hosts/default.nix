@@ -31,9 +31,7 @@
       ./pc/common.nix
 
       nixos-hardware.common-pc
-      outputs.nixosModules.nix-alien
       inputs.sops-nix.nixosModules.sops
-      outputs.nixosModules.kdeconnect
     ];
   };
 in {
@@ -107,9 +105,6 @@ in {
         nixos-hardware.omen-15-en0010ca
 
         inputs.lanzaboote.nixosModules.lanzaboote
-        outputs.nixosModules.wireshark
-        outputs.nixosModules.lanzaboote
-        outputs.nixosModules.waydroid
       ];
   };
 }
