@@ -86,4 +86,6 @@ with lib; {
   security.apparmor.killUnconfinedConfinables = mkDefault true;
   
   security.sudo.execWheelOnly = true;
+
+  services.fail2ban.enable = true;
 }
