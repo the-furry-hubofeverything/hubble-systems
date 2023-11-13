@@ -26,6 +26,14 @@ By setting the path to an empty string, we tell cp to copy directly into the mod
     "" = "${fanesTrainShenanigans}/mods";
   };
 ```
+
+### Impermanence certificate owner handling
+
+Since the user is defined in nixpkgs, we'll use the same logic as they do.
+```nix
+  sops.secrets.porkbun-api-key.owner = if config.security.acme.useRoot then "root" else "acme";
+```
+
 ## pc
 
 ### Networking issue (Gulo-Laptop)
@@ -152,11 +160,20 @@ This entry will be removed after nixpkgs accepts either 3.5.4 or 3.6.2
     });
   };
 ```
-## Impermanence certificate owner handling
 
-Since the user is defined in nixpkgs, we'll use the same logic as they do.
+### nurl flake address problem
+
+See [PR](https://github.com/nix-community/nurl/pull/220)
+
+`nurl`, at this point, generates command that is inoperable on this system, which breaks my script written for nixpkgs ONLY for systems from this config. This fixes it.
+
 ```nix
-  sops.secrets.porkbun-api-key.owner = if config.security.acme.useRoot then "root" else "acme";
+  environment.systemPackages = with pkgs; [
+    (nurl.overrideAttrs (_: prev: {
+      patches = prev.patches ++ [
+        ./nurl-flake.patch
+      ];
+    }))
 ```
 
 ## picluster
