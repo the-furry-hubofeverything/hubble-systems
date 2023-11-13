@@ -22,6 +22,7 @@
     "" = "${fanesTrainShenanigans}/mods";
   };
 
+  # https://flags.sh/
   jvmOptimizationFlags = ''
     --add-modules=jdk.incubator.vector \
     -XX:+UseG1GC \
@@ -43,8 +44,15 @@
     -XX:G1MaxNewSizePercent=40 \
     -XX:G1HeapRegionSize=8M \
     -XX:G1ReservePercent=20 \
-    '';
+  '';
 in {
+  assertions = [
+    {
+      assertion = config.services.nginx.enable && config.services.nginx.virtualHosts ? "${config.networking.hostName}.gulo.dev";
+      message = "minecraftServers: ${config.networking.hostName}.gulo.dev is undefinied, this depends on acme-nginx-rp.nix";
+    }
+  ];
+
   nixpkgs.overlays = [
     inputs.nix-minecraft.overlay
   ];
@@ -118,7 +126,8 @@ in {
     locations."/mtr-map/" = {
       proxyPass = "http://127.0.0.1:8888/";
       extraConfig =
-        "proxy_set_header Host $host;" +
+        "proxy_set_header Host $host;"
+        +
         # required when the target is also TLS server with multiple hosts
         "proxy_ssl_server_name on;";
     };

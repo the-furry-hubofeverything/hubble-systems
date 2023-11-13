@@ -1,4 +1,11 @@
 { config, ... }: {
+  assertions = [
+    {
+      assertion = config.services.nginx.enable && config.services.nginx.virtualHosts ? "${config.networking.hostName}.gulo.dev";
+      message = "blocky: ${config.networking.hostName}.gulo.dev is undefinied, this depends on acme-nginx-rp.nix";
+    }
+  ];
+
   services.blocky = {
     enable = true;
     settings = {
