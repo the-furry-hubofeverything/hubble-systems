@@ -52,7 +52,7 @@
   services.supergfxd.settings = {
     vfio_enable = true;
     vfio_save = false;
-    hotplug_type = "Asus";
+    hotplug_type = "None";
   };
   services.logind.killUserProcesses = true; # Hyprland supergfxctl fix
 
