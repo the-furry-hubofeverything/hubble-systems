@@ -6,20 +6,33 @@
   fetchurl,
   ...
 }: let
-  owner = config.services.minecraft-servers.user;
-  group = config.services.minecraft-servers.group;
-
-  fabricServerOptimizations = pkgs.fetchPackwizModpack {
-    url = "https://github.com/the-furry-hubofeverything/fabric-server-optimizations/raw/f88e977440507469023fc9836aaf245e71bf802f/pack.toml";
-    packHash = "sha256-bd/bzEMiryRP6yp2A126KweBw+LvdoZ4ijHh91WrMmQ=";
-  };
   fanesTrainShenanigans = pkgs.fetchPackwizModpack {
     url = "https://github.com/the-furry-hubofeverything/fanes-train-shenanigans/raw/8a569e29b44a36d63a4f46eb373477b524091fd2/pack.toml";
     packHash = "sha256-wHgS3JJlTiSesYuKdXDm0hcUepTO2gXSp4b0vqqmJEA=";
   };
 
-  modpack = fabricServerOptimizations.addFiles {
-    "" = "${fanesTrainShenanigans}/mods";
+  optimizeServerModpack = modpack: pname: version: pkgs.stdenvNoCC.mkDerivation {
+    inherit pname version;
+
+    src = pkgs.fetchPackwizModpack {
+      url = "https://github.com/the-furry-hubofeverything/fabric-server-optimizations/raw/f88e977440507469023fc9836aaf245e71bf802f/pack.toml";
+      packHash = "sha256-bd/bzEMiryRP6yp2A126KweBw+LvdoZ4ijHh91WrMmQ=";
+    };
+
+    inputs = [ modpack ];
+
+    dontUnpack = true;
+    dontConfig = true;
+    dontBuild = true;
+    dontFixup = true;
+    installPhase = ''
+      runHook preInstall
+
+      mkdir -p $out/mods
+      cp -sr "$src/mods" "${modpack}/mods/" $out/
+
+      runHook postInstall
+    '';
   };
 
   # https://flags.sh/
@@ -57,13 +70,17 @@ in {
     inputs.nix-minecraft.overlay
   ];
 
-  sops.secrets.minecraft-SMP-whitelist = {
-    inherit owner group;
-  };
-
-  sops.secrets.minecraft-creative-whitelist = {
-    inherit owner group;
-  };
+  # Set ownership for whitelist sops files
+  # whitelist secrets must be name "minecraft-{name}-whitelist"
+  sops.secrets = lib.mapAttrs' (
+    serverName: server: {
+      name = "minecraft-${serverName}-whitelist";
+      value = lib.optionalAttrs server.serverProperties.white-list {
+        inherit (config.services.minecraft-servers) group;
+        owner = config.services.minecraft-servers.user;
+      };
+    }
+  ) config.services.minecraft-servers.servers;
 
   services.minecraft-servers = {
     enable = true;
@@ -110,12 +127,13 @@ in {
         };
 
         symlinks = {
-          "mods" = "${modpack}/mods";
+          "mods" = "${optimizeServerModpack fanesTrainShenanigans "fanes-train-shenanigans" "unstable-1.0"}/mods";
           "whitelist.json" = config.sops.secrets.minecraft-creative-whitelist.path;
         };
       };
     };
   };
+
   environment.persistence."/persist" = {
     directories = [
       (config.services.minecraft-servers.dataDir)

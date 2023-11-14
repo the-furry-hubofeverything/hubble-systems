@@ -11,21 +11,6 @@ As of Oct 24, 2023, not all workarounds may be documented. This line will be rem
 > If you are maintaining the flake that is relevant to the workaround, I would be happy to be included in the conversation.
 
 ## lcluster
-### minecraftServer modpacks
-There's currently no proper way to combine packwiz modpacks together. The two mods folder can't merge because both are read-only or something.
-(I forgot to write it down)
-
-Fabric server can't read mods in subdirectories. 
-
-Since [`fetchPackwizModpack.addFiles`](https://github.com/Infinidoge/nix-minecraft/blob/2233b4c6d39623c89200b1e45e3ae920a9d7514a/pkgs/tools/fetchPackwizModpack/default.nix#L86) uses `mkdir` for making the dirs and `cp` for symlinks, might as well abuse it.
-
-By setting the path to an empty string, we tell cp to copy directly into the mods folder, effectively merging both of them
-
-```nix
-  modpack = fabricServerOptimizations.addFiles {
-    "" = "${fanesTrainShenanigans}/mods";
-  };
-```
 
 ### Impermanence certificate owner handling
 
