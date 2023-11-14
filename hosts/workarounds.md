@@ -1,6 +1,8 @@
 # Workarounds
 All the jank in the hosts configuration.
 
+A solution is considered a workaround when the problem or solution evolves from something unintentional, like a bug or a unintentional feature that could be removed at any time. This means that these workarounds may stop working at any time.
+
 As of Oct 24, 2023, not all workarounds may be documented. This line will be removed once I'm confident all workarounds are documented.
 
 > [!IMPORTANT]
@@ -159,6 +161,21 @@ See [PR](https://github.com/nix-community/nurl/pull/220)
         ./nurl-flake.patch
       ];
     }))
+```
+
+### HIP workaround
+
+> [!NOTE] 
+> This may need to be updated for 23.11
+
+This is required for HIP to work with (at the very least) Blender, even with hipSupport enabled. This is documented on the user-maintained nixos wiki https://nixos.wiki/wiki/AMD_GPU
+
+> Most software has the HIP libraries hard-coded. You can work around it on NixOS by using: 
+```nix
+  # HIP workaround
+  systemd.tmpfiles.rules = [
+    "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.hip}"
+  ];
 ```
 
 ## picluster
