@@ -79,6 +79,7 @@
     ubuntu_font_family
     comic-neue
     koulen
+    inter
   ];
 
   # https://github.com/NixOS/nixpkgs/issues/119433#issuecomment-1326957279
