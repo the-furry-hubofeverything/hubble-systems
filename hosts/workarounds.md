@@ -174,7 +174,7 @@ This is required for HIP to work with (at the very least) Blender, even with hip
 ```nix
   # HIP workaround
   systemd.tmpfiles.rules = [
-    "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.hip}"
+    "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.rocmPackages.clr}"
   ];
 ```
 
