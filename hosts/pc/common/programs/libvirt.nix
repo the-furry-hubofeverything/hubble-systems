@@ -9,7 +9,7 @@
 }: {
 
   imports = [
-    outputs.nixosModules.virt-manager
+    # outputs.nixosModules.virt-manager
   ];
 
   # Boot configuration
