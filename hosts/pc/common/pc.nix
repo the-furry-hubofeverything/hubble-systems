@@ -82,6 +82,8 @@
     inter
   ];
 
+  fonts.fontconfig.defaultFonts.sansSerif = [ "Inter" ];
+
   # https://github.com/NixOS/nixpkgs/issues/119433#issuecomment-1326957279
   # Workaround for 119433
   
