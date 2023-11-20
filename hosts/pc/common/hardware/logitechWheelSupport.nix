@@ -1,4 +1,3 @@
-# TODO - move to module?
 {pkgs, ...}: {
   # steering wheel driver
   hardware.new-lg4ff.enable = true;
