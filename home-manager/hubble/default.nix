@@ -24,7 +24,7 @@
       outputs.overlays.modifications
       outputs.overlays.stacked
 
-      # inputs.blender-bin.overlays.default
+      inputs.blender-bin.overlays.default
 
       # Or define it inline, for example:
       # (final: prev: {
@@ -57,7 +57,7 @@
       inkscape
     ] ++ [
       # To be replaced when upgraded 23.11
-      (pkgs.unstable.blender.override ({ cudaSupport = true; hipSupport = true; }))
+      pkgs.blender_3_6
     ];
   };
 
