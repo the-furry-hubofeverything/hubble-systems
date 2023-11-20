@@ -17,6 +17,7 @@
     ./common/desktop-environments/gnome.nix
 
     ./common/hardware/logitechWheelSupport.nix
+    ./common/hardware/xboxOne.nix
 
     ./common/programs/kdeconnect.nix
     ./common/programs/lanzaboote.nix
