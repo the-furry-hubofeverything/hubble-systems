@@ -33,7 +33,7 @@
   fileSystems."/run/media/hubble/Data" = {
     device = "/dev/disk/by-uuid/aa1ff7b1-1b4f-45f7-ab3b-09bc2de9da4d";
     fsType = "ext4";
-    options = ["rw" "user" "exec" "errors=remount-ro"];
+    options = ["rw" "user" "exec" "errors=remount-ro" "nofail"];
   };
 
   swapDevices = [
