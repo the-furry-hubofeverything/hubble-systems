@@ -21,6 +21,7 @@
     displayManager.gdm.enable = true;
     desktopManager.gnome.enable = true;
     excludePackages = [pkgs.xterm pkgs.gnome.gnome-terminal];
+    displayManager.defaultSession = "gnome";
   };
 
   environment.systemPackages = with pkgs; [
