@@ -108,7 +108,7 @@ in {
       };
 
       "creative" = {
-        enable = true;
+        enable = false;
         package = pkgs.fabricServers.fabric-1_19_4;
         jvmOpts = jvmOptimizationFlags + "-Xmx8G -Xms8G";
 
