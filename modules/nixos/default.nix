@@ -5,6 +5,5 @@
   # my-module = import ./my-module.nix;
 
   flamenco = import ./flamenco.nix;
-  tracker-miners = import ./tracker-miners.nix;
   virt-manager = import ./virt-manager.nix;
 }

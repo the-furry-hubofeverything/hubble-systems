@@ -116,38 +116,6 @@ Example
   };
 ```
 
-### tracker-miner crash
-
-See issue #14
-
-Thanks to Carlos Garnacho from Gnome and Jan Tojnar from NixOS, we figured out the problem.
-
-Well, more like they did and I just provided them with logs.
-
-This involves two patches. One can't work without the other. 
-
-To be removed when MRs are merged and a new release comes out.
-
-#### Update
-
-Version 3.5.4 address this issue. 
-
-This entry will be removed after nixpkgs accepts either 3.5.4 or 3.6.2
-
-```nix
-  services.gnome.tracker-miners = {
-    enable = true;
-    package =
-    pkgs.unstable.tracker-miners.overrideAttrs (_: {
-      version = "3.5.4";
-      src = pkgs.fetchurl {
-        url = "mirror://gnome/sources/tracker-miners/3.5/tracker-miners-3.5.4.tar.xz";
-        hash = "sha256-YC/wIeZuPXI9qlrt3KqOfGpQEVSW5M5QfX9enWe2qAs=";
-      };
-    });
-  };
-```
-
 ### nurl flake address problem
 
 See [PR](https://github.com/nix-community/nurl/pull/220)

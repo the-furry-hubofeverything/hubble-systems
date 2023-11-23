@@ -5,11 +5,6 @@
   ...
 }: {
 
-  disabledModules = [ "services/desktops/gnome/tracker-miners.nix" ];
-  imports = [
-    outputs.nixosModules.tracker-miners
-  ];
-
   services.udev.packages = with pkgs; [gnome.gnome-settings-daemon];
 
   programs.dconf.enable = true;
@@ -62,17 +57,4 @@
 
   # GNOME integration for dual gpu
   services.switcherooControl.enable = true;
-
-  # tracker-miner workaround 
-  services.gnome.tracker-miners = {
-    enable = true;
-    package =
-    pkgs.unstable.tracker-miners.overrideAttrs (_: {
-      version = "3.5.4";
-      src = pkgs.fetchurl {
-        url = "mirror://gnome/sources/tracker-miners/3.5/tracker-miners-3.5.4.tar.xz";
-        hash = "sha256-YC/wIeZuPXI9qlrt3KqOfGpQEVSW5M5QfX9enWe2qAs=";
-      };
-    });
-  };
 }
