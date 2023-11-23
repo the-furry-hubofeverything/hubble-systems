@@ -5,5 +5,4 @@
   # my-module = import ./my-module.nix;
 
   flamenco = import ./flamenco.nix;
-  virt-manager = import ./virt-manager.nix;
 }

@@ -7,11 +7,6 @@
   outputs,
   ...
 }: {
-
-  imports = [
-    # outputs.nixosModules.virt-manager
-  ];
-
   # Boot configuration
   boot.kernelParams = [
     "vfio_iommu_type1.allow_unsafe_interrupts=1"
