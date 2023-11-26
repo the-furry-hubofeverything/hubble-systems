@@ -5,11 +5,13 @@
   config,
   lib,
   pkgs,
+  inputs,
   modulesPath,
   ...
 }: {
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
+    inputs.hardware.nixosModules.common-gpu-nvidia
   ];
 
   boot.initrd.availableKernelModules = ["xhci_pci" "nvme" "usbhid" "usb_storage" "sd_mod"];

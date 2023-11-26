@@ -58,6 +58,14 @@
   # Distribute irq over multiple cores
   services.irqbalance.enable = true;
 
+  # OpenGL for hardware accelerated tasks
+  hardware.opengl = {
+    enable = true;
+    # Vulkan support
+    driSupport = true;
+    driSupport32Bit = true;
+  };
+
   # === OTHER TWEAKS ===
   # As they are going to be sitting on a shelf (not to mention without internal HDDs), 
   # Active drive protection is not necessary

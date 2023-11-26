@@ -8,6 +8,11 @@
     ./services/minecraftServers.nix
   ];
 
+  hardware.nvidia.prime = {
+		intelBusId = "PCI:0:2:0";
+		nvidiaBusId = "PCI:1:0:0";
+	};
+
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
