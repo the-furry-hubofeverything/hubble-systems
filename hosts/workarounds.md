@@ -146,4 +146,15 @@ This is required for HIP to work with (at the very least) Blender, even with hip
   ];
 ```
 
+### Gnome 45 KMS thread problems with video driver
+
+TODO: document
+
+```nix
+  # KMS thread workaround
+  environment.variables = {
+    MUTTER_DEBUG_KMS_THREAD_TYPE = "user";
+  };
+```
+
 ## picluster

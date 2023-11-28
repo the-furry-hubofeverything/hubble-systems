@@ -11,6 +11,11 @@
 
   security.pam.services.gdm.enableGnomeKeyring = true;
 
+  # KMS thread workaround
+  environment.variables = {
+    MUTTER_DEBUG_KMS_THREAD_TYPE = "user";
+  };
+
   services.xserver = {
     enable = true;
     displayManager.gdm.enable = true;
