@@ -14,7 +14,7 @@
   sops.gnupg.sshKeyPaths = [];
 
   users.users = {
-    "hubble".passwordFile = config.sops.secrets.hubblePasswd.path;
-    "root".passwordFile = config.sops.secrets.rootPasswd.path;
+    "hubble".hashedPasswordFile = config.sops.secrets.hubblePasswd.path;
+    "root".hashedPasswordFile = config.sops.secrets.rootPasswd.path;
   };
 }
