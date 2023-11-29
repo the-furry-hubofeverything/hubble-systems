@@ -235,11 +235,11 @@
     },
     "hardware": {
       "locked": {
-        "lastModified": 1701020860,
-        "narHash": "sha256-NwnRn04C8s+hH+KdVtGmVB1FFNIG7DtPJmQSCBDaET4=",
+        "lastModified": 1701250978,
+        "narHash": "sha256-ohu3cz4edjpGxs2qUTgbs0WrnewOX4crnUJNEB6Jox4=",
         "owner": "nixos",
         "repo": "nixos-hardware",
-        "rev": "b006ec52fce23b1d57f6ab4a42d7400732e9a0a2",
+        "rev": "8772491ed75f150f02552c60694e1beff9f46013",
         "type": "github"
       },
       "original": {
@@ -275,11 +275,10 @@
         ]
       },
       "locked": {
+        "dirtyRev": "a5da3719c74f145ea391451e6f1d4e49602b931b-dirty",
+        "dirtyShortRev": "a5da371-dirty",
         "lastModified": 1699691291,
-        "narHash": "sha256-crT7wxb2lJEZdmk/KXsAwt5o1O4uCLkgqKQ34qYElSM=",
-        "ref": "refs/heads/master",
-        "rev": "a5da3719c74f145ea391451e6f1d4e49602b931b",
-        "revCount": 4,
+        "narHash": "sha256-RoqEU6A5Ee8fSK1h6q5Qq6dXJJHQ0ilFo+3+Cb/JCi0=",
         "type": "git",
         "url": "file:///run/media/hubble/Data/GithubFurry/HS-secrets"
       },
@@ -579,16 +578,16 @@
     },
     "nixpkgs_4": {
       "locked": {
-        "lastModified": 1701232430,
-        "narHash": "sha256-RhfD396MtpweELTxImHhTLMX+d/kl7RJvs1nY4HEZz0=",
+        "lastModified": 1701156937,
+        "narHash": "sha256-jpMJOFvOTejx211D8z/gz0ErRtQPy6RXxgD2ZB86mso=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "ab2ab0eff78647e7dedf734e5969c8862411b1c2",
+        "rev": "7c4c20509c4363195841faa6c911777a134acdf3",
         "type": "github"
       },
       "original": {
         "owner": "nixos",
-        "ref": "release-23.11",
+        "ref": "nixos-23.11",
         "repo": "nixpkgs",
         "type": "github"
       }
