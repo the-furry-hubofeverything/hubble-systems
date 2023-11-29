@@ -24,9 +24,6 @@
       url = "github:the-furry-hubofeverything/nix-warez?dir=blender";
       inputs.nixpkgs.follows = "nixpkgs"; # use our nixpkgs
     };
-
-    # Hyprland
-    hyprland.url = "github:hyprwm/Hyprland/v0.32.3";
     
     # Secure boot
     lanzaboote = {
@@ -126,7 +123,6 @@
             extraSpecialArgs = {inherit inputs outputs;};
             modules = [
               home
-              inputs.hyprland.homeManagerModules.default
             ];
           }
       )

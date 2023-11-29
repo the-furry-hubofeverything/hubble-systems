@@ -56,7 +56,6 @@
     vfio_save = false;
     hotplug_type = "None";
   };
-  services.logind.killUserProcesses = true; # Hyprland supergfxctl fix
 
   # Gaming gpu power thing
   programs.gamemode.settings.gpu = {

@@ -13,7 +13,6 @@
     ./common/security.nix
     ./common/wayland.nix
 
-    # ./common/desktop-environments/hyprland.nix
     ./common/desktop-environments/gnome.nix
 
     ./common/hardware/logitechWheelSupport.nix
