@@ -1,0 +1,9 @@
+--- a/build.gradle
++++ b/build.gradle
+@@ -9,7 +9,6 @@ targetCompatibility = '1.11'
+ compileJava {
+ 	// Suppress warnings about internal api usage - https://stackoverflow.com/a/19553686/6238618
+ 	options.fork = true
+-	options.forkOptions.executable = 'javac'
+ 	options.compilerArgs << '-XDignore.symbol.file'
+ }
