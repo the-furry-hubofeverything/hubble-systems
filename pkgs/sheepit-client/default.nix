@@ -1,9 +1,7 @@
 { lib
 , stdenv
 , fetchFromGitLab
-# , fetchurl
 , makeWrapper
-, addOpenGLRunpath
 , writeText
 , jdk
 , gradle_7
@@ -11,7 +9,12 @@
 , perl
 , glew
 , xorg
-, cudaPackages
+, libxkbcommon
+, libglvnd
+, zlib
+, buildFHSEnv
+, extraPkgs ? pkgs: [ ]
+, extraLibs ? pkgs: [ ]
 }:
 
 let   # fake build to pre-download deps into fixed-output derivation
@@ -87,27 +90,37 @@ let   # fake build to pre-download deps into fixed-output derivation
 in stdenv.mkDerivation rec {
   inherit pname version src patches;
 
-  # src = fetchurl {
-  #   url = "https://www.sheepit-renderfarm.com/media/applet/sheepit-client-${version}.jar";
-  #   hash = "sha256-juojHct/mpgY0Kgp4WVGM/2/RelJ+4zmkF1qhJE1Bb8=";
-  # };
+  fhsenv = buildFHSEnv {
+    name = "${pname}-fhs-env";
+    runScript = "";
 
-  # dontUnpack = true;
+    # TODO Fix sheepit SIGTERM on SIGINT in bwrap
 
-  # TODO gradle is such a pain in the butt
-  # buildInputs = [  ];
+    targetPkgs = pkgs: with pkgs; [
+      jdk
+    ] ++ extraPkgs pkgs;
+
+    multiPkgs = pkgs: with pkgs; [
+      libglvnd
+      xorg.libX11
+      xorg.libXfixes
+      xorg.libXi
+      xorg.libXrender
+      xorg.libXxf86vm 
+      xorg.libSM
+      xorg.libICE
+      libxkbcommon
+      glew
+      zlib
+    ] ++ extraLibs pkgs;
+  };
+
+
   nativeBuildInputs = [ 
     jdk 
     git 
     gradle_7
-    glew
-    xorg.libXrender
-    xorg.libXfixes
-    xorg.libXi
-    xorg.libXxf86vm
     makeWrapper 
-    cudaPackages.cudatoolkit
-    cudaPackages.autoAddOpenGLRunpathHook 
   ];
 
   preBuild = ''
@@ -129,14 +142,19 @@ in stdenv.mkDerivation rec {
     mkdir -pv $out/bin $out/share/java
     cp build/libs/sheepit-client-all.jar $out/share/java/${pname}.jar
 
-    makeWrapper ${jdk}/bin/java $out/bin/${pname} \
-      --add-flags "-jar $out/share/java/${pname}.jar"
-
     runHook postInstall
+  '';
+  
+  postFixup = ''
+    makeWrapper ${fhsenv}/bin/${pname}-fhs-env $out/bin/${pname} \
+      --add-flags "${jdk}/bin/java -jar $out/share/java/${pname}.jar"
   '';
 
   meta = with lib; {
-    description = "";
+    # supernekonyannyan (an admin) from the Sheepit discord has
+    # requested to clarify that this implementation is not officially 
+    # supported. Please make a issue in nixpkgs before asking sheepit.
+    description = "A client for the Sheepit render farm.";
     homepage = "https://gitlab.com/sheepitrenderfarm/client/";
     mainProgram = pname;
     platforms = [ "x86_64-linux" ];
