@@ -18,13 +18,15 @@
     # k3s
     # ./common/services/k3s.nix
 
-    ../common/btrfs-with-rollback.nix
+
     ../common/nix-settings.nix
     ../common/hubbleGroups.nix
     ../common/development.nix
     ../common/security.nix
     ../common/bash-config.nix
-    ../common/zfs.nix
+
+    ../common/filesystems/btrfs-with-rollback.nix
+    ../common/filesystems/zfs.nix
   ];
   # TODO implement auto update to github flake, add action to update flake.lock
   # system.autoUpgrade.enable = true;
