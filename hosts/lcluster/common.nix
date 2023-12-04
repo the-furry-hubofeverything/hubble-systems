@@ -18,6 +18,9 @@
     # k3s
     # ./common/services/k3s.nix
 
+    # sheepit-client
+    ./common/services/sheepit.nix
+
     ../common/nix-settings.nix
     ../common/hubbleGroups.nix
     ../common/development.nix
