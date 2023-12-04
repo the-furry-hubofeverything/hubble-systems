@@ -76,4 +76,9 @@ in
         "proxy_ssl_server_name on;";
     };
   };
+
+  # Allow DNS server access 
+  networking.firewall = {
+    allowedUDPPorts = [ 53 ];
+  };
 }
