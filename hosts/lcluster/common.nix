@@ -18,7 +18,6 @@
     # k3s
     # ./common/services/k3s.nix
 
-
     ../common/nix-settings.nix
     ../common/hubbleGroups.nix
     ../common/development.nix
@@ -26,6 +25,7 @@
     ../common/bash-config.nix
 
     ../common/filesystems/btrfs-with-rollback.nix
+    ../common/filesystems/mergerfs.nix
     ../common/filesystems/zfs.nix
   ];
   # TODO implement auto update to github flake, add action to update flake.lock
