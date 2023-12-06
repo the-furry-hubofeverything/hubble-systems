@@ -55,6 +55,7 @@ in
 
           # Services
           "grocy.gulo.dev" = ips.enterprise-asus-lcluster;
+          "vw.gulo.dev" = ips.enterprise-asus-lcluster;
         };
       };
       

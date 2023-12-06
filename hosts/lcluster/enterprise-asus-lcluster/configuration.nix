@@ -1,7 +1,9 @@
 {
   imports = [
     ./hardware-configuration.nix
+    ./services/nas.nix
     ./services/grocy.nix
+    ./services/vaultwarden.nix
   ];
 
   hardware.nvidia.prime = {
