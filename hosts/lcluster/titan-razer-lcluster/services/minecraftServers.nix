@@ -7,8 +7,8 @@
   ...
 }: let
   fanesTrainShenanigans = pkgs.fetchPackwizModpack {
-    url = "https://github.com/the-furry-hubofeverything/fanes-train-shenanigans/raw/8a569e29b44a36d63a4f46eb373477b524091fd2/pack.toml";
-    packHash = "sha256-wHgS3JJlTiSesYuKdXDm0hcUepTO2gXSp4b0vqqmJEA=";
+    url = "https://github.com/the-furry-hubofeverything/fanes-train-shenanigans/raw/fd092b884611cf17594cc57b39b8867788f838a7/pack.toml";
+    packHash = "sha256-maxrc3JbI0OpXY7LlevJrulbvVveJvWML7Q512GPeZU=";
   };
 
   optimizeServerModpack = modpack: pname: version: pkgs.stdenvNoCC.mkDerivation {
