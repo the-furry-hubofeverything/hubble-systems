@@ -102,6 +102,10 @@
       hosts_allow = 192.168.100.0/24, localhost, 127.0.0.1
       writeable = Yes
 
+      # Don't hide dot files - same behavior for windows, prevents Unity/VCC shenanigans
+      # ie. VRChat Creator Companion error "Access to the '[...]\Packages\.gitignore' is denied."
+      hide dot files = No
+
       read raw = Yes
       write raw = Yes
       max xlimit = 65535
