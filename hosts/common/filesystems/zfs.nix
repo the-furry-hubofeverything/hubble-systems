@@ -4,6 +4,6 @@
   
   services.zfs.autoScrub = {
     enable = true;
-    interval = "Mon, Fri 03:00";
+    interval = "Mon,Fri 03:00";
   };
 }
