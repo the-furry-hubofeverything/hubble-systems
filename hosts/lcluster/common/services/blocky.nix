@@ -22,17 +22,36 @@ in
         https = 44343;
       };
 
-      upstream = {
-        default = [
-          # All DoH resolvers, which means this can act like a proxy for non-DoH capable apps
-          "https://cloudflare-dns.com/dns-query"
-          "https://dns.google/dns-query"
-          "https://dns.quad9.net/dns-query"
-          "https://anycast.uncensoreddns.org/dns-query"
-        ];
+      upstreams = {
+        groups = {
+          default = [
+            # All DoH resolvers, which means this can act like a proxy for non-DoH capable apps
+            "https://cloudflare-dns.com/dns-query"
+            "https://dns.google/dns-query"
+            "https://dns.quad9.net/dns-query"
+            "https://anycast.uncensoreddns.org/dns-query"
+          ];
+        };        
       };
 
-      startVerifyUpstream = true;
+      # TODO blocky service seems to start before network devices do 
+      # startVerifyUpstream = true;
+
+      bootstrapDns = [
+        {
+          upstream = "https://dns.google/dns-query";
+          ips = [
+            "8.8.8.8"
+            "8.8.4.4"
+          ];
+        }
+        {
+          upstream = "https://cloudflare-dns.com/dns-query";
+          ips = [
+            "104.16.248.249"
+          ];
+        }
+      ];
 
       blocking = {
         blackLists = {
