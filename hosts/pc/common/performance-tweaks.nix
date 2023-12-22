@@ -3,7 +3,6 @@
   services.thermald.enable = true;
 
   # kernel tweaks
-  programs.cfs-zen-tweaks.enable = true;
   boot.kernel.sysctl = {
     "net.core.netdev_max_backlog" = 16384;
     "net.core.somaxconn" = 8192;
