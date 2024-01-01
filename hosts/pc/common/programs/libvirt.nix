@@ -78,5 +78,10 @@
   environment.systemPackages = with pkgs; [
     virtiofsd
     libguestfs # needed to virt-sparsify qcow2 files
+    looking-glass-client
+  ];
+
+  systemd.tmpfiles.rules = [
+    "f /dev/shm/looking-glass 0660 hubble libvirtd -"
   ];
 }
