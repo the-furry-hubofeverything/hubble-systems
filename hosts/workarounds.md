@@ -47,28 +47,34 @@ especially multilingual ones.
 To be removed when the above issue is fixed.
 
 ```nix
+{ pkgs, lib, config, ... }: {
   # https://github.com/NixOS/nixpkgs/issues/119433#issuecomment-1326957279
   # Workaround for 119433
-  
-  fonts.fontDir.enable = true;
 
-  system.fsPackages = [pkgs.bindfs];
+  system.fsPackages = [ pkgs.bindfs ];
   fileSystems = let
     mkRoSymBind = path: {
       device = path;
       fsType = "fuse.bindfs";
-      options = ["ro" "resolve-symlinks" "x-gvfs-hide"];
+      options = [ "ro" "resolve-symlinks" "x-gvfs-hide" ];
+    };
+    aggregatedIcons = pkgs.buildEnv {
+      name = "system-icons";
+      paths = if (config.services.xserver.desktopManager.gnome.enable) then lib.singleton pkgs.gnome.gnome-themes-extra else lib.singleton pkgs.libsForQt5.breeze-qt5;
+      pathsToLink = [ "/share/icons" ];
     };
     aggregatedFonts = pkgs.buildEnv {
       name = "system-fonts";
-      paths = config.fonts.fonts;
-      pathsToLink = ["/share/fonts"];
+      paths = config.fonts.packages;
+      pathsToLink = [ "/share/fonts" ];
     };
   in {
-    # Create an FHS mount to support flatpak host icons/fonts
-    "/usr/share/icons" = mkRoSymBind (config.system.path + "/share/icons");
-    "/usr/share/fonts" = mkRoSymBind (aggregatedFonts + "/share/fonts");
+    "/usr/share/icons" = mkRoSymBind "${aggregatedIcons}/share/icons";
+    "/usr/local/share/fonts" = mkRoSymBind "${aggregatedFonts}/share/fonts";
   };
+  
+  fonts.fontDir.enable = true;
+}
 ```
 
 ### Blender Steam doesn't run on wayland

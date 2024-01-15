@@ -13,6 +13,9 @@
     ./common/security.nix
     ./common/wayland.nix
 
+    # For 119433
+    ./common/flatpak-font-workaround.nix
+
     ./common/desktop-environments/gnome.nix
 
     ./common/hardware/logitechWheelSupport.nix
