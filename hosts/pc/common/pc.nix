@@ -75,7 +75,7 @@
     unifont
     winePackages.fonts
     
-    unstable.quicksand
+    quicksand
     ubuntu_font_family
     comic-neue
     koulen
