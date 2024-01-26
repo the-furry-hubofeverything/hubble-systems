@@ -10,7 +10,7 @@
     ./hardware-configuration.nix
     ./programs/libvirt-win10vm.nix
     ./programs/wireshark.nix
-    ./programs/waydroid.nix
+    # ./programs/waydroid.nix
   ];
 
   # === WORKAROUND ===
