@@ -24,6 +24,12 @@
       url = "github:the-furry-hubofeverything/nix-warez?dir=blender";
       inputs.nixpkgs.follows = "nixpkgs"; # use our nixpkgs
     };
+
+    # VR related programs
+    nixpkgs-xr.url = "github:nix-community/nixpkgs-xr";
+
+    # Reboot detection
+    nixos-needsreboot.url = "https://flakehub.com/f/thefossguy/nixos-needsreboot/*.tar.gz";
     
     # Secure boot
     lanzaboote = {
