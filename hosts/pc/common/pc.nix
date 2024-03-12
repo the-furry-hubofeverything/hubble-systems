@@ -1,6 +1,7 @@
 {
   pkgs,
   config,
+  inputs,
   ...
 }: {
   boot.plymouth.enable = true;
@@ -63,6 +64,7 @@
 
     kitty
     netbird-ui
+    inputs.nixos-needsreboot.packages.${pkgs.system}.default
   ];
 
   hardware.enableAllFirmware = true;
