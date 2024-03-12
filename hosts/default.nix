@@ -105,6 +105,7 @@ in {
         nixos-hardware.omen-15-en0010ca
 
         inputs.lanzaboote.nixosModules.lanzaboote
+        inputs.nixpkgs-xr.nixosModules.nixpkgs-xr
       ];
   };
 }
