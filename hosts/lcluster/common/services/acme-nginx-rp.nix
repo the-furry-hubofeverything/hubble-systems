@@ -1,4 +1,4 @@
-{ config, pkgs, ... }: {
+{ config, pkgs, lib, ... }: {
   security.acme = {
     acceptTerms = true;
     defaults = {
@@ -41,4 +41,7 @@
       acmeRoot = null;
     };
   };
+
+  # Allow Netbird Access
+  networking.firewall.interfaces."wt0".allowedTCPPorts = lib.optionals config.services.netbird.enable [ 443 ];
 }
