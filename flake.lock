@@ -328,16 +328,12 @@
       }
     },
     "hs-secrets": {
-      "inputs": {
-        "sops-nix": [
-          "sops-nix"
-        ]
-      },
       "locked": {
-        "dirtyRev": "a5da3719c74f145ea391451e6f1d4e49602b931b-dirty",
-        "dirtyShortRev": "a5da371-dirty",
-        "lastModified": 1699691291,
-        "narHash": "sha256-RoqEU6A5Ee8fSK1h6q5Qq6dXJJHQ0ilFo+3+Cb/JCi0=",
+        "lastModified": 1711680767,
+        "narHash": "sha256-73LVf7fm2sb84DbqU0679kdfsOfykKqb4cvMhmzTMxw=",
+        "ref": "refs/heads/master",
+        "rev": "3e4210373cbc4cf94ff42e5199c7a72ac9704993",
+        "revCount": 5,
         "type": "git",
         "url": "file:///run/media/hubble/Data/GithubFurry/HS-secrets"
       },

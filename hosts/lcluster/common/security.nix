@@ -6,6 +6,7 @@
 
   # TODO remove ssh RSA key
 
+  # TODO Set passwords declaratively for all systems
   users.mutableUsers = false;
 
   sops.secrets.hubblePasswd.neededForUsers = true;

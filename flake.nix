@@ -2,10 +2,7 @@
   description = "Hubble's systems";
 
   inputs = {
-    hs-secrets = {
-      url = "/run/media/hubble/Data/GithubFurry/HS-secrets";
-      inputs.sops-nix.follows = "sops-nix";
-    };
+    hs-secrets.url = "/run/media/hubble/Data/GithubFurry/HS-secrets";
 
     # Nixpkgs
     nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";

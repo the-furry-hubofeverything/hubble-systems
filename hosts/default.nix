@@ -16,9 +16,6 @@
 
       inputs.sops-nix.nixosModules.sops
       inputs.impermanence.nixosModules.impermanence
-
-      # inputs.hs-secrets.nixosModules.common.common
-      inputs.hs-secrets.nixosModules.lcluster.common
     ];
 
     piCluster = [
