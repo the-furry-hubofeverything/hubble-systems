@@ -84,6 +84,9 @@
     inter
   ];
 
+  # For compatibility with flatpak etc.
+  fonts.fontDir.enable = true;
+
   fonts.fontconfig.defaultFonts.sansSerif = [ "Inter" ];
 
   # Netbird VPN

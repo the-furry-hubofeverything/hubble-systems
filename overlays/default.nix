@@ -18,6 +18,10 @@
     obs-studio = prev.obs-studio.overrideAttrs (_: oldAttrs: {
       cmakeFlags = oldAttrs.cmakeFlags ++ [ "-DENABLE_LIBFDK=ON" ];
     });
+
+    # NixOS/nixpkgs#119433
+    inherit (inputs.nixpkgs-unstable.legacyPackages.${prev.system})
+      flatpak;
   };
 
   # When applied, the unstable nixpkgs set (declared in the flake inputs) will
