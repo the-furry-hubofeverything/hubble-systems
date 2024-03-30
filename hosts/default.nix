@@ -4,8 +4,12 @@
 }: let
   nixos-hardware = inputs.hardware.nixosModules;
 
-  sharedModules = {
-    lCluster = [
+  sharedModules = rec {
+    all = [
+      inputs.sops-nix.nixosModules.sops
+    ];
+
+    lCluster = all ++ [
       ./lcluster/common.nix
 
       nixos-hardware.common-pc
@@ -14,21 +18,17 @@
       nixos-hardware.common-pc-laptop
       nixos-hardware.common-pc-laptop-hdd
 
-      inputs.sops-nix.nixosModules.sops
       inputs.impermanence.nixosModules.impermanence
     ];
 
-    piCluster = [
+    piCluster = all ++ [
       ./picluster/common.nix
-
-      inputs.sops-nix.nixosModules.sops
     ];
 
-    pc = [
+    pc = all ++ [
       ./pc/common.nix
 
       nixos-hardware.common-pc
-      inputs.sops-nix.nixosModules.sops
     ];
   };
 in {
