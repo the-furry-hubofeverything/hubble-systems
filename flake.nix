@@ -2,8 +2,12 @@
   description = "Hubble's systems";
 
   inputs = {
+    # ===  Private secrets repository ===
+    # If testing configuration, please set this to your own copy of secrets.
+    # TODO upload template of secrets
     hs-secrets.url = "/run/media/hubble/Data/GithubFurry/HS-secrets";
 
+    # === Main dependencies ===
     # Nixpkgs
     nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -16,11 +20,7 @@
       inputs.nixpkgs.follows = "nixpkgs"; # use our nixpkgs
     };
 
-    # Blender binaries
-    blender-bin = {
-      url = "github:the-furry-hubofeverything/nix-warez?dir=blender";
-      inputs.nixpkgs.follows = "nixpkgs"; # use our nixpkgs
-    };
+    # === NixOS related dependencies ===
 
     # VR related programs
     nixpkgs-xr.url = "github:nix-community/nixpkgs-xr";
@@ -49,14 +49,21 @@
       inputs.nixpkgs.follows = "nixpkgs"; # use our nixpkgs
     };
 
-    # Shameless plug: looking for a way to nixify your themes and make
-    # everything match nicely? Try nix-colors!
+    # Unify colors
+    # TODO: Actually use this
     nix-colors.url = "github:misterio77/nix-colors";
 
     # Run unpatched binaries on Nix/NixOS
     nix-alien.url = "github:thiagokokada/nix-alien";
     # Nix language server
     nixd.url = "github:nix-community/nixd/release/1.2";
+
+    # === Extra software ===
+    # Blender binaries
+    blender-bin = {
+      url = "github:the-furry-hubofeverything/nix-warez?dir=blender";
+      inputs.nixpkgs.follows = "nixpkgs"; # use our nixpkgs
+    };
 
     # Minecraft server utils
     nix-minecraft.url = "github:Infinidoge/nix-minecraft";
@@ -86,7 +93,6 @@
     # pass to it, with each system as an argument
     forAllPlatforms = nixpkgs.lib.genAttrs platforms;
   in {
-    # TODO add nix-colors
     # Your custom packages
     # Acessible through 'nix build', 'nix shell', etc
     packages = forAllPlatforms (platform: import ./pkgs nixpkgs.legacyPackages.${platform});
