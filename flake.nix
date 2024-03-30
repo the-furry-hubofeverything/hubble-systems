@@ -27,6 +27,12 @@
 
     # Reboot detection
     nixos-needsreboot.url = "https://flakehub.com/f/thefossguy/nixos-needsreboot/*.tar.gz";
+
+    # command-not-found for Flake-based, non-channel backed NixOS systems
+    flake-programs-sqlite = {
+      url = "github:wamserma/flake-programs-sqlite";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     
     # Secure boot
     lanzaboote = {
