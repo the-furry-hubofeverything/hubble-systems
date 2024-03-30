@@ -99,24 +99,26 @@
   services.samba = {
     enable = true;
     extraConfig = ''
-      hosts_allow = 192.168.100.0/24, localhost, 127.0.0.1
-      writeable = Yes
+      interfaces = virbr1, lo
+      bind interfaces only = yes
 
       # Don't hide dot files - same behavior for windows, prevents Unity/VCC shenanigans
       # ie. VRChat Creator Companion error "Access to the '[...]\Packages\.gitignore' is denied."
       hide dot files = No
 
-      read raw = Yes
-      write raw = Yes
-      max xlimit = 65535
-      socket options = TCP_NODELAY
-      SO_RCVBUF = 65536
-      SO_SNDBUF = 65536
+      read raw = yes
+      write raw = yes
+      use sendfile = yes
+      socket options = IPTOS_LOWDELAY TCP_NODELAY IPTOS_THROUGHPUT
       min protocol = smb2
-      deadtime = 15
+      deadtime = 30
+      
+      server smb encrypt = desired
     '';
     shares = {
-      Data = {path = "/run/media/hubble/Data";};
+      Data = {
+        path = "/run/media/hubble/Data";
+      };
     };
     openFirewall = false;
   };
