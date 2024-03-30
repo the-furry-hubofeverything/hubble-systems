@@ -154,7 +154,17 @@ This is required for HIP to work with (at the very least) Blender, even with hip
 
 ### Gnome 45 KMS thread problems with video driver
 
-TODO: document
+Gnome shenanigans. 
+
+The problem arises when I plug in my DP monitor. Then, black screen until I remove the cable. 
+
+Gnome 45 has a new experimental separate thread for KMS (kernel mode setting). Unfortunately GPU drivers hasn't been nice to it, since their operations take longer than the scheduler expects, and it contributes to GNOME's rlimit, which then the kernel kills because it was exceeded.
+
+But the source of the problem eludes me, and it seems like there's a whole host of problems that went along this change (https://gitlab.gnome.org/GNOME/mutter/-/issues/3151).
+
+As of March 29, 2024, I'm too burnt out to deal with this. I really don't want to work with Gnome folks.
+
+May switch to KDE.
 
 ```nix
   # KMS thread workaround
