@@ -129,12 +129,11 @@ See [PR](https://github.com/nix-community/nurl/pull/220)
 `nurl`, at this point, generates command that is inoperable on this system, which breaks my script written for nixpkgs ONLY for systems from this config. This fixes it.
 
 ```nix
-  environment.systemPackages = with pkgs; [
-    (nurl.overrideAttrs (_: prev: {
-      patches = prev.patches ++ [
+    nurl = prev.nurl.overrideAttrs (_: oldAttrs: {
+      patches = oldAttrs.patches ++ [
         ./nurl-flake.patch
       ];
-    }))
+    });
 ```
 
 ### HIP workaround
@@ -171,6 +170,16 @@ May switch to KDE.
   environment.variables = {
     MUTTER_DEBUG_KMS_THREAD_TYPE = "user";
   };
+```
+
+### OBS missing libfdk AAC encoder
+
+Fixed in NixOS/nixpkgs#278127, but not until NixOS 24.05.
+
+```nix
+  obs-studio = prev.obs-studio.overrideAttrs (_: oldAttrs: {
+    cmakeFlags = oldAttrs.cmakeFlags ++ [ "-DENABLE_LIBFDK=ON" ];
+  });
 ```
 
 ## picluster
