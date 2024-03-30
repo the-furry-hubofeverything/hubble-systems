@@ -7,6 +7,7 @@
   sharedModules = rec {
     all = [
       inputs.sops-nix.nixosModules.sops
+      inputs.flake-programs-sqlite.nixosModules.programs-sqlite
     ];
 
     lCluster = all ++ [
