@@ -39,12 +39,12 @@ Further investigation is required.
 
 ### Flatpak Icons and Fonts
 
-This is NixOS/nixpkgs#119433, an issue that's two years old.
+This is NixOS/nixpkgs#119433.
 
 I haven't encountered many issues with Icons (since I'm not using a custom icon pack), but I definitely missed fonts,
 especially multilingual ones. 
 
-To be removed when the above issue is fixed.
+TODO: remove for 24.05
 
 ```nix
 { pkgs, lib, config, ... }: {
@@ -95,7 +95,7 @@ I didn't bother to make an issue because as far as I know, Blender is the only s
 ```
 
 ### Libvirt hook scripts
-This is NixOS/nixpkgs#51152, and it's a five year old issue.
+This is NixOS/nixpkgs#51152.
 
 But support for hooks has been merged since NixOS/nixpkgs#232250, so it probably will be removed on 23.11
 
