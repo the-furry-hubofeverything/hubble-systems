@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  lib,
   ...
 }: {
   boot.kernelParams = [
@@ -16,84 +17,92 @@
     "i2c_nvidia_gpu"
   ];
 
-  # Temporary fix to https://github.com/NixOS/nixpkgs/issues/51152, to be changed when libvirtd.hookModule is implemented
-  # TODO migrate to a more parametric form instead a WHOLLLE script
-  systemd.services.libvirtd.preStart = let
-    qemuHook = pkgs.writeScript "qemu-hook" ''
-      #!${pkgs.stdenv.shell}
+  virtualisation.libvirtd = {
+    allowedBridges = [
+      "virbr0"
+      "virbr1"
+    ];
 
-      GUEST_NAME="$1"
-      OPERATION="$2"
-      SUB_OPERATION="$3"
+    hooks = {
+      qemu."supergfx-nvidia-hybrid-graphics-switch" = let
+        vmName = "win10";
 
-      if [ "$GUEST_NAME" == "win10" ]; then
-        if [ "$OPERATION" == "prepare" ]; then
-          if [ $(/run/current-system/sw/bin/supergfxctl -g) != "Integrated" ]; then
-            echo "Must be in integrated mode"
-            exit 1
-          fi
+        pciDevices = [
+          # GPU
+          "pci_0000_01_00_0"
+          "pci_0000_01_00_1"
+          "pci_0000_01_00_2"
+          "pci_0000_01_00_3"
 
-          /run/current-system/sw/bin/supergfxctl -m "Vfio"
+          # USB-C
+          "pci_0000_07_00_3"
+        ];
+      in
+        lib.getExe (pkgs.writeShellApplication {
+          name = "qemu-hook";
 
-          while [ $(/run/current-system/sw/bin/supergfxctl -g) != "Vfio" ]; do
-            sleep 1
-          done
+          runtimeInputs = with pkgs; [
+            libvirt
+            kmod
+            systemd
+            supergfxctl
+            libnotify
+          ];
 
-          modprobe -r --remove-holder nvidia_drm
-          modprobe -r --remove-holder nvidia_uvm
-          modprobe -r --remove-holder nvidia_modeset
-          modprobe -r --remove-holder nvidia
+          text = ''
+            GUEST_NAME="$1"
+            OPERATION="$2"
+            # SUB_OPERATION="$3"
 
-          virsh nodedev-detach pci_0000_01_00_0
-          virsh nodedev-detach pci_0000_01_00_1
-          virsh nodedev-detach pci_0000_01_00_2
-          virsh nodedev-detach pci_0000_01_00_3
+            if [ "$GUEST_NAME" == "${vmName}" ]; then
+              if [ "$OPERATION" == "prepare" ]; then
+                if [ "$(supergfxctl -g)" != "Integrated" ]; then
+                  notify-send "Libvirt error" "Hybrid graphics be in integrated mode" -u critical
+                  exit 1
+                fi
 
-          virsh nodedev-detach pci_0000_07_00_3
+                supergfxctl -m "Vfio"
 
-          systemctl set-property --runtime -- init.scope AllowedCPUs=0-5
-          systemctl set-property --runtime -- user.slice AllowedCPUs=0-5
-          systemctl set-property --runtime -- system.slice AllowedCPUs=0-5
-        fi
+                while [ "$(supergfxctl -g)" != "Vfio" ]; do
+                  sleep 1
+                done
 
-        # if [ "$OPERATION" == "started" ]; then
-        #   dhcpcd -n virbr0
-        # fi
+                modprobe -r --remove-holder nvidia_drm
+                modprobe -r --remove-holder nvidia_uvm
+                modprobe -r --remove-holder nvidia_modeset
+                modprobe -r --remove-holder nvidia
 
-        if [ "$OPERATION" == "stopped" ]; then
-          /run/current-system/sw/bin/supergfxctl -m "Integrated"
+                ${lib.strings.concatMapStringsSep "\n    " (x: "virsh nodedev-detach " + x) pciDevices}
 
-          virsh nodedev-reattach pci_0000_01_00_0
-          virsh nodedev-reattach pci_0000_01_00_1
-          virsh nodedev-reattach pci_0000_01_00_2
-          virsh nodedev-reattach pci_0000_01_00_3
+                systemctl set-property --runtime -- init.scope AllowedCPUs=0-5
+                systemctl set-property --runtime -- user.slice AllowedCPUs=0-5
+                systemctl set-property --runtime -- system.slice AllowedCPUs=0-5
+              fi
 
-          virsh nodedev-reattach pci_0000_07_00_3
+              if [ "$OPERATION" == "stopped" ]; then
+                if [ "$(supergfxctl -g)" != "Vfio" ]; then
+                  notify-send "Libvirt error" "Critical error (unexpected graphics mode)" -u critical
+                  exit 1
+                fi
+                supergfxctl -m "Integrated"
 
-          systemctl set-property --runtime -- init.scope AllowedCPUs=0-15
-          systemctl set-property --runtime -- user.slice AllowedCPUs=0-15
-          systemctl set-property --runtime -- system.slice AllowedCPUs=0-15
+                ${lib.strings.concatMapStringsSep "\n    " (x: "virsh nodedev-reattach " + x) pciDevices}
+
+                systemctl set-property --runtime -- init.scope AllowedCPUs=0-15
+                systemctl set-property --runtime -- user.slice AllowedCPUs=0-15
+                systemctl set-property --runtime -- system.slice AllowedCPUs=0-15
 
 
-          modprobe nvidia
-          modprobe nvidia_drm
-          modprobe nvidia_uvm
-          modprobe nvidia_modeset
-        fi
-      fi
-    '';
-  in ''
-    mkdir -p /var/lib/libvirt/hooks
-    chmod 755 /var/lib/libvirt/hooks
-
-    # Copy hook files
-    ln -sf ${qemuHook} /var/lib/libvirt/hooks/qemu
-  '';
-
-  virtualisation.libvirtd.allowedBridges = [
-    "virbr0"
-    "virbr1"
-  ];
+                modprobe nvidia
+                modprobe nvidia_drm
+                modprobe nvidia_uvm
+                modprobe nvidia_modeset
+              fi
+            fi
+          '';
+        });
+    };
+  };
 
   # SMB for second drive
   services.samba = {
@@ -112,7 +121,7 @@
       socket options = IPTOS_LOWDELAY TCP_NODELAY IPTOS_THROUGHPUT
       min protocol = smb2
       deadtime = 30
-      
+
       server smb encrypt = desired
     '';
     shares = {

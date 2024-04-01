@@ -71,19 +71,6 @@ I didn't bother to make an issue because as far as I know, Blender is the only s
   };
 ```
 
-### Libvirt hook scripts
-This is NixOS/nixpkgs#51152.
-
-But support for hooks has been merged since NixOS/nixpkgs#232250, so it probably will be removed on 23.11
-
-```nix
-  # Temporary fix to https://github.com/NixOS/nixpkgs/issues/51152, to be changed when libvirtd.hookModule is implemented
-  # TODO migrate to a more parametric form instead a WHOLLLE script
-  systemd.services.libvirtd.preStart = let
-    qemuHook = pkgs.writeScript "qemu-hook" ''
-      #!${pkgs.stdenv.shell}
-```
-
 ### Firewall for specific interfaces (openFirewall in modules)
 
 After light research, there's no way to limit `openFirewall` to specific interfaces.
