@@ -60,6 +60,13 @@
       pkgs.blender_3_6
       pkgs.unstable.xwaylandvideobridge
     ];
+
+    pointerCursor = {
+      name = "Wii-Pointer";
+      package = pkgs.wii-pointer;
+      gtk.enable = true;
+      x11.enable = true;
+    };
   };
 
   # Enable home-manager and git

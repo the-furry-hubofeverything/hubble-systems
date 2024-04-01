@@ -65,6 +65,7 @@
     kitty
     netbird-ui
     inputs.nixos-needsreboot.packages.${pkgs.system}.default
+    wii-pointer
   ];
 
   hardware.enableAllFirmware = true;
