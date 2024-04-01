@@ -3,8 +3,6 @@ All the jank in the hosts configuration.
 
 A solution is considered a workaround when the problem or solution evolves from something unintentional, like a bug or a unintentional feature that could be removed at any time. This means that these workarounds may stop working at any time.
 
-As of Oct 24, 2023, not all workarounds may be documented. This line will be removed once I'm confident all workarounds are documented.
-
 > [!IMPORTANT]
 > These workarounds may not work after source flake updates. <br>
 > When debugging, check workarounds first to see if the subjects debugged are affected.
