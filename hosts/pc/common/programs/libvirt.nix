@@ -50,20 +50,14 @@
     enable = true;
     onBoot = "ignore";
     onShutdown = "shutdown";
-    qemu.ovmf.enable = true;
-
-    # Windows 11 secure boot support https://github.com/NixOS/nixpkgs/issues/164064
-    qemu.ovmf.packages = [
-      (pkgs.OVMF.override {
-        secureBoot = true;
-        csmSupport = false;
-        httpSupport = true;
-        tpmSupport = true;
-      })
-      .fd
-    ];
-    qemu.swtpm.enable = true;
-    qemu.runAsRoot = true;
+    qemu = {
+      ovmf = {
+        enable = true;
+        packages = [ pkgs.OVMFFull.fd ]; # Windows 11 secure boot support https://github.com/NixOS/nixpkgs/issues/164064
+      };
+      swtpm.enable = true;
+      runAsRoot = true;
+    };
   };
 
   virtualisation.spiceUSBRedirection.enable = true;
