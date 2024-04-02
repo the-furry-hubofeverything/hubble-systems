@@ -16,7 +16,7 @@
     ./common/desktop-environments/gnome.nix
 
     ./common/hardware/logitechWheelSupport.nix
-    ./common/hardware/VR.nix
+    # ./common/hardware/VR.nix
 
     ./common/programs/kdeconnect.nix
     ./common/programs/lanzaboote.nix
