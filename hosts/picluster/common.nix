@@ -27,4 +27,6 @@
   };
 
   # TODO setup HA services
+
+  system.stateVersion = "23.11";
 }

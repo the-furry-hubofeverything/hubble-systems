@@ -89,4 +89,6 @@
   boot.swraid.enable = false;
 
   # TODO Setup HA sevices
+
+  system.stateVersion = "23.05";
 }
