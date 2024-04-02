@@ -1,7 +1,7 @@
 { pkgs, ... }: {
   environment.systemPackages = with pkgs; [
-    unstable.monado
-    unstable.opencomposite
+    monado
+    opencomposite
   ];
 
   nixpkgs.xr.enable = true;
