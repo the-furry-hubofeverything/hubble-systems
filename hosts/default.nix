@@ -30,6 +30,9 @@
       ./pc/common.nix
 
       nixos-hardware.common-pc
+
+      inputs.lanzaboote.nixosModules.lanzaboote
+      inputs.nixpkgs-xr.nixosModules.nixpkgs-xr
     ];
   };
 in {
@@ -101,9 +104,6 @@ in {
       ++ [
         ./pc/gulo-laptop/configuration.nix
         nixos-hardware.omen-15-en0010ca
-
-        inputs.lanzaboote.nixosModules.lanzaboote
-        inputs.nixpkgs-xr.nixosModules.nixpkgs-xr
       ];
   };
 }
