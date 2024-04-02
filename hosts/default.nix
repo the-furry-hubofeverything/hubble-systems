@@ -64,7 +64,7 @@ in {
   };
 
   # === Laptop cluster ===
-  lCluster-common = {
+  lcluster-common = {
     platform = "x86_64-linux";
     modules = sharedModules.lCluster ++ [./lcluster/common.nix];
   };
