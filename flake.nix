@@ -89,6 +89,9 @@
     hosts = import ./hosts {inherit inputs outputs;};
     users = import ./home-manager {};
 
+    # Helper Functions 
+    hs-utils = import ./utils nixpkgs.lib;
+
     # This is a function that generates an attribute by calling a function you
     # pass to it, with each system as an argument
     forAllPlatforms = nixpkgs.lib.genAttrs platforms;
@@ -120,7 +123,7 @@
         _hostname: host:
           nixpkgs.lib.nixosSystem {
             system = host.platform;
-            specialArgs = {inherit inputs outputs;};
+            specialArgs = {inherit hs-utils inputs outputs;};
             modules = host.modules;
           }
       )
