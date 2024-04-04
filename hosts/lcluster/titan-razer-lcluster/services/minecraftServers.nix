@@ -1,5 +1,6 @@
 {
   inputs,
+  hs-utils,
   config,
   pkgs,
   lib,
@@ -63,6 +64,18 @@ in {
     {
       assertion = config.services.nginx.enable && config.services.nginx.virtualHosts ? "${config.networking.hostName}.gulo.dev";
       message = "minecraftServers: ${config.networking.hostName}.gulo.dev is undefinied, this depends on acme-nginx-rp.nix";
+    }
+    {
+      assertion = hs-utils.sops.defaultIsEmpty config.sops;
+      message = "minecraftServers: defaultSopsFile not empty, cannot continue";
+    }
+    {
+      assertion = !hs-utils.sops.isDefault config.sops "minecraft-SMP-whitelist";
+      message = "minecraftServers: SMP server whitelist secret not defined";
+    }
+    {
+      assertion = !hs-utils.sops.isDefault config.sops "minecraft-creative-whitelist";
+      message = "minecraftServers: Creative server whitelist secret not defined";
     }
   ];
 

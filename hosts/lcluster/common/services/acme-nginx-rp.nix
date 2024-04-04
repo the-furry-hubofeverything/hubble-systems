@@ -1,4 +1,20 @@
-{ config, pkgs, lib, ... }: {
+{ config, hs-utils, pkgs, lib, ... }: {
+
+  assertions = [
+    {
+      assertion = hs-utils.sops.defaultIsEmpty config.sops;
+      message = "acme-nginx-rp: defaultSopsFile not empty, cannot continue";
+    }
+    {
+      assertion = !hs-utils.sops.isDefault config.sops "porkbun-api-key";
+      message = "acme-nginx-rp: Porkbun API key not defined";
+    }
+    {
+      assertion = !hs-utils.sops.isDefault config.sops "porkbun-api-sKey";
+      message = "acme-nginx-rp: Porkbun secret key not defined";
+    }
+  ];
+
   security.acme = {
     acceptTerms = true;
     defaults = {

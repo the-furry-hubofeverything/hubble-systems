@@ -88,4 +88,8 @@ with lib; {
   security.sudo.execWheelOnly = true;
 
   services.fail2ban.enable = true;
+
+  # We place down a empty file just so we can test and workaround 
+  # the fact that we don't actually have default secrets
+  sops.defaultSopsFile = ./.sops.yaml;
 }
