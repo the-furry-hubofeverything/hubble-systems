@@ -4,6 +4,9 @@
 }: let
   nixos-hardware = inputs.hardware.nixosModules;
 
+  # Host ID for *-common configurations
+  hostId-common = { networking.hostId = "356876b4"; };
+
   sharedModules = rec {
     all = [
       inputs.sops-nix.nixosModules.sops
@@ -42,7 +45,10 @@ in {
   # === Pi cluster ===
   picluster-common = {
     platform = "aarch64-linux";
-    modules = sharedModules.piCluster ++ [./picluster/common.nix];
+    modules = sharedModules.piCluster ++ [
+      ./picluster/common.nix
+      hostId-common
+    ];
   };
 
   brain-pi4-picluster = {
@@ -64,9 +70,13 @@ in {
   };
 
   # === Laptop cluster ===
+  # TODO: Get impermanance either working or just remove it
   lcluster-common = {
     platform = "x86_64-linux";
-    modules = sharedModules.lCluster ++ [./lcluster/common.nix];
+    modules = sharedModules.lCluster ++ [
+      ./lcluster/common.nix
+      hostId-common
+    ];
   };
 
   titan-razer-lcluster = {
@@ -94,7 +104,10 @@ in {
   # === Personal computers ===
   pc-common = {
     platform = "x86_64-linux";
-    modules = sharedModules.pc ++ [./pc/common.nix];
+    modules = sharedModules.pc ++ [
+      ./pc/common.nix
+      hostId-common
+    ];
   };
 
   Gulo-Laptop = {
