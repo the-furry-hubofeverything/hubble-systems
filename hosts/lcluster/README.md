@@ -18,11 +18,11 @@
   - Wireguard
 - Distributed storage
 - Blender rendering (local and remote combied)
-- Certificate updates
-- Vaultwarden
+- ~~Certificate updates~~
+- ~~Vaultwarden~~
 - Kopia
-- Grocy
-- Samba
+- ~~Grocy~~
+- ~~Samba~~
 - nextcloud (?)
 - Video encoding
 - Speech transcription/recognition
