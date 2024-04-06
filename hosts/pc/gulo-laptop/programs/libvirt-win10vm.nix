@@ -127,6 +127,8 @@
     shares = {
       Data = {
         path = "/run/media/hubble/Data";
+        "read only" = "no";
+        browsable = "yes";
       };
     };
     openFirewall = false;
