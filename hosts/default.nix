@@ -23,6 +23,7 @@
       nixos-hardware.common-pc-laptop-hdd
 
       inputs.impermanence.nixosModules.impermanence
+      outputs.nixosModules.flamenco
     ];
 
     piCluster = all ++ [

@@ -23,9 +23,6 @@
   environment.systemPackages = with pkgs; [
     kitty.terminfo
     git
-    
-    # Experiemental
-    # flamenco
   ];
 
   services.avahi.enable = true;

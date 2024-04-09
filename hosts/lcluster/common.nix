@@ -21,6 +21,9 @@
     # sheepit-client
     ./common/services/sheepit.nix
 
+    # flamenco worker
+    ./common/services/flamenco.nix
+
     ../common/nix-settings.nix
     ../common/hubbleGroups.nix
     ../common/development.nix
