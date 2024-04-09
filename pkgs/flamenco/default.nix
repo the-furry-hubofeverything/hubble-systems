@@ -7,14 +7,14 @@
 
 buildGoModule rec {
   pname = "flamenco";
-  version = "3.2";
+  version = "3.4";
 
   src = fetchFromGitea {
     domain = "projects.blender.org";
     owner = "studio";
     repo = "flamenco";
     rev = "v${version}";
-    hash = "sha256-wnLzAbPHB9B2cJGxztAQKEsRO3pvoUgdb4pAIZjlfis=";
+    hash = "sha256-xE6/C867mAv1S1S5/ojY6Pd0lVwTmasNKl7cI9eF0gk=";
   };
 
   webappOfflineCache = fetchYarnDeps {
@@ -22,7 +22,7 @@ buildGoModule rec {
     hash = "sha256-QcfyiL2/ALkxZpJyiwyD7xNlkOCPu4THCyywwZ40H8s=";
   };
 
-  vendorHash = "sha256-pRtRXIikFEiYznpFkqI8PS0Gmpg2oXK6OyypMUe7KPU=";
+  vendorHash = "sha256-kKvP6H4QBRzKQdexjbCFyrmeeutcnNEToCPnc8C6LcE=";
 
   nativeBuildInputs = [
     makeWrapper
