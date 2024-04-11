@@ -2,7 +2,7 @@
   sops.templates.".smbcredentials".content = "username=${config.sops.placeholder.flamencoSambaUser}\npassword=${config.sops.placeholder.flamencoSambaPasswd}";
 
   fileSystems."/srv/flamenco" = {
-    device = "//enterprise-asus-lcluster.gulo.dev/flamenco";
+    device = "//100.106.28.233/flamenco";
     fsType = "cifs";
     options = [
       "x-systemd.automount"

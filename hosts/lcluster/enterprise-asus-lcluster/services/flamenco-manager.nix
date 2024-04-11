@@ -1,5 +1,6 @@
 { config, ... }: 
-let port = 5260;
+let 
+  port = 5260;
 in {
   assertions = [
     {
@@ -11,12 +12,7 @@ in {
   services.flamenco = {
     listen = {inherit port;};
     role = ["manager"];
-    openFirewall = false;
-  };
-
-  networking.firewall.interfaces."wt0" = {
-    allowedTCPPorts = [port];
-    allowedUDPPorts = [1900];
+    openFirewall = true;
   };
 
   systemd.tmpfiles.rules = [
