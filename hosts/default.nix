@@ -118,6 +118,8 @@ in {
       ++ [
         ./pc/gulo-laptop/configuration.nix
         nixos-hardware.omen-15-en0010ca
+
+        inputs.hs-secrets.nixosModules.pc.Gulo-Laptop
       ];
   };
 }

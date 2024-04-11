@@ -10,6 +10,7 @@
     ./hardware-configuration.nix
     ./programs/libvirt-win10vm.nix
     ./programs/wireshark.nix
+    ./programs/flamenco-nas.nix
     # ./programs/waydroid.nix
   ];
 
