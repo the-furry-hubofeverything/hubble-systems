@@ -19,6 +19,22 @@ Since the user is defined in nixpkgs, we'll use the same logic as they do.
   sops.secrets.porkbun-api-key.owner = if config.security.acme.useRoot then "root" else "acme";
 ```
 
+### Flamenco GPU select
+
+Since Blender is notoriously difficult to work with in terms of GPU selection in command line arguments, a script is needed to utilize the GPU. 
+
+Workaround 1 - I used a script from [Stack Exchange](https://blender.stackexchange.com/a/256665), but I think I want to customize it later, just so I can be a bit more flexible with the choices. 
+
+Workaround 2 - I couldn't figure out how to add the script to the nix store without making it a package, so I used `systemd.tmpfiles`. There's got to be better way, but I don't know yet. 
+
+```nix
+  systemd.tmpfiles.rules = [
+    # WORKAROUND - I can't define the file under flamenco variables, or else the file
+    #              would not be included in the nix store of the workers. 
+    "L+ /run/flamenco/gpu-autoselect.py 0755 render render - ${gpu-autoselect}"
+  ];
+```
+
 ## pc
 
 ### Networking issue (Gulo-Laptop)

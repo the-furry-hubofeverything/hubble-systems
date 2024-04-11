@@ -350,11 +350,11 @@
     },
     "hs-secrets": {
       "locked": {
-        "lastModified": 1711885326,
-        "narHash": "sha256-P0NGLiGrqd/rO0IGLrKZFiTCPihYQe0OMzDhfwpCb50=",
+        "lastModified": 1712803849,
+        "narHash": "sha256-sPgSH7pvOMnEta96M2gGTrItTBLqrtSuRw2DFsj2ojs=",
         "ref": "refs/heads/master",
-        "rev": "464c4a307a79de1578b6f1b8cc95be1d9ee4e90e",
-        "revCount": 6,
+        "rev": "c9519cf7566bfa3bb21305171e6b6a3f5f5af7e2",
+        "revCount": 9,
         "type": "git",
         "url": "file:///run/media/hubble/Data/GithubFurry/HS-secrets"
       },

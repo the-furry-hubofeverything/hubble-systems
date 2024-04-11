@@ -4,6 +4,7 @@
     ./services/nas.nix
     ./services/grocy.nix
     ./services/vaultwarden.nix
+    ./services/flamenco-manager.nix
   ];
 
   hardware.nvidia.prime = {
