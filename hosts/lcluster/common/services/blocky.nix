@@ -97,8 +97,16 @@ in
     };
   };
 
-  # Allow DNS server access 
-  networking.firewall = {
-    allowedUDPPorts = [ 53 ];
+  networking = {
+    # Allow DNS server access 
+    firewall = {
+      allowedUDPPorts = [ 53 ];
+    };
+
+    nameservers = [
+      "127.0.0.1"
+      ips.titan-razer-lcluster
+      ips.enterprise-asus-lcluster
+    ];
   };
 }
