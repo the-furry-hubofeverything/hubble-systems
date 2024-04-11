@@ -10,11 +10,8 @@
   defaultConfig = {
     manager = {
       _meta = {version = 3;};
-      manager_name = "Flamenco Manager";
-      listen = ":${builtins.toString cfg.port}";
+      manager_name = "Flamenco";
       autodiscoverable = true;
-
-      shared_storage_path = "/srv/flamenco";
       shaman = {
         enabled = true;
         garbageCollect = {
@@ -23,12 +20,10 @@
           extraCheckoutPaths = [];
         };
       };
-
       task_timeout = "10m0s";
       worker_timeout = "1m0s";
       blocklist_threshold = 3;
       task_fail_after_softfail_count = 3;
-
       variables = {
         "blender" = {
           values = [
@@ -65,7 +60,11 @@
   };
 
   configFile = {
-    manager = yaml.generate "flamenco-manager.yaml" (defaultConfig.manager // cfg.managerConfig);
+    manager = yaml.generate "flamenco-manager.yaml" (defaultConfig.manager // cfg.managerConfig // {
+      # Flamenco manager config accepts this as relative path ONLY
+      local_manager_storage_path = "../../../../${cfg.managerConfig.local_manager_storage_path}";
+      listen = cfg.listen.ip + ":" + (toString cfg.listen.port);
+    });
     worker = yaml.generate "flamenco-worker.yaml" (defaultConfig.worker // cfg.workerConfig);
   };
 
@@ -119,13 +118,13 @@ in {
 
     user = lib.mkOption {
       description = lib.mdDoc "User under which flamenco runs under.";
-      default = "flamenco";
+      default = "render";
       type = str;
     };
 
     group = lib.mkOption {
       description = lib.mdDoc "Group under which flamenco runs under.";
-      default = "flamenco";
+      default = "render";
       type = str;
     };
 
@@ -135,10 +134,20 @@ in {
       type = path;
     };
 
-    port = lib.mkOption {
+    listen = lib.mkOption {
       description = lib.mdDoc "Flamenco Manager port.";
-      default = 8080;
-      type = port;
+      type = submodule {
+        options = {
+          ip = lib.mkOption {
+            default = "";
+            type = str;
+          };
+          port = lib.mkOption {
+            default = 8080;
+            type = int;
+          };
+        };
+      };
     };
 
     managerConfig = lib.mkOption {
@@ -147,6 +156,11 @@ in {
       type = submodule {
         freeformType = attrsOf anything;
         options = {
+          autodiscoverable = lib.mkOption {
+            description = lib.mdDoc "Use UPnP/SSDP to advertise manager.";
+            default = true;
+            type = bool;
+          };
           manager_name = lib.mkOption {
             description = lib.mdDoc "The name of the Manager.";
             default = "Flamenco Manager";
@@ -157,9 +171,15 @@ in {
             default = "${cfg.stateDir}/flamenco-manager.sqlite";
             type = path;
           };
+          shared_storage_path = lib.mkOption {
+            description = lib.mdDoc "Path of shared storage, used to store project files and output";
+            default = "/srv/flamenco";
+            type = path;
+          };
           local_manager_storage_path = lib.mkOption {
             description = lib.mdDoc "Path for Flamenco manager state files";
             default = "${cfg.stateDir}/flamenco-manager-storage";
+            type = path;
           };
         };
       };
@@ -199,23 +219,26 @@ in {
 
   config = lib.mkIf cfg.enable {
     environment.systemPackages = [cfg.package];
-    networking.firewall.allowedTCPPorts = lib.mkIf (cfg.openFirewall && roleIs "manager") [(cfg.managerConfg.listen)];
+    networking.firewall = lib.optionalAttrs (cfg.openFirewall && roleIs "manager") {
+      allowedTCPPorts = [(cfg.listen.port)];
+      allowedUDPPorts = lib.optionals (cfg.managerConfig.autodiscoverable) [1900];
+    };
 
-    systemd.services = {
-      flamenco-manager = lib.mkIf (roleIs "manager") (mkService "manager");
-      flamenco-worker = lib.mkIf (roleIs "worker") (mkService "worker");
+    systemd = {
+      services = {
+        flamenco-manager = lib.optionalAttrs (roleIs "manager") (mkService "manager");
+        flamenco-worker = lib.optionalAttrs (roleIs "worker") (mkService "worker");
+      };
     };
 
     users = {
-      users = lib.optionalAttrs (cfg.user == "flamenco") {
+      users = lib.optionalAttrs (cfg.user == "render" && cfg.group == "render") {
         "${cfg.user}" = {
-          description = "Flamenco service user";
+          # TODO: change to ids.uids.render
+          uid = 303;
           group = cfg.group;
           isSystemUser = true;
         };
-      };
-      groups = lib.optionalAttrs (cfg.group == "flamenco") {
-        "${cfg.group}" = {};
       };
     };
   };
