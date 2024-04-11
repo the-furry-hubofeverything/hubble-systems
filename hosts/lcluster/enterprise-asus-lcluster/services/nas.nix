@@ -61,6 +61,12 @@ in {
         disable spoolss = yes
         show add printer wizard = no
 
+        # Symlink Parameters
+        follow symlinks = yes
+        wide links = yes
+        unix extensions = no
+        allow insecure wide links = no
+
         # Hardening
         server min protocol = SMB3_11
         client ipc min protocol = SMB3_11
@@ -85,6 +91,11 @@ in {
       mass = commonPerms // {
         path = "/mass";
         comment = "Storage without RAID";
+      };
+      flamenco = commonPerms // {
+        "valid users" = "render";
+        path = "/main/large/flamenco";
+        comment = "Flamenco shared directory";
       };
     };
     openFirewall = true;
