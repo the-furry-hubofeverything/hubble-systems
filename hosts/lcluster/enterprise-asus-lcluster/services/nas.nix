@@ -38,7 +38,7 @@ in {
     # Global config
     extraConfig = 
       ''
-        interfaces = wt0, 192.168.1.0/24, lo
+        interfaces = 100.106.28.233/16, 192.168.1.0/24, lo
         bind interfaces only = yes
 
         create mask = 0664
