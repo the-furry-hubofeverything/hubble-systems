@@ -1,8 +1,12 @@
-{ config, lib, ... }: {
+{ inputs, config, lib, ... }: {
   security.sudo.extraConfig = ''
     # rollback results in sudo lectures after each reboot
     Defaults lecture = never
   '';
+
+  imports = [
+    inputs.nix-minecraft.nixosModules.minecraft-servers
+  ];
 
  environment.persistence."/persist" = {
   hideMounts = true;
