@@ -83,8 +83,18 @@
       userEmail = "hubblethewolverine@gmail.com";
       userName = "the-furry-hubofeverything";
       extraConfig = {
+        # Remember to run `git maintenance start`
         core.autocrlf = "input";
         http.postBuffer = "524288000";
+        branch.sort = "-committerdate";
+        gpg.format = "ssh";
+
+        # Automatically resolve merge conflicts with recorded fix
+        rerere.enabled = true;
+        # Improve log ops for large repos
+        fetch.writeCommitGraph = true;
+        # Make refs for pull requests
+        remote.origin.fetch = "+refs/pull/*:refs/remotes/origin/pull/*";
       };
     };
   };
