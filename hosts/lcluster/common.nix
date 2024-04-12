@@ -22,7 +22,8 @@
 
 
     ../common/servers
-    
+    ../common/servers/avahi.nix
+
     ../common/impermanence.nix
     ../common/nix-settings.nix
     ../common/hubbleGroups.nix

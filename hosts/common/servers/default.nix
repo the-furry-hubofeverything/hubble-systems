@@ -34,10 +34,6 @@
     git
   ];
 
-  services.avahi.enable = true;
-  services.avahi.nssmdns = true;
-  services.avahi.openFirewall = true;
-
   services.netbird.enable = true;
 
   # TODO setup remote jobs using best practices
