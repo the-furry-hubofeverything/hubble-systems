@@ -7,6 +7,8 @@
   ...
 }: {
   imports = [
+    inputs.hardware.nixosModules.omen-15-en0010ca
+    
     ./hardware-configuration.nix
     ./programs/libvirt-win10vm.nix
     ./programs/wireshark.nix

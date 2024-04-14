@@ -7,28 +7,34 @@
   ...
 }: {
   imports = [
-    ./common/pc.nix
-    ./common/gaming.nix
-    ./common/performance-tweaks.nix
-    ./common/security.nix
-    ./common/wayland.nix
+    inputs.hardware.nixosModules.common-pc
 
-    ./common/desktop-environments/gnome.nix
+    inputs.lanzaboote.nixosModules.lanzaboote
+    inputs.nixpkgs-xr.nixosModules.nixpkgs-xr
 
-    ./common/hardware/logitechWheelSupport.nix
-    # ./common/hardware/VR.nix
+    ./pc.nix
+    ./gaming.nix
+    ./performance-tweaks.nix
+    ./security.nix
+    ./wayland.nix
 
-    ./common/programs/kdeconnect.nix
-    ./common/programs/lanzaboote.nix
-    ./common/programs/libvirt.nix
-    ./common/programs/nix-alien.nix
+    ./desktop-environments/gnome.nix
 
-    ../common/security.nix
-    ../common/nix-settings.nix
-    ../common/development.nix
-    ../common/hubbleGroups.nix
-    ../common/bash-config.nix
+    ./hardware/logitechWheelSupport.nix
+    # ./hardware/VR.nix
+
+    ./programs/kdeconnect.nix
+    ./programs/lanzaboote.nix
+    ./programs/libvirt.nix
+    ./programs/nix-alien.nix
+
+    ../../common/security.nix
+    ../../common/nix-settings.nix
+    ../../common/development.nix
+    ../../common/hubbleGroups.nix
+    ../../common/bash-config.nix
   ];
+
   boot.loader.systemd-boot.configurationLimit = 3;
 
   # Set your time zone.
