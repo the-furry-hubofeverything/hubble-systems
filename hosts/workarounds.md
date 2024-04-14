@@ -47,20 +47,6 @@ The netbird NixOS module doesn't import wireguard by default. Submitted [issue](
 
 ## pc
 
-### Networking issue (Gulo-Laptop)
-
-`nixos-rebuild` will stay stuck when it's waiting for `NetworkManager-wait-online.service`. 
-
-There's an issue for the stuck part (NixOS/nixpkgs#180175), but I don't understand why wait-online fails in the first place.
-
-My theory is that, based on my current setup on Gulo-Laptop, I have a wireguard config, ethernet, and wifi. My guess is that somehow, the wireguard config interferes with the wait-online detection.
-
-Further investigation is required.
-
-```nix
-  systemd.services.NetworkManager-wait-online.enable = false;
-```
-
 ### Flatpak Icons and Fonts
 
 This is NixOS/nixpkgs#119433.

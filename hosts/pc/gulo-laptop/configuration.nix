@@ -15,9 +15,12 @@
     # ./programs/waydroid.nix
   ];
 
-  # === WORKAROUND ===
-  # TODO determine exact issue and when to remove
-  systemd.services.NetworkManager-wait-online.enable = false;
+  # Prevent network manager from getting stuck at "wait-online" while switching configs
+  systemd.network.wait-online.ignoredInterfaces = [
+    # Wireguard related interfaces
+    "wg0"
+    "wt0"
+  ];
 
   # === HARDWARE SPECIFIC CONFIG ===
   hardware.bluetooth.enable = true;
