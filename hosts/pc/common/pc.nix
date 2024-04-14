@@ -63,8 +63,7 @@
 
     kitty
     netbird-ui
-    # TODO: remove when upstream fixes build issue
-    # nixos-needsreboot
+    nixos-needsreboot
     wii-pointer
   ];
 
