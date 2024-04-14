@@ -26,6 +26,7 @@
 
   boot.kernelModules = [
     "usb_storage"   # USB mass storage support
+    "wireguard"     # TODO: remove when the netbird module imports wireguard kernel module by default
   ];
   services.udisks2.enable = true; # userspace mount to /run/media
 
