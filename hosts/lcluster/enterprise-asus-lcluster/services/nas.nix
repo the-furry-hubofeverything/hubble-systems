@@ -38,8 +38,7 @@ in {
     # Global config
     extraConfig = 
       ''
-        interfaces = 100.106.28.233/16, 192.168.1.0/24, lo
-        bind interfaces only = yes
+        hosts allow = 100.106.0.0/16, 192.168.1.0/24, lo
 
         create mask = 0664
         force create mode = 0664
