@@ -70,7 +70,8 @@
 
   mkService = role: {
     wantedBy = ["multi-user.target"];
-    after = ["network.target"];
+    after = ["network-online.target"];
+    wants = ["network-online.target"];
     description = "flamenco ${role}";
     environment =
       if (role == "worker")
@@ -105,6 +106,8 @@
     };
   };
 in {
+  meta.maintainers = with lib.maintainers; [ hubble ];
+
   options.services.flamenco = with lib.types; {
     enable = lib.mkEnableOption "Flamenco, a render farm management software for Blender";
     package = lib.mkPackageOption pkgs "flamenco" {};
