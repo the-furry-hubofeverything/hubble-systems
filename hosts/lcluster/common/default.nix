@@ -85,6 +85,8 @@ in {
     driSupport32Bit = true;
   };
 
+  powerManagement.cpuFreqGovernor = "performance";
+
   # === OTHER TWEAKS ===
   # As they are going to be sitting on a shelf (not to mention without internal HDDs), 
   # Active drive protection is not necessary
