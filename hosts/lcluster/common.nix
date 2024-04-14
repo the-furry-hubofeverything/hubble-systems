@@ -17,9 +17,8 @@
     # sheepit-client
     ./common/services/sheepit.nix
 
-    # flamenco worker
-    ./common/services/flamenco-worker.nix
-
+    # flamenco 
+    ../common/flamenco.nix
 
     ../common/servers
     ../common/servers/avahi.nix

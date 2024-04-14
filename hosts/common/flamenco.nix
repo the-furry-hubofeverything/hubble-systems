@@ -2,6 +2,9 @@
 let
   gpu-autoselect = pkgs.writeText "gpu-autoselect.py" (builtins.readFile ./gpu-autoselect.py);
   managerHostname = "enterprise-asus-lcluster";
+  managerFileDir = "/main/large/flamenco";
+  isManager = (config.networking.hostName == managerHostname);
+  port = 5260;
 in {
   assertions = [
     {
@@ -16,12 +19,13 @@ in {
 
   services.flamenco = {
     enable = true;
+    listen = lib.optionalAttrs (isManager) {inherit port;};
     package = pkgs.flamenco.override {
       blender = inputs.blender-bin.packages.${pkgs.system}.blender_3_6;
     };
-    role = ["worker"];
+    role = ["worker"] ++ lib.optionals (isManager) ["manager"];
     workerConfig = {
-      manager_url = "http://100.106.28.233:5260";
+      manager_url = "http://${managerHostname}.gulo.dev:5260";
     };
 
     managerConfig.variables."blenderArgs".values = [
@@ -65,5 +69,10 @@ in {
     # WORKAROUND - I can't define the file under flamenco variables, or else the file
     #              would not be included in the nix store of the workers. 
     "L+ /run/flamenco/gpu-autoselect.py 0755 render render - ${gpu-autoselect}"
+  ] ++ lib.optionals isManager [
+    # The manager is hosting the files
+    "L+ /srv/flamenco 0755 render render - ${managerFileDir}"
   ];
+  
+  networking.firewall.interfaces."wt0".allowedTCPPorts = [ config.services.flamenco.listen.port ];
 }

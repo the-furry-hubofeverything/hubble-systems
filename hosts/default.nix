@@ -37,6 +37,7 @@
 
       inputs.lanzaboote.nixosModules.lanzaboote
       inputs.nixpkgs-xr.nixosModules.nixpkgs-xr
+      outputs.nixosModules.flamenco
     ];
 
     remote = all ++ [

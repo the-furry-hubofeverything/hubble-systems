@@ -18,6 +18,8 @@
     ./common/hardware/logitechWheelSupport.nix
     # ./common/hardware/VR.nix
 
+    ../common/flamenco.nix
+
     ./common/programs/kdeconnect.nix
     ./common/programs/lanzaboote.nix
     ./common/programs/libvirt.nix
