@@ -3,36 +3,47 @@
   outputs,
   lib,
   ...
-}: {
+}: let
+  nixos-hardware = inputs.hardware.nixosModules;
+in {
   imports = [
+    nixos-hardware.common-pc
+    nixos-hardware.common-pc-hdd
+    nixos-hardware.common-pc-ssd
+    nixos-hardware.common-pc-laptop
+    nixos-hardware.common-pc-laptop-hdd
+
+    inputs.impermanence.nixosModules.impermanence
+    
     # ACME+nginx reverse proxy   
-    ./common/services/acme-nginx-rp.nix
+    ./services/acme-nginx-rp.nix
 
     # DNS server/ad-blocker with DoH
-    ./common/services/blocky.nix
+    ./services/blocky.nix
 
     # k3s
-    # ./common/services/k3s.nix
+    # ./services/k3s.nix
 
     # sheepit-client
-    ./common/services/sheepit.nix
+    ./services/sheepit.nix
 
-    # flamenco 
-    ../common/flamenco.nix
+    # flamenco
+    outputs.nixosModules.flamenco
+    ../../common/flamenco.nix
 
-    ../common/servers
-    ../common/servers/avahi.nix
+    ../../common/servers
+    ../../common/servers/avahi.nix
 
-    ../common/impermanence.nix
-    ../common/nix-settings.nix
-    ../common/hubbleGroups.nix
-    ../common/development.nix
-    ../common/security.nix
-    ../common/bash-config.nix
+    ../../common/impermanence.nix
+    ../../common/nix-settings.nix
+    ../../common/hubbleGroups.nix
+    ../../common/development.nix
+    ../../common/security.nix
+    ../../common/bash-config.nix
 
-    ../common/filesystems/btrfs-with-rollback.nix
-    ../common/filesystems/mergerfs.nix
-    ../common/filesystems/zfs.nix
+    ../../common/filesystems/btrfs-with-rollback.nix
+    ../../common/filesystems/mergerfs.nix
+    ../../common/filesystems/zfs.nix
   ];
   # TODO implement auto update to github flake, add action to update flake.lock
   # system.autoUpgrade.enable = true;

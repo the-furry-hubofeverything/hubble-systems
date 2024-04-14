@@ -1,11 +1,11 @@
 { ... }: {
   imports = [
-    ../common/servers
-    ../common/nix-settings.nix
-    ../common/hubbleGroups.nix
-    ../common/security.nix
-    ../common/development.nix
-    ../common/bash-config.nix
+    ../../common/servers
+    ../../common/nix-settings.nix
+    ../../common/hubbleGroups.nix
+    ../../common/security.nix
+    ../../common/development.nix
+    ../../common/bash-config.nix
   ];
 
   # Set your time zone.
