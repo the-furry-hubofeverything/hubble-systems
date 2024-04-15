@@ -1,10 +1,17 @@
 { lib
-, buildGoModule, fetchFromGitea, fetchYarnDeps, makeWrapper
-, blender, ffmpeg
-, go, oapi-codegen, mockgen
-, nodejs, yarn, prefetch-yarn-deps
+, buildGoModule
+, fetchFromGitea
+, fetchYarnDeps
+, makeWrapper
+, blender
+, ffmpeg
+, go
+, oapi-codegen
+, mockgen
+, nodejs
+, yarn
+, prefetch-yarn-deps
 }:
-
 buildGoModule rec {
   pname = "flamenco";
   version = "3.4";
@@ -26,8 +33,12 @@ buildGoModule rec {
 
   nativeBuildInputs = [
     makeWrapper
-    go oapi-codegen mockgen
-    nodejs yarn prefetch-yarn-deps
+    go
+    oapi-codegen
+    mockgen
+    nodejs
+    yarn
+    prefetch-yarn-deps
   ];
 
   buildInputs = [
@@ -63,9 +74,9 @@ buildGoModule rec {
     do
       wrapProgram $f \
         --set PATH ${lib.makeBinPath [
-          blender
-          ffmpeg
-        ]}
+      blender
+      ffmpeg
+    ]}
     done
   '';
 
@@ -74,7 +85,7 @@ buildGoModule rec {
     homepage = "https://flamenco.blender.org/";
     license = licenses.gpl3Only;
     # TODO Wanted: maintainer for darwin
-    platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ hubble ];
+    platforms = ["x86_64-linux"];
+    maintainers = with maintainers; [hubble];
   };
 }

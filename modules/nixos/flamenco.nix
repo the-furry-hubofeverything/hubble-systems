@@ -114,39 +114,42 @@ in {
     openFirewall = lib.mkEnableOption "service ports in the firewall";
 
     role = lib.mkOption {
-      description = lib.mdDoc "Flamenco role that this machine should take.";
+      description = "Flamenco role that this machine should take.";
       default = ["worker"];
       type = listOf (enum ["manager" "worker"]);
     };
 
     user = lib.mkOption {
-      description = lib.mdDoc "User under which flamenco runs under.";
+      description = "User under which flamenco runs under.";
       default = "render";
       type = str;
     };
 
     group = lib.mkOption {
-      description = lib.mdDoc "Group under which flamenco runs under.";
+      description = "Group under which flamenco runs under.";
       default = "render";
       type = str;
     };
 
     home = lib.mkOption {
-      description = lib.mdDoc "Directory for worker-specific files.";
+      description = "Directory for worker-specific files.";
       default = "${cfg.stateDir}/worker";
+      defaultText = "$\{config.services.flamenco.stateDir\}/worker";
       type = path;
     };
 
     listen = lib.mkOption {
-      description = lib.mdDoc "Flamenco Manager port.";
+      description = "IP and port flamenco binds to.";
       type = submodule {
         options = {
           ip = lib.mkOption {
             default = "";
+            description = "The IP flamenco listens to.";
             type = str;
           };
           port = lib.mkOption {
             default = 8080;
+            description = "The port flamenco listens to";
             type = int;
           };
         };
@@ -154,34 +157,36 @@ in {
     };
 
     managerConfig = lib.mkOption {
-      description = lib.mdDoc "Manager configuration";
+      description = "Manager configuration";
       default = defaultConfig.manager;
       type = submodule {
         freeformType = attrsOf anything;
         options = {
           autodiscoverable = lib.mkOption {
-            description = lib.mdDoc "Use UPnP/SSDP to advertise manager.";
+            description = "Use UPnP/SSDP to advertise manager.";
             default = true;
             type = bool;
           };
           manager_name = lib.mkOption {
-            description = lib.mdDoc "The name of the Manager.";
+            description = "The name of the Manager.";
             default = "Flamenco Manager";
             type = str;
           };
           database = lib.mkOption {
-            description = lib.mdDoc "Path of the database";
+            description = "Path of the database";
             default = "${cfg.stateDir}/flamenco-manager.sqlite";
+            defaultText = "$\{config.services.flamenco.stateDir\}/flamenco-manager.sqlite";
             type = path;
           };
           shared_storage_path = lib.mkOption {
-            description = lib.mdDoc "Path of shared storage, used to store project files and output";
+            description = "Path of shared storage, used to store project files and output";
             default = "/srv/flamenco";
             type = path;
           };
           local_manager_storage_path = lib.mkOption {
-            description = lib.mdDoc "Path for Flamenco manager state files";
+            description = "Path for Flamenco manager state files";
             default = "${cfg.stateDir}/flamenco-manager-storage";
+            defaultText = "$\{config.services.flamenco.stateDir\}/flamenco-manager-storage";
             type = path;
           };
         };
@@ -189,7 +194,7 @@ in {
     };
 
     workerConfig = lib.mkOption {
-      description = lib.mdDoc "Worker configuration";
+      description = "Worker configuration";
       default = defaultConfig.worker;
       type = submodule {
         freeformType = attrsOf anything;
@@ -200,12 +205,12 @@ in {
             type = nullOr str;
           };
           manager_url = lib.mkOption {
-            description = lib.mdDoc "The URL of the Manager to connect to. If the setting is blank (or removed altogether) the Worker will try to auto-detect the Manager on the network.";
+            description = "The URL of the Manager to connect to. If the setting is blank (or removed altogether) the Worker will try to auto-detect the Manager on the network.";
             default = null;
             type = nullOr str;
           };
           restart_exit_code = lib.mkOption {
-            description = lib.mdDoc "Having this set to a non-zero value will mark this Worker as ‘restartable’.";
+            description = "Having this set to a non-zero value will mark this Worker as ‘restartable’.";
             default = 47;
             type = int;
           };
@@ -214,7 +219,7 @@ in {
     };
 
     stateDir = lib.mkOption {
-      description = lib.mdDoc "Specifies the directory in which flamenco state files and credentials reside.";
+      description = "Specifies the directory in which flamenco state files and credentials reside.";
       default = "/var/lib/flamenco";
       type = path;
     };
@@ -237,7 +242,6 @@ in {
     users = {
       users = lib.optionalAttrs (cfg.user == "render" && cfg.group == "render") {
         "${cfg.user}" = {
-          # TODO: change to ids.uids.render
           uid = 303;
           group = cfg.group;
           isSystemUser = true;
