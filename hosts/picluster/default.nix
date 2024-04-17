@@ -31,7 +31,7 @@ in {
         inputs.hs-secrets.nixosModules.picluster.brain
       ];
   };
-  pinky-pi3-piCluster = {
+  pinky-pi3-picluster = {
     platform = "aarch64-linux";
     modules =
       piClusterModules
