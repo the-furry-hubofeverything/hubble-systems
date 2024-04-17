@@ -74,5 +74,5 @@ in {
     "L+ /srv/flamenco 0755 render render - ${managerFileDir}"
   ];
   
-  networking.firewall.interfaces."wt0".allowedTCPPorts = [ config.services.flamenco.listen.port ];
+  networking.firewall.interfaces."wt0".allowedTCPPorts = lib.optionals (isManager) [ config.services.flamenco.listen.port ];
 }
