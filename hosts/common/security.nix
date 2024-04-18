@@ -1,4 +1,4 @@
-{lib, ...}:
+{lib, pkgs, ...}:
 with lib; {
   boot.kernel.sysctl = {
     # Restrict ptrace() usage to processes with a pre-defined relationship
@@ -81,6 +81,8 @@ with lib; {
   ];
 
   nix.settings.allowed-users = mkDefault ["@users"];
+
+  services.dbus.apparmor = "enabled";
 
   security.apparmor.enable = mkDefault true;
   security.apparmor.killUnconfinedConfinables = mkDefault true;
