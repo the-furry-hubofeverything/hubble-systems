@@ -33,20 +33,8 @@ in {
   ];
 
   # TODO: instead of locking kernel modules, maybe just provide audit trail? (auditd)
-  security.lockKernelModules = true;
-
-  boot.kernelModules = [
-    # {ip,nf}tables modules https://github.com/czerwonk/nixfiles/blob/26295d470f3b505d77b07017c6bc4039647dc06a/nixos/hardening/firewall.nix#L4
-    "xt_limit"
-    "xt_MASQUERADE"
-    "xt_multiport"
-    "xt_CHECKSUM"
-    "xt_nat"
-    "xt_connmark"
-    "xt_mark"
-    "xt_comment"
-    "xt_addrtype"
-  ];
+  # https://github.com/czerwonk/nixfiles/blob/26295d470f3b505d77b07017c6bc4039647dc06a/nixos/hardening/audit.nix
+  # security.lockKernelModules = true;
 
   # TODO remove ssh RSA key
 
