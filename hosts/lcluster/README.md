@@ -17,7 +17,7 @@
   - SSH
   - Wireguard
 - Distributed storage
-- Blender rendering (local and remote combied)
+- ~~Blender rendering (local and remote combined)~~
 - ~~Certificate updates~~
 - ~~Vaultwarden~~
 - Kopia
