@@ -36,6 +36,8 @@
 
     outputs.nixosModules.flamenco
     ../../common/flamenco.nix
+    
+    ../../common/services/nebula.nix
   ];
   
 

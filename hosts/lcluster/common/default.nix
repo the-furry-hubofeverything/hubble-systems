@@ -31,6 +31,9 @@ in {
     outputs.nixosModules.flamenco
     ../../common/flamenco.nix
 
+    # nebula
+    ../../common/services/nebula.nix
+
     ../../common/servers
     ../../common/servers/avahi.nix
 
