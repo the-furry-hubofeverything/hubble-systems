@@ -28,7 +28,7 @@ in {
   fileSystems."/mass" = { 
     device = "/jbop*";
     fsType = "mergerfs";
-    options = ["defaults" "minfreespace=250G" "cache.files=partial" "dropcacheonclose=true" "category.create=mfs"];
+    options = ["defaults" "minfreespace=250G" "cache.files=partial" "dropcacheonclose=true" "category.create=mfs" "x-systemd.requires=/jbop0" "x-systemd.requires=/jbop1"];
   };
 
   # TODO NFS Mesh net wide share
