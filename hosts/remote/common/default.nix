@@ -1,6 +1,7 @@
 { ... }: {
   imports = [
     ../../common/servers
+    ../../common/services/nebula.nix
     ../../common/nix-settings.nix
     ../../common/hubbleGroups.nix
     ../../common/security.nix
