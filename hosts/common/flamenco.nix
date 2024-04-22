@@ -36,6 +36,8 @@ in {
     ];
   };
 
+  systemd.services."flamenco-worker".wantedBy = lib.optionals (config.networking.hostName == "Gulo-Laptop") (lib.mkForce []);
+
   # Samba is intolerant of extra newlines and what not.
   sops.templates.".smbcredentials".content = "username=${config.sops.placeholder.flamencoSambaUser}\npassword=${config.sops.placeholder.flamencoSambaPasswd}";
 
