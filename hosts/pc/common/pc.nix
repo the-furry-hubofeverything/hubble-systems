@@ -50,7 +50,6 @@
 
     kitty
     netbird-ui
-    nixos-needsreboot
     wii-pointer
   ];
 

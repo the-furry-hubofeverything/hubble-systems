@@ -25,9 +25,6 @@
     # VR related programs
     nixpkgs-xr.url = "github:nix-community/nixpkgs-xr";
 
-    # Reboot detection
-    nixos-needsreboot.url = "https://flakehub.com/f/thefossguy/nixos-needsreboot/*.tar.gz";
-
     # command-not-found for Flake-based, non-channel backed NixOS systems
     flake-programs-sqlite = {
       url = "github:wamserma/flake-programs-sqlite";
