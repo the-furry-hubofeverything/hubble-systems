@@ -24,7 +24,7 @@
       outputs.overlays.modifications
       outputs.overlays.stacked
 
-      inputs.blender-bin.overlays.default
+      # inputs.blender-bin.overlays.default
 
       # Or define it inline, for example:
       # (final: prev: {
@@ -58,7 +58,7 @@
       pkgs.element-desktop
     ] ++ [
       # To be replaced when upgraded 23.11
-      pkgs.blender_3_6
+      pkgs.blender-hip_3_6
       pkgs.unstable.xwaylandvideobridge
     ];
 

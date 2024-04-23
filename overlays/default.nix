@@ -25,6 +25,24 @@
     # NixOS/nixpkgs#119433
     inherit (inputs.nixpkgs-unstable.legacyPackages.${prev.system})
       flatpak;
+
+    # Blender 3.6
+    blender-hip_3_6 = prev.blender-hip.overrideAttrs (finalAttrs: oldAttrs: {
+      version = "3.6.11";
+      src = prev.fetchurl {
+        url = "https://download.blender.org/source/${finalAttrs.pname}-${finalAttrs.version}.tar.xz";
+        hash = "sha256-mbCrE/flrGIC3VBkn1TrDyZ2pt3gxzhPNPWyXnoJ55I=";
+      };
+
+      postInstall = ''
+        mv $out/share/blender/${prev.lib.versions.majorMinor finalAttrs.version}/python{,-ext}
+        buildPythonPath "$pythonPath"
+        wrapProgram $blenderExecutable \
+          --prefix PATH : $program_PATH \
+          --prefix PYTHONPATH : "$program_PYTHONPATH" \
+          --add-flags '--python-use-system-env'
+      '';
+    });
   };
 
   # When applied, the unstable nixpkgs set (declared in the flake inputs) will

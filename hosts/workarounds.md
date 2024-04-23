@@ -156,4 +156,18 @@ Fixed in NixOS/nixpkgs#278127, but not until NixOS 24.05.
   });
 ```
 
+### Blender 3.6
+
+Am working on adding it in nixpkgs, but for now I'm doing a bit of a hack
+```nix
+  # Blender 3.6
+  blender-hip_3_6 = prev.blender-hip.overrideAttrs (finalAttrs: oldAttrs: {
+    version = "3.6.11";
+    src = prev.fetchurl {
+      url = "https://download.blender.org/source/${finalAttrs.pname}-${finalAttrs.version}.tar.xz";
+      hash = "sha256-mbCrE/flrGIC3VBkn1TrDyZ2pt3gxzhPNPWyXnoJ55I=";
+    };
+  });
+```
+
 ## picluster
