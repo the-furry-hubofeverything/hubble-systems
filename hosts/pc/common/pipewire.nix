@@ -20,9 +20,13 @@
   environment.etc = let json = pkgs.formats.json {};
   in {
     "pipewire/pipewire.d/92-clock-rates.conf".source = json.generate "92-clock-rates.conf" {
-      # Avoids resampling
       "context.properties" = {
+        # Avoids resampling
         "default.clock.allowed-rates" = [ 44100 48000 88200 96000 ];
+        # Low latency, but some flexibility
+        "default.clock.quantum" = 32;
+        "default.clock.min-quantum" = 32;
+        "default.clock.max-quantum" = 4096;
       };
     };
   };
