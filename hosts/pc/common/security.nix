@@ -8,7 +8,7 @@
     gnomeKeyring.u2fAuth = true;
   };
   security.unprivilegedUsernsClone = true; # Disable user namespace mitigation, which breaks flatpak and isn't necessary
-  # rtkit is optional but recommended
+  # rtkit is optional but recommended for pipewire
   security.rtkit.enable = true;
   security.polkit.enable = true;
 

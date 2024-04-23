@@ -405,6 +405,26 @@
         "type": "github"
       }
     },
+    "musnix": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1712254133,
+        "narHash": "sha256-fwuWrAprqoA4fUrkZGVb6PjRpebm5xjNsyoaw+JVSyY=",
+        "owner": "musnix",
+        "repo": "musnix",
+        "rev": "b5bcdce137b00185dce5fa578739cd52770b8794",
+        "type": "github"
+      },
+      "original": {
+        "owner": "musnix",
+        "repo": "musnix",
+        "type": "github"
+      }
+    },
     "nix-alien": {
       "inputs": {
         "flake-compat": "flake-compat_2",
@@ -776,6 +796,7 @@
         "hs-secrets": "hs-secrets",
         "impermanence": "impermanence",
         "lanzaboote": "lanzaboote",
+        "musnix": "musnix",
         "nix-alien": "nix-alien",
         "nix-colors": "nix-colors",
         "nix-minecraft": "nix-minecraft",

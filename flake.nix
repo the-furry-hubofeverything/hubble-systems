@@ -40,6 +40,11 @@
       inputs.nixpkgs.follows = "nixpkgs"; # use our nixpkgs
     };
 
+    musnix = {
+      url = "github:musnix/musnix";
+      inputs.nixpkgs.follows = "nixpkgs"; # use our nixpkgs
+    };
+
     # Impermanence
     impermanence.url = "github:nix-community/impermanence";
     

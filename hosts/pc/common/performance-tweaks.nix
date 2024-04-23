@@ -1,4 +1,4 @@
-{...}: {
+{lib, ...}: {
   # CPU thermal
   services.thermald.enable = true;
 
@@ -8,7 +8,8 @@
     "net.core.somaxconn" = 8192;
     "net.ipv4.tcp_fastopen" = 3;
 
-    "vm.swappiness" = 10;
+    # musnix also sets this
+    "vm.swappiness" = lib.mkDefault 10;
 
     # Allow emergency sysrq reboot "reisub"
     "kernel.sysrq" = 246;
@@ -20,6 +21,12 @@
   # Automatic nice daemon
   services.ananicy.enable = true;
 
-  # Switch to tsc (time stamp counter) at the cost of precision
-  boot.kernelParams = ["tsc=reliable" "clocksource=tsc"];
+  boot.kernelParams = [
+    # Switch to tsc (time stamp counter) at the cost of precision
+    "tsc=reliable" 
+    "clocksource=tsc"
+
+    # https://wiki.linuxaudio.org/wiki/system_configuration#do_i_really_need_a_real-time_kernel
+    "threadirqs"
+  ];
 }
