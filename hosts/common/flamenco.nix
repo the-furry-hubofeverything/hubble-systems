@@ -31,7 +31,7 @@ in {
     };
     role = ["worker"] ++ lib.optionals (isManager) ["manager"];
     workerConfig = {
-      manager_url = "http://${managerHostname}.gulo.dev:5260";
+      manager_url = "http://${managerHostname}.gulo.dev:${toString port}";
     };
 
     managerConfig.variables."blenderArgs".values = [
@@ -82,5 +82,5 @@ in {
     "L+ /srv/flamenco 0755 render render - ${managerFileDir}"
   ];
   
-  networking.firewall.interfaces."wt0".allowedTCPPorts = lib.optionals (isManager) [ config.services.flamenco.listen.port ];
+  networking.firewall.interfaces."wt0".allowedTCPPorts = lib.optionals (isManager) [ port ];
 }
