@@ -12,16 +12,23 @@
 , yarn
 , prefetch-yarn-deps
 }:
-buildGoModule rec {
+let 
+ version = "3.5";
+in buildGoModule rec {
   pname = "flamenco";
-  version = "3.4";
+  inherit version;
+
+  # !!!!!!!!!
+  # fixup-yarn-lock HAS BEEN REMOVED 
+  # TODO CHANGE WHEN UPSTREAMING/UPDATING TO 24.05+
+  # !!!!!!!!!
 
   src = fetchFromGitea {
     domain = "projects.blender.org";
     owner = "studio";
     repo = "flamenco";
     rev = "v${version}";
-    hash = "sha256-xE6/C867mAv1S1S5/ojY6Pd0lVwTmasNKl7cI9eF0gk=";
+    hash = "sha256-iAMQv4GzxS5PPQPrLCjBj7qd2HpAg91/BtMRoGTuJ5U=";
   };
 
   webappOfflineCache = fetchYarnDeps {
@@ -29,7 +36,7 @@ buildGoModule rec {
     hash = "sha256-QcfyiL2/ALkxZpJyiwyD7xNlkOCPu4THCyywwZ40H8s=";
   };
 
-  vendorHash = "sha256-kKvP6H4QBRzKQdexjbCFyrmeeutcnNEToCPnc8C6LcE=";
+  vendorHash = "sha256-DJooc+rGQ61lxjqP5+5eyQe7x69R3ADOwHDMu6NbICQ=";
 
   nativeBuildInputs = [
     makeWrapper
@@ -80,12 +87,12 @@ buildGoModule rec {
     done
   '';
 
-  meta = with lib; {
+  meta = {
     description = "Production render farm manager for Blender";
     homepage = "https://flamenco.blender.org/";
-    license = licenses.gpl3Only;
+    license = lib.licenses.gpl3Only;
     # TODO Wanted: maintainer for darwin
     platforms = ["x86_64-linux"];
-    maintainers = with maintainers; [hubble];
+    maintainers = with lib.maintainers; [hubble];
   };
 }

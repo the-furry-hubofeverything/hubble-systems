@@ -20,8 +20,14 @@ in {
   services.flamenco = {
     enable = true;
     listen = lib.optionalAttrs (isManager) {inherit port;};
+
     package = pkgs.flamenco.override {
       blender = inputs.blender-bin.packages.${pkgs.system}.blender_3_6;
+
+      # I need go 1.22, but flamenco isn't upstream yet, soooooo....
+      # TODO remove when flamenco is upstream
+      go = pkgs.unstable.go;
+      buildGoModule = pkgs.unstable.buildGoModule;
     };
     role = ["worker"] ++ lib.optionals (isManager) ["manager"];
     workerConfig = {
