@@ -34,16 +34,6 @@ Workaround 2 - I couldn't figure out how to add the script to the nix store with
     "L+ /run/flamenco/gpu-autoselect.py 0755 render render - ${gpu-autoselect}"
   ];
 ```
-### Netbird unable to import the wireguard kernel module
-
-The netbird NixOS module doesn't import wireguard by default. Submitted [issue](https://github.com/NixOS/nixpkgs/issues/303960).
-
-```nix
-  boot.kernelModules = [
-    "usb_storage"   # USB mass storage support
-    "wireguard"     # TODO: remove when the netbird module imports wireguard kernel module by default
-  ];
-```
 
 ## pc
 

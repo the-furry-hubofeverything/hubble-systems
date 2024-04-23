@@ -67,6 +67,12 @@ in
         respond = true;
       };
       cipher = "chachapoly";
+
+      pki = {
+        # blocklist is a list of certificate fingerprints that we will refuse to talk to
+        blocklist = [];
+      };
+      
     };
 
     isRelay = relayHosts ? config.networking.hostName;
@@ -86,7 +92,7 @@ in
         {
           host = "any";
           port = "any";
-          proto = "any";
+          proto = "icmp";
         }
       ];
     };

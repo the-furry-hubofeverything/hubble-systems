@@ -12,8 +12,16 @@ in {
       message = "flamenco: defaultSopsFile not empty, cannot continue.";
     }
     {
-      assertion = config.services.netbird.enable;
-      messages = "flamenco: netbird not enabled, cannot continue.";
+      assertion = !isManager || (config.services.nginx.enable && config.services.nginx.virtualHosts ? "${config.networking.hostName}.gulo.dev");
+      message = "flamenco: ${config.networking.hostName}.gulo.dev is undefinied, this depends on acme-nginx-rp.nix";
+    }
+    {
+      assertion = config.services.nebula.networks ? "hsmn0";
+      messages = "flamenco: nebula network not defined, cannot continue.";
+    }
+    {
+      assertion = config.services.nebula.networks."hsmn0".enable;
+      messages = "flamenco: nebula network not enabled, cannot continue.";
     }
   ];
 
@@ -31,7 +39,7 @@ in {
     };
     role = ["worker"] ++ lib.optionals (isManager) ["manager"];
     workerConfig = {
-      manager_url = "http://${managerHostname}.gulo.dev:${toString port}";
+      manager_url = "https://flamenco.gulo.dev";
     };
 
     managerConfig.variables."blenderArgs".values = [
@@ -40,6 +48,7 @@ in {
         value = "-b -y -P /run/flamenco/gpu-autoselect.py";
       }
     ];
+    openFirewall = false;
   };
 
   systemd.services."flamenco-worker".wantedBy = lib.optionals (config.networking.hostName == "Gulo-Laptop") (lib.mkForce []);
@@ -50,10 +59,9 @@ in {
   boot.supportedFilesystems = ["cifs"];
   boot.kernelModules = ["cmac"]; # Needed due to titan being like "Could not allocate shash TFM 'cmac(aes)'"
 
-  fileSystems = ( lib.optionalAttrs (config.networking.hostName != "${managerHostname}") 
-  {
+  fileSystems = ( lib.optionalAttrs (!isManager) {
     "/srv/flamenco" = {
-      device = "//${managerHostname}.gulo.dev/flamenco";
+      device = "//flamenco.gulo.dev/flamenco";
       fsType = "cifs";
       options = [
         "x-systemd.automount"
@@ -81,6 +89,28 @@ in {
     # The manager is hosting the files
     "L+ /srv/flamenco 0755 render render - ${managerFileDir}"
   ];
-  
-  networking.firewall.interfaces."wt0".allowedTCPPorts = lib.optionals (isManager) [ port ];
+
+  services.nginx.virtualHosts."flamenco.gulo.dev" = let 
+    proxyPass = "http://127.0.0.1:${toString port}";
+  in {
+    useACMEHost = "gulo.dev";
+    forceSSL = true;
+    extraConfig = ''
+      client_max_body_size 16000M;
+    '';
+
+    locations."/" = {
+      tryFiles = "/non-existent @$http_upgrade";
+    };
+
+    locations."@websocket" = {
+      inherit proxyPass;
+      proxyWebsockets = true;
+    };
+    
+    locations."@" = {
+      inherit proxyPass;
+    };
+  };
+
 }

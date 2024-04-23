@@ -1,4 +1,4 @@
-{ ... }: 
+{ lib, config, ... }: 
 let 
   commonPerms = {
     "read only" = "no";
@@ -6,6 +6,11 @@ let
     "valid users" = "hubble";
     browsable = "yes";
   };
+
+  nebulaGroups = [
+    "lcluster"
+    "pc"
+  ];
 in {
   boot.zfs.extraPools = [
     "tank"
@@ -38,7 +43,7 @@ in {
     # Global config
     extraConfig = 
       ''
-        hosts allow = 100.106.0.0/16, 192.168.1.0/24, lo
+        hosts allow = 100.86.0.0/17, 192.168.1.0/24, lo
 
         create mask = 0664
         force create mode = 0664
@@ -100,4 +105,20 @@ in {
     };
     openFirewall = true;
   };
+  
+  services.nebula.networks."hsmn0".firewall.inbound = lib.optionals config.services.nebula.networks."hsmn0".enable 
+    builtins.concatMap (x: [
+      {
+        proto = "udp";
+        port = "137-138";
+        group = x;
+      }
+    ] ++ map (n:
+      {
+        proto = "tcp";
+        port = n;
+        group = x;
+      }
+    ) ["139" "445"]) nebulaGroups;
+
 }

@@ -93,7 +93,14 @@ in
 
 
   # Reverse proxy for DoH
-  services.nginx.virtualHosts."${config.networking.hostName}.gulo.dev" = {
+  services.nginx.virtualHosts."dns.gulo.dev" = {
+    useACMEHost = "gulo.dev";
+    forceSSL = true;
+    # block path 
+    locations."/" = {
+      return = "404";
+    };
+    
     locations."/dns-query" = {
       proxyPass = "https://127.0.0.1:44343";
       extraConfig =
@@ -119,4 +126,13 @@ in
       ips."enterprise-asus-lcluster.gulo.dev"
     ];
   };
+
+  services.nebula.networks."hsmn0".firewall.inbound = lib.optionals config.services.nebula.networks."hsmn0".enable 
+    [
+      {
+        port = "53";
+        proto = "udp";
+        host = "any";
+      }
+    ];
 }

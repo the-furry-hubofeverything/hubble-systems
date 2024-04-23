@@ -15,8 +15,6 @@
     "/var/lib/bluetooth"
     "/var/lib/nixos"
     "/var/lib/systemd/coredump"
-  ] ++ lib.optionals (config.services.netbird.enable) [
-    "/var/lib/netbird"
     "/var/lib/acme"
   ] ++ lib.optionals (config.services.minecraft-servers.enable) [
     (config.services.minecraft-servers.dataDir)

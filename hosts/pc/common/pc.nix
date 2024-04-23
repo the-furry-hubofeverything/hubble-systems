@@ -49,7 +49,6 @@
     killall
 
     kitty
-    netbird-ui
     wii-pointer
   ];
 
@@ -74,9 +73,4 @@
   fonts.fontDir.enable = true;
 
   fonts.fontconfig.defaultFonts.sansSerif = [ "Inter" ];
-
-  # Netbird VPN
-  services.netbird = {
-    enable = true;
-  };
 }

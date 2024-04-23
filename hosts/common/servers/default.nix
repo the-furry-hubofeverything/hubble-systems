@@ -33,9 +33,7 @@
     kitty.terminfo
     git
   ];
-
-  services.netbird.enable = true;
-
+  
   # TODO setup remote jobs using best practices
   nix.settings.trusted-users = ["@wheel" "hubble"];
 

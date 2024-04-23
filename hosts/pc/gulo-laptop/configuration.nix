@@ -19,7 +19,6 @@
   systemd.network.wait-online.ignoredInterfaces = [
     # Wireguard related interfaces
     "wg0"
-    "wt0"
   ];
 
   # === HARDWARE SPECIFIC CONFIG ===

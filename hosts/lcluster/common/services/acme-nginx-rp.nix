@@ -13,6 +13,14 @@
       assertion = !hs-utils.sops.isDefault config.sops "porkbun-api-sKey";
       message = "acme-nginx-rp: Porkbun secret key not defined";
     }
+    {
+      assertion = config.services.nebula.networks ? "hsmn0";
+      messages = "acme-nginx-rp: nebula network not defined, cannot continue.";
+    }
+    {
+      assertion = config.services.nebula.networks."hsmn0".enable;
+      messages = "acme-nginx-rp: nebula network not enabled, cannot continue.";
+    }
   ];
 
   security.acme = {
@@ -58,6 +66,12 @@
     };
   };
 
-  # Allow Netbird Access
-  networking.firewall.interfaces."wt0".allowedTCPPorts = lib.optionals config.services.netbird.enable [ 443 ];
+  networking.firewall.interfaces."nebula.hsmn0".allowedTCPPorts = [443];
+  services.nebula.networks."hsmn0".firewall.inbound = lib.optionals config.services.nebula.networks."hsmn0".enable [
+    {
+      port = "443";
+      proto = "tcp";
+      host = "any";
+    }
+  ];
 }
