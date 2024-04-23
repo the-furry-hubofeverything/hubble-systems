@@ -39,6 +39,8 @@
       allowUnfree = true;
       # Workaround for home-manager #2942
       allowUnfreePredicate = _: true;
+      cudaSupport = true;
+      rocmSupport = true;
     };
   };
 

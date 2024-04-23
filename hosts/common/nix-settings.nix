@@ -12,6 +12,8 @@
     ];
     config = {
       allowUnfree = true;
+      cudaSupport = true;
+      rocmSupport = true;
     };
   };
 
