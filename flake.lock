@@ -24,16 +24,16 @@
       },
       "locked": {
         "dir": "blender",
-        "lastModified": 1713656952,
-        "narHash": "sha256-P/H6hq042r5VO2IcZcNXP1UgNZSrqm9KC6itapLaXWU=",
-        "owner": "the-furry-hubofeverything",
+        "lastModified": 1711978246,
+        "narHash": "sha256-2dQwed69pIoVvRM/NFdXwLawmTHmo4OVGsRbNSVbUPg=",
+        "owner": "edolstra",
         "repo": "nix-warez",
-        "rev": "83b7d313bc473c653b0105b177dd089b55fa6afa",
+        "rev": "9f680f5c471dce3b387327a6cacae532ab9e7cb0",
         "type": "github"
       },
       "original": {
         "dir": "blender",
-        "owner": "the-furry-hubofeverything",
+        "owner": "edolstra",
         "repo": "nix-warez",
         "type": "github"
       }

@@ -66,7 +66,7 @@
     # === Extra software ===
     # Blender binaries
     blender-bin = {
-      url = "github:the-furry-hubofeverything/nix-warez?dir=blender";
+      url = "github:edolstra/nix-warez?dir=blender";
       inputs.nixpkgs.follows = "nixpkgs"; # use our nixpkgs
     };
 
