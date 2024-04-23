@@ -1,9 +1,15 @@
 { config, lib, ... }: 
 let 
   ips = {
-    # might change later
-    titan-razer-lcluster = "100.106.179.153";
-    enterprise-asus-lcluster = "100.106.28.233";
+    "alex-oracle-remote.gulo.dev" = "100.86.87.1";
+
+    "enterprise-asus-lcluster.gulo.dev" = "100.86.28.1";
+    "titan-razer-lcluster.gulo.dev" = "100.86.28.2";
+
+    "gulo-laptop.gulo.dev" = "100.86.127.1";
+    
+    "brain-pi4-picluster.gulo.dev" = "100.86.30.1";
+    "pinky-pi3-picluster.gulo.dev" = "100.86.30.2";
   };
 in 
 {
@@ -34,8 +40,7 @@ in
         };        
       };
 
-      # TODO blocky service seems to start before network devices do 
-      # startVerifyUpstream = true;
+      startVerifyUpstream = true;
 
       bootstrapDns = [
         {
@@ -68,13 +73,13 @@ in
       };
 
       customDNS = {
-        mapping = {
-          "titan-razer-lcluster.gulo.dev" = ips.titan-razer-lcluster;
-          "enterprise-asus-lcluster.gulo.dev" = ips.enterprise-asus-lcluster;
+        mapping = ips // {
 
           # Services
-          "grocy.gulo.dev" = ips.enterprise-asus-lcluster;
-          "vw.gulo.dev" = ips.enterprise-asus-lcluster;
+          # dns.gulo.dev is defined on porkbun
+          "grocy.gulo.dev" = ips."enterprise-asus-lcluster.gulo.dev";
+          "vw.gulo.dev" = ips."enterprise-asus-lcluster.gulo.dev";
+          "flamenco.gulo.dev" = ips."enterprise-asus-lcluster.gulo.dev";
         };
       };
       
@@ -97,6 +102,11 @@ in
     };
   };
 
+  systemd.services.blocky = {
+    after = [ "network-online.target" ];
+    wants = [ "network-online.target" ];
+  };
+
   networking = {
     # Allow DNS server access 
     firewall = {
@@ -105,8 +115,8 @@ in
 
     nameservers = [
       "127.0.0.1"
-      ips.titan-razer-lcluster
-      ips.enterprise-asus-lcluster
+      ips."titan-razer-lcluster.gulo.dev"
+      ips."enterprise-asus-lcluster.gulo.dev"
     ];
   };
 }
