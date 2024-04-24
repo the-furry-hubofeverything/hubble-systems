@@ -31,6 +31,10 @@ in buildGoModule rec {
     hash = "sha256-iAMQv4GzxS5PPQPrLCjBj7qd2HpAg91/BtMRoGTuJ5U=";
   };
 
+  patches = [
+    ./absolute-path-bypass.patch
+  ];
+
   webappOfflineCache = fetchYarnDeps {
     yarnLock = "${src}/web/app/yarn.lock";
     hash = "sha256-QcfyiL2/ALkxZpJyiwyD7xNlkOCPu4THCyywwZ40H8s=";

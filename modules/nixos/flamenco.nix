@@ -61,8 +61,6 @@
 
   configFile = {
     manager = yaml.generate "flamenco-manager.yaml" (defaultConfig.manager // cfg.managerConfig // {
-      # Flamenco manager config accepts this as relative path ONLY
-      local_manager_storage_path = "../../../../${cfg.managerConfig.local_manager_storage_path}";
       listen = cfg.listen.ip + ":" + (toString cfg.listen.port);
     });
     worker = yaml.generate "flamenco-worker.yaml" (defaultConfig.worker // cfg.workerConfig);

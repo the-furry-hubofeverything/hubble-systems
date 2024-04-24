@@ -1,0 +1,21 @@
+diff --git a/internal/manager/local_storage/local_storage.go b/internal/manager/local_storage/local_storage.go
+index 5ec3c5b5..52f6ef71 100644
+--- a/internal/manager/local_storage/local_storage.go
++++ b/internal/manager/local_storage/local_storage.go
+@@ -19,8 +19,15 @@ type StorageInfo struct {
+ 
+ // NewNextToExe returns a storage representation that sits next to the
+ // currently-running executable. If that directory cannot be determined, falls
+-// back to the current working directory.
++// back to the current working directory. If an absolute path is given, it will
++// not change the directory.
+ func NewNextToExe(subdir string) StorageInfo {
++
++	if filepath.IsAbs(subdir) {
++		return StorageInfo{
++			rootPath: subdir,
++		}
++	}
+ 	exeDir := getSuitableStorageRoot()
+ 	storagePath := filepath.Join(exeDir, subdir)
+ 
