@@ -1,6 +1,7 @@
 { inputs, pkgs, lib, ... }:{
   imports = [
     inputs.hardware.nixosModules.raspberry-pi-4
+    ./hardware-configuration.nix
   ];
   
   hardware = {
@@ -10,8 +11,6 @@
       filter = "*rpi-4-*.dtb";
     };
   };
-
-  networking.wireless.enable = true;
 
   environment.systemPackages = with pkgs; [
     libraspberrypi
@@ -24,6 +23,4 @@
   nixpkgs.hostPlatform = lib.mkDefault "aarch64-linux";
   powerManagement.cpuFreqGovernor = lib.mkDefault "ondemand";
   networking.useDHCP = lib.mkDefault true;
-
-  system.stateVersion = "23.05";
 }

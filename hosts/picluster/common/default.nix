@@ -10,10 +10,18 @@
     ../../common/security.nix
     ../../common/bash-config.nix
     ../../common/network-tuning.nix
+
+    # nebula
+    ../../common/services/nebula.nix
+
+    ../../common/servers
   ];
 
   boot.loader.grub.enable = false;
   boot.loader.generic-extlinux-compatible.enable = true;
+
+  sops.age.keyFile = "/var/lib/sops-nix/key.txt";
+  sops.age.sshKeyPaths = [];
 
   # Set your time zone.
   time.timeZone = "America/Vancouver";
