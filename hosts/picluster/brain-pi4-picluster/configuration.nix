@@ -20,7 +20,6 @@
   networking.hostName = "brain-pi4-picluster"; # Define your hostname.
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "usbhid" ];
-  nixpkgs.hostPlatform = lib.mkDefault "aarch64-linux";
   powerManagement.cpuFreqGovernor = lib.mkDefault "ondemand";
   networking.useDHCP = lib.mkDefault true;
 }

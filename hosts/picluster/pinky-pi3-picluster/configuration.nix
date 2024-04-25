@@ -13,7 +13,6 @@
   networking.hostName = "pinky-pi3-picluster"; # Define your hostname.
 
   boot.initrd.availableKernelModules = [ "usbhid" ];
-  nixpkgs.hostPlatform = lib.mkDefault "aarch64-linux";
   powerManagement.cpuFreqGovernor = lib.mkDefault "ondemand";
   networking.useDHCP = lib.mkDefault true;
 }
