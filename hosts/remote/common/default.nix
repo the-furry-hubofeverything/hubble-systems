@@ -7,6 +7,7 @@
     ../../common/security.nix
     ../../common/development.nix
     ../../common/bash-config.nix
+    ../../common/network-tuning.nix
   ];
 
   # Set your time zone.

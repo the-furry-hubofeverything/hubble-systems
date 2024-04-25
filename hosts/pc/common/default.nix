@@ -34,6 +34,7 @@
     ../../common/development.nix
     ../../common/hubbleGroups.nix
     ../../common/bash-config.nix
+    ../../common/network-tuning.nix
 
     outputs.nixosModules.flamenco
     ../../common/flamenco.nix

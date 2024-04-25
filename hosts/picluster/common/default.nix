@@ -9,6 +9,7 @@
     ../../common/hubbleGroups.nix
     ../../common/security.nix
     ../../common/bash-config.nix
+    ../../common/network-tuning.nix
   ];
 
   boot.loader.grub.enable = false;

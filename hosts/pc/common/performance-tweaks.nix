@@ -6,13 +6,9 @@
   boot.kernel.sysctl = {
     "net.core.netdev_max_backlog" = 16384;
     "net.core.somaxconn" = 8192;
-    "net.ipv4.tcp_fastopen" = 3;
 
     # musnix also sets this
     "vm.swappiness" = lib.mkDefault 10;
-
-    # Allow emergency sysrq reboot "reisub"
-    "kernel.sysrq" = 246;
   };
 
   # Distribute irq over multiple cores

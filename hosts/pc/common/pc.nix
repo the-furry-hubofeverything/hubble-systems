@@ -73,4 +73,9 @@
   fonts.fontDir.enable = true;
 
   fonts.fontconfig.defaultFonts.sansSerif = [ "Inter" ];
+
+  boot.kernel.sysctl = {
+    # Allow emergency sysrq reboot "reisub"
+    "kernel.sysrq" = 246;
+  };
 }

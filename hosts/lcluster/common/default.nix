@@ -43,6 +43,7 @@ in {
     ../../common/development.nix
     ../../common/security.nix
     ../../common/bash-config.nix
+    ../../common/network-tuning.nix
 
     ../../common/filesystems/btrfs-with-rollback.nix
     ../../common/filesystems/mergerfs.nix
