@@ -42,6 +42,7 @@ in {
   sops.secrets.rootPasswd.neededForUsers = true;
 
   sops.gnupg.sshKeyPaths = [];
+  # sops.age.sshKeyPaths = [];
 
   users.users = {
     "hubble" = mkPassword "hubblePasswd" "tank-weasel" "hubble";
