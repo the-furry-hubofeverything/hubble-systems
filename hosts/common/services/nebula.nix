@@ -81,7 +81,10 @@ in
 
       pki = {
         # blocklist is a list of certificate fingerprints that we will refuse to talk to
-        blocklist = [];
+        blocklist = [
+          # Oops I uploaded a key
+          "97112cb4678924463a7c567d2cc14d6e26f02e821451193e08f613d89beb05b1"
+        ];
       };
       
       routines = threads.${lib.last (lib.splitString "-" config.networking.hostName)};
