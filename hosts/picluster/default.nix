@@ -14,6 +14,14 @@ in {
     ];
   };
 
+  picluster-sd-installer = {
+    platform = "aarch64-linux";
+    modules = sharedModules.piCluster ++ [
+      "${inputs.nixpkgs.sourceInfo.outPath}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
+      ./picluster/common.nix
+    ];
+  };
+
   brain-pi4-picluster = {
     platform = "aarch64-linux";
     modules =
@@ -23,7 +31,7 @@ in {
         inputs.hs-secrets.nixosModules.picluster.brain
       ];
   };
-  pinky-pi3-piCluster = {
+  pinky-pi3-picluster = {
     platform = "aarch64-linux";
     modules =
       piClusterModules
