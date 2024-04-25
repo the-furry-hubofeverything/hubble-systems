@@ -19,6 +19,7 @@
 
   boot.loader.grub.enable = false;
   boot.loader.generic-extlinux-compatible.enable = true;
+  boot.loader.generic-extlinux-compatible.configurationLimit = 3;
 
   sops.age.keyFile = "/var/lib/sops-nix/key.txt";
   sops.age.sshKeyPaths = [];
