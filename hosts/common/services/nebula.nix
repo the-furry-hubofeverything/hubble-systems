@@ -4,17 +4,28 @@ let
   port = 58284;
   name = "hsmn0";
 
-  lighthouse = {
-    hostname = "alex-oracle-remote";
-    ip = "100.86.87.1";
-    route = ["alex.gulo.dev:${toString port}"];
-  };
+  lighthouses = [
+    {
+      hostname = "alex-oracle-remote";
+      ip = "100.86.87.1";
+      route = ["alex.gulo.dev:${toString port}"];
+    }
+  ];
 
   relayHosts = {
     "alex-oracle-remote" = "100.86.87.1";
   };
 
-  isLighthouse = (config.networking.hostName == lighthouse.hostname);
+  # Set number of routines based on thread count
+  threads = {
+    "remote" = 1;
+    "lcluster" = 4;
+    "Laptop" = 8;
+    "picluster" = 2;
+  };
+
+  # Does any hostnames in lighthouses equal the current machine's hostname?
+  isLighthouse = (builtins.any (x: x == config.networking.hostName) (map (x: x.hostname) lighthouses) );
   owner = config.systemd.services."nebula@${name}".serviceConfig.User;
   group = config.systemd.services."nebula@${name}".serviceConfig.Group;
 in 
@@ -47,11 +58,11 @@ in
     # Lighthouse related config
     inherit isLighthouse;
 
-    staticHostMap = lib.optionalAttrs (!isLighthouse) {
-      "${lighthouse.ip}" = lighthouse.route;
-    };
+    staticHostMap = lib.optionalAttrs (!isLighthouse) (lib.attrsets.mergeAttrsList (map (x: {
+      ${x.ip} = x.route;
+    }) lighthouses));
 
-    lighthouses = lib.optionals (!isLighthouse) [lighthouse.ip];
+    lighthouses = lib.optionals (!isLighthouse) (map (x: x.ip) lighthouses);
 
     listen = {
       inherit port;
@@ -73,6 +84,7 @@ in
         blocklist = [];
       };
       
+      routines = threads.${lib.last (lib.splitString "-" config.networking.hostName)};
     };
 
     isRelay = relayHosts ? config.networking.hostName;
