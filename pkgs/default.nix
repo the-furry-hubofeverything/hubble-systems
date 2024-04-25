@@ -8,6 +8,5 @@ pkgs: rec {
   sheepit-client = pkgs.callPackage ./sheepit-client/default.nix {};
   wii-pointer = wii-pointers.p1;
   wii-pointers = pkgs.callPackage ./wii-pointer/default.nix {};
-  rtcqs = pkgs.callPackage ./rtcqs/default.nix {};
   # quicksand = pkgs.callPackage ./quicksand/default.nix {};
 }
