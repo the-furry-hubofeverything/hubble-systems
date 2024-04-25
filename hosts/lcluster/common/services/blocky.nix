@@ -111,7 +111,12 @@ in
 
   systemd.services.blocky = {
     after = [ "network-online.target" ];
-    wants = [ "network-online.target" ];
+    before = [ "nss-lookup.target" ];
+    wants = [ "network-online.target" "nss-lookup.target" ];
+
+    serviceConfig = {
+      restartSec = "500ms";
+    };
   };
 
   networking = {
