@@ -37,7 +37,7 @@
     ../../common/network-tuning.nix
 
     outputs.nixosModules.flamenco
-    ../../common/flamenco.nix
+    ../../common/services/flamenco.nix
     
     ../../common/services/nebula.nix
   ];

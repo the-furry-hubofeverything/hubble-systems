@@ -29,7 +29,7 @@ in {
 
     # flamenco
     outputs.nixosModules.flamenco
-    ../../common/flamenco.nix
+    ../../common/services/flamenco.nix
 
     # nebula
     ../../common/services/nebula.nix
