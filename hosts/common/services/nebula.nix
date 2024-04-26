@@ -10,10 +10,17 @@ let
       ip = "100.86.87.1";
       route = ["alex.gulo.dev:${toString port}"];
     }
+    {
+      hostname = "alan-google-remote";
+      ip = "100.86.87.2";
+      route = ["alan.gulo.dev:${toString port}"];
+    }
   ];
 
   relayHosts = {
     "alex-oracle-remote" = "100.86.87.1";
+    "alan-google-remote" = "100.86.87.2";
+    "brain-pi4-picluster" = "100.86.30.1";
   };
 
   # Set number of routines based on thread count
