@@ -23,4 +23,14 @@ in {
         inputs.hs-secrets.nixosModules.remote.alex
       ];
   };
+
+  alan-google-remote = {
+    platform = "x86_64-linux";
+    modules = 
+      remoteModules
+      ++ [
+        ./alan-google-remote/configuration.nix
+        inputs.hs-secrets.nixosModules.remote.alan
+      ];
+  };
 }

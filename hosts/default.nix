@@ -37,5 +37,6 @@ in {
   # === Remote servers ===
   inherit (import ./remote {inherit hostId-common inputs outputs sharedModules;})
     remote-common
-    alex-oracle-remote;
+    alex-oracle-remote
+    alan-google-remote;
 }
