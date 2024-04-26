@@ -94,3 +94,4 @@ Old laptops for builds and services. These should have ephemeral roots.
 | Nickname | Model | Hostname | CPU | GPU | Notes |
 |-|-|-|-|-|-|
 | alex | Oracle Free Tier | alex-oracle-remote | 2 vCPU | - | 1 GB RAM, can't use nixos-anywhere |
+| alan | Google Free Tier | alan-google-remote | 0.25 vCPU | - | 1 GB RAM, can't use nixos-anywhere |

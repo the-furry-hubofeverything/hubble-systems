@@ -2,6 +2,7 @@
 let 
   ips = {
     "alex-oracle-remote.gulo.dev" = "100.86.87.1";
+    "alan-google-remote.gulo.dev" = "100.86.87.2";
 
     "enterprise-asus-lcluster.gulo.dev" = "100.86.28.1";
     "titan-razer-lcluster.gulo.dev" = "100.86.28.2";
