@@ -23,13 +23,13 @@
         "/var/lib/systemd/coredump"
         "/var/lib/acme"
       ]
-      ++ lib.optionals (config.services.minecraft-servers.enable) [
-        (config.services.minecraft-servers.dataDir)
+      ++ lib.optionals config.services.minecraft-servers.enable [
+        config.services.minecraft-servers.dataDir
       ]
-      ++ lib.optionals (config.services.samba.enable) [
+      ++ lib.optionals config.services.samba.enable [
         "/var/lib/samba"
       ]
-      ++ lib.optionals (config.services.vaultwarden.enable) [
+      ++ lib.optionals config.services.vaultwarden.enable [
         "/var/lib/bitwarden_rs"
       ];
 

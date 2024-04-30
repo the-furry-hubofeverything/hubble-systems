@@ -126,7 +126,7 @@
           nixpkgs.lib.nixosSystem {
             system = host.platform;
             specialArgs = {inherit hs-utils inputs outputs;};
-            modules = host.modules;
+            inherit (host) modules;
           }
       )
       hosts;

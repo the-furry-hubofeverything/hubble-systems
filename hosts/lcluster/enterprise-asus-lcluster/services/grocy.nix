@@ -1,9 +1,4 @@
-{
-  config,
-  pkgs,
-  outputs,
-  ...
-}: {
+{config, ...}: {
   assertions = [
     {
       assertion = config.services.nginx.enable && config.services.nginx.virtualHosts ? "${config.networking.hostName}.gulo.dev";

@@ -40,8 +40,7 @@ in {
 
       # I need go 1.22, but flamenco isn't upstream yet, soooooo....
       # TODO remove when flamenco is upstream
-      go = pkgs.unstable.go;
-      buildGoModule = pkgs.unstable.buildGoModule;
+      inherit (pkgs.unstable) go buildGoModule;
     };
     role = ["worker"] ++ lib.optionals isManager ["manager"];
     workerConfig = {
@@ -65,7 +64,7 @@ in {
   boot.supportedFilesystems = ["cifs"];
   boot.kernelModules = ["cmac"]; # Needed due to titan being like "Could not allocate shash TFM 'cmac(aes)'"
 
-  fileSystems = (lib.optionalAttrs (!isManager) {
+  fileSystems = lib.optionalAttrs (!isManager) {
     "/srv/flamenco" = {
       device = "//flamenco.gulo.dev/flamenco";
       fsType = "cifs";
@@ -88,7 +87,7 @@ in {
             ["user=flamenco" "password=foobar"]
         );
     };
-  });
+  };
 
   systemd.tmpfiles.rules =
     [

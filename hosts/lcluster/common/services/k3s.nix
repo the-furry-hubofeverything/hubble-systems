@@ -1,8 +1,4 @@
-{
-  config,
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   # k3s, define roles in machine specific config
   networking.firewall.allowedTCPPorts = [6443];
   services.k3s.enable = true;

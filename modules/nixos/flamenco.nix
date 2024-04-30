@@ -228,8 +228,8 @@ in {
   config = lib.mkIf cfg.enable {
     environment.systemPackages = [cfg.package];
     networking.firewall = lib.optionalAttrs (cfg.openFirewall && roleIs "manager") {
-      allowedTCPPorts = [(cfg.listen.port)];
-      allowedUDPPorts = lib.optionals (cfg.managerConfig.autodiscoverable) [1900];
+      allowedTCPPorts = [cfg.listen.port];
+      allowedUDPPorts = lib.optionals cfg.managerConfig.autodiscoverable [1900];
     };
 
     systemd = {
@@ -243,7 +243,7 @@ in {
       users = lib.optionalAttrs (cfg.user == "render" && cfg.group == "render") {
         "${cfg.user}" = {
           uid = 303;
-          group = cfg.group;
+          inherit (cfg) group;
           isSystemUser = true;
         };
       };

@@ -4,7 +4,6 @@
   config,
   pkgs,
   lib,
-  fetchurl,
   ...
 }: let
   fanesTrainShenanigans = pkgs.fetchPackwizModpack {
@@ -154,7 +153,7 @@ in {
     };
   };
 
-  services.nginx.virtualHosts."${config.networking.hostName}.gulo.dev" = lib.optionalAttrs (config.services.minecraft-servers.servers."creative".enable) {
+  services.nginx.virtualHosts."${config.networking.hostName}.gulo.dev" = lib.optionalAttrs config.services.minecraft-servers.servers."creative".enable {
     locations."/mtr-map/" = {
       proxyPass = "http://127.0.0.1:8888/";
       extraConfig =

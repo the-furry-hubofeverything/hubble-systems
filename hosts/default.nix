@@ -2,8 +2,6 @@
   inputs,
   outputs,
 }: let
-  nixos-hardware = inputs.hardware.nixosModules;
-
   # Host ID for *-common configurations
   hostId-common = {networking.hostId = "356876b4";};
 

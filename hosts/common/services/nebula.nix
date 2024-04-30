@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  pkgs,
   hs-utils,
   ...
 }: let
@@ -36,7 +35,7 @@
   };
 
   # Does any hostnames in lighthouses equal the current machine's hostname?
-  isLighthouse = (builtins.any (x: x == config.networking.hostName) (map (x: x.hostname) lighthouses));
+  isLighthouse = builtins.any (x: x == config.networking.hostName) (map (x: x.hostname) lighthouses);
   owner = config.systemd.services."nebula@${name}".serviceConfig.User;
   group = config.systemd.services."nebula@${name}".serviceConfig.Group;
 in {

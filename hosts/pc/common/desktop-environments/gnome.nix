@@ -1,9 +1,4 @@
-{
-  config,
-  pkgs,
-  outputs,
-  ...
-}: {
+{pkgs, ...}: {
   services.udev.packages = with pkgs; [gnome.gnome-settings-daemon];
 
   programs.dconf.enable = true;

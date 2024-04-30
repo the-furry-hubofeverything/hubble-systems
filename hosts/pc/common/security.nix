@@ -1,4 +1,4 @@
-{...}: {
+_: {
   # U2F support
   security.pam.u2f.cue = true;
   security.pam.services = {

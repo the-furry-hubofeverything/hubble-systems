@@ -1,8 +1,4 @@
-{
-  config,
-  pkgs,
-  ...
-}: {
+_: {
   imports = [
     ./hardware-configuration.nix
     ./services/minecraftServers.nix

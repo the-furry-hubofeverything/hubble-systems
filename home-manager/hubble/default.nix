@@ -3,8 +3,6 @@
 {
   inputs,
   outputs,
-  lib,
-  config,
   pkgs,
   ...
 }: {
@@ -46,23 +44,25 @@
     username = "hubble";
     homeDirectory = "/home/hubble";
     stateVersion = "23.05"; # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
-    packages = with pkgs;
-      [
-        # dev packages
-        nixpkgs-fmt
-        inputs.nixd.packages.${pkgs.system}.nixd
+    packages =
+      (with pkgs; [
+        # dev packages for hubble-systems
         sops
         alejandra
 
         easyeffects
 
         inkscape
-        pkgs.element-desktop
-      ]
+        element-desktop
+      ])
       ++ [
         # To be replaced when upgraded 23.11
         pkgs.blender-hip_3_6
         pkgs.unstable.xwaylandvideobridge
+
+        # nix dev stuff
+        pkgs.nixpkgs-fmt
+        inputs.nixd.packages.${pkgs.system}.nixd
       ];
 
     pointerCursor = {
