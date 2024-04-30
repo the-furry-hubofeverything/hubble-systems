@@ -17,8 +17,6 @@
   nixpkgs = {
     # You can add overlays here
     overlays = [
-      inputs.nixd.overlays.default
-
       # Add overlays your own flake exports (from overlays and pkgs dir):
       outputs.overlays.additions
       outputs.overlays.modifications
@@ -51,7 +49,7 @@
     packages = with pkgs; [
       # dev packages
       nixpkgs-fmt
-      nixd
+      inputs.nixd.packages.${pkgs.system}.nixd
       sops
 
       easyeffects

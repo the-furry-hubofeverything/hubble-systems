@@ -58,7 +58,7 @@
     # Run unpatched binaries on Nix/NixOS
     nix-alien.url = "github:thiagokokada/nix-alien";
     # Nix language server
-    nixd.url = "github:nix-community/nixd/release/1.2";
+    nixd.url = "https://flakehub.com/f/nix-community/nixd/*.tar.gz";
 
     # === Extra software ===
     # Blender binaries
