@@ -1,7 +1,7 @@
 {
   inputs,
   sharedModules,
-  hostId-common,
+  commonVMConfig,
   ...
 }: let
   lclusterModules = sharedModules ++ [./common];
@@ -12,7 +12,7 @@ in {
     modules =
       lclusterModules
       ++ [
-        hostId-common
+        commonVMConfig
       ];
   };
 

@@ -3,6 +3,7 @@
   stdenvNoCC,
   fetchurl,
   p7zip,
+  player,
   ...
 }: let
   build = player:
@@ -22,22 +23,18 @@
 
       installPhase = ''
         install -dm 755 $out/share/icons
-        cp -dr --no-preserve='ownership' 'Linux Cursor/Wii-Pointer-P${player}' $out/share/icons/
+        cp -dr --no-preserve='ownership' 'Linux Cursor/Wii-Pointer-P${toString player}' $out/share/icons/
       '';
 
-      meta = with lib; {
-        description = "Wii pointer cursor theme (Player ${player})";
+      meta = {
+        description = "Wii pointer cursor theme (Player ${toString player})";
         homepage = "https://primm.gay/extras/other/cursors/";
-        # From README.txt - Feel free to use this set for whatever you want, but please seek my permission if you wish to redistribute it.
-        # Since there's no mention of a specific license, I'm going to set this to unfree
-        license = licenses.unfree;
-        platforms = platforms.all;
-        maintainers = with maintainers; [hubble];
+        # From README.txt - Feel free to use these wherever you want, as long as it's for non-commercial use.
+        # And finally, credit of any form would also be greatly appreciated if you use these in a public distribution!
+        license = lib.licenses.unfree;
+        platforms = lib.platforms.all;
+        maintainers = with lib.maintainers; [hubble];
       };
     };
-in {
-  p1 = build "1";
-  p2 = build "2";
-  p3 = build "3";
-  p4 = build "4";
-}
+in
+  build player

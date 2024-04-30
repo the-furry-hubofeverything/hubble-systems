@@ -1,7 +1,7 @@
 {
   inputs,
   sharedModules,
-  hostId-common,
+  commonVMConfig,
   ...
 }: let
   piClusterModules = sharedModules ++ [./common];
@@ -11,17 +11,7 @@ in {
     modules =
       piClusterModules
       ++ [
-        hostId-common
-      ];
-  };
-
-  picluster-sd-installer = {
-    platform = "aarch64-linux";
-    modules =
-      sharedModules.piCluster
-      ++ [
-        "${inputs.nixpkgs.sourceInfo.outPath}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
-        ./picluster/common.nix
+        commonVMConfig
       ];
   };
 

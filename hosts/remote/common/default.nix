@@ -1,4 +1,4 @@
-{...}: {
+{lib, ...}: {
   imports = [
     ../../common/servers
     ../../common/services/nebula.nix
@@ -18,4 +18,6 @@
 
   # Distribute irq over multiple cores
   services.irqbalance.enable = true;
+
+  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 }

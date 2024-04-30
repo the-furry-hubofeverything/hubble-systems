@@ -1,6 +1,7 @@
 {
   inputs,
   outputs,
+  lib,
   ...
 }: let
   nixos-hardware = inputs.hardware.nixosModules;
@@ -24,7 +25,7 @@ in {
     # ./services/k3s.nix
 
     # sheepit-client
-    ./services/sheepit.nix
+    # ./services/sheepit.nix
 
     # flamenco
     outputs.nixosModules.flamenco
@@ -110,4 +111,5 @@ in {
   # TODO Setup HA sevices
 
   system.stateVersion = "23.05";
+  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 }

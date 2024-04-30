@@ -34,6 +34,8 @@
     "picluster" = 2;
   };
 
+  hostGroup = lib.last (lib.splitString "-" config.networking.hostName);
+
   # Does any hostnames in lighthouses equal the current machine's hostname?
   isLighthouse = builtins.any (x: x == config.networking.hostName) (map (x: x.hostname) lighthouses);
   owner = config.systemd.services."nebula@${name}".serviceConfig.User;
@@ -78,9 +80,9 @@ in {
       inherit port;
     };
 
-    ca = hs-utils.sops.mkWarning config.sops "nebulaCACert" "nebula: CA cert secret not defined, using placeholder" ./ca.crt;
-    cert = hs-utils.sops.mkWarning config.sops "nebulaCert" "nebula: cert secret not defined, using placeholder" ./test.crt;
-    key = hs-utils.sops.mkWarning config.sops "nebulaKey" "nebula: key secret not defined, using placeholder" ./test.key;
+    ca = hs-utils.sops.mkWarning config.sops "nebulaCACert" "nebula: CA cert secret not defined on ${config.networking.hostName}, using placeholder" ./ca.crt;
+    cert = hs-utils.sops.mkWarning config.sops "nebulaCert" "nebula: cert secret not defined on ${config.networking.hostName}, using placeholder" ./test.crt;
+    key = hs-utils.sops.mkWarning config.sops "nebulaKey" "nebula: key secret not defined on ${config.networking.hostName}, using placeholder" ./test.key;
 
     settings = {
       punchy = {
@@ -97,7 +99,10 @@ in {
         ];
       };
 
-      routines = threads.${lib.last (lib.splitString "-" config.networking.hostName)};
+      routines =
+        if threads ? ${hostGroup}
+        then threads.${hostGroup}
+        else 2;
     };
 
     isRelay = relayHosts ? config.networking.hostName;

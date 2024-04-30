@@ -88,7 +88,10 @@
     ];
 
     # individual machines setup in ./hosts
-    hosts = import ./hosts {inherit inputs outputs;};
+    hosts = import ./hosts {
+      inherit inputs outputs;
+      lib = nixpkgs.lib;
+    };
     users = import ./home-manager {};
 
     # Helper Functions
@@ -122,10 +125,10 @@
     # Iterates through hosts/default.nix
     nixosConfigurations =
       nixpkgs.lib.mapAttrs (
-        _hostname: host:
+        hostname: host:
           nixpkgs.lib.nixosSystem {
             system = host.platform;
-            specialArgs = {inherit hs-utils inputs outputs;};
+            specialArgs = {inherit hs-utils hostname inputs outputs;};
             inherit (host) modules;
           }
       )

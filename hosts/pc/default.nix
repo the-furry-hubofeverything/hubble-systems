@@ -1,7 +1,7 @@
 {
   inputs,
   sharedModules,
-  hostId-common,
+  commonVMConfig,
   ...
 }: let
   pcModules = sharedModules ++ [./common];
@@ -11,7 +11,7 @@ in {
     modules =
       pcModules
       ++ [
-        hostId-common
+        commonVMConfig
       ];
   };
 

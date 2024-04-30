@@ -6,11 +6,11 @@
 }: let
   mkPassword = secret: fallback: user: {
     # Checks if secret is set, if not use fallback as password.
-    hashedPasswordFile = hs-utils.sops.mkWarning config.sops secret "Password secret not imported for the user ${user}, setting path to null" null;
+    hashedPasswordFile = hs-utils.sops.mkWarning config.sops secret "Password secret not imported for the user ${user} on ${config.networking.hostName}, setting path to null" null;
 
     password =
       if hs-utils.sops.isDefault config.sops secret
-      then lib.warn "Debug password for ${user} set: ${fallback}" fallback
+      then lib.warn "Debug password for ${user} on ${config.networking.hostName} set: ${fallback}" fallback
       else null;
   };
 

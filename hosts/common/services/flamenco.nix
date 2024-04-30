@@ -59,7 +59,10 @@ in {
   systemd.services."flamenco-worker".wantedBy = lib.optionals (config.networking.hostName == "Gulo-Laptop") (lib.mkForce []);
 
   # Samba is intolerant of extra newlines and what not.
-  sops.templates.".smbcredentials".content = "username=${config.sops.placeholder.flamencoSambaUser}\npassword=${config.sops.placeholder.flamencoSambaPasswd}";
+  # Using config.sops.secrets ? "secret" instead of hs-utils because the configuration doesn't define sops.secrets.
+  sops.templates.".smbcredentials".content =
+    lib.optionalString (config.sops.secrets ? "flamencoSambaUser" && config.sops.secrets ? "flamencoSambaPasswd")
+    "username=${config.sops.placeholder.flamencoSambaUser}\npassword=${config.sops.placeholder.flamencoSambaPasswd}";
 
   boot.supportedFilesystems = ["cifs"];
   boot.kernelModules = ["cmac"]; # Needed due to titan being like "Could not allocate shash TFM 'cmac(aes)'"
@@ -79,11 +82,11 @@ in {
           "uid=${toString config.users.users.render.uid}"
         ]
         ++ (
-          if (!hs-utils.sops.isDefault config.sops "flamencoSambaUser" && !hs-utils.sops.isDefault config.sops "flamencoSambaPasswd")
+          if (config.sops.templates.".smbcredentials".content != "")
           then ["credentials=${config.sops.templates.".smbcredentials".path}"]
           else
             lib.warn
-            "flamenco: samba secrets not detected, default credentials used: username = flamenco, password = foobar"
+            "flamenco: samba secrets not detected on ${config.networking.hostName}, default credentials used: username = flamenco, password = foobar"
             ["user=flamenco" "password=foobar"]
         );
     };
