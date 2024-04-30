@@ -135,8 +135,8 @@
   };
   # Workaround for interface specific "openFirewall"
   networking.firewall.interfaces."virbr1" = {
-    allowedTCPPorts = [ 139 445 ];
-    allowedUDPPorts = [ 137 138 ];
+    allowedTCPPorts = [139 445];
+    allowedUDPPorts = [137 138];
   };
 
   # VRChat firewall ports

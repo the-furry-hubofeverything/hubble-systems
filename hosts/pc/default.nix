@@ -4,14 +4,16 @@
   sharedModules,
   hostId-common,
   ...
-}: let 
+}: let
   pcModules = sharedModules ++ [./common];
 in {
   pc-common = {
     platform = "x86_64-linux";
-    modules = pcModules ++ [
-      hostId-common
-    ];
+    modules =
+      pcModules
+      ++ [
+        hostId-common
+      ];
   };
 
   Gulo-Laptop = {

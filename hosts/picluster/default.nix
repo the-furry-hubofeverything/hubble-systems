@@ -9,17 +9,21 @@
 in {
   picluster-common = {
     platform = "aarch64-linux";
-    modules = piClusterModules ++ [
-      hostId-common
-    ];
+    modules =
+      piClusterModules
+      ++ [
+        hostId-common
+      ];
   };
 
   picluster-sd-installer = {
     platform = "aarch64-linux";
-    modules = sharedModules.piCluster ++ [
-      "${inputs.nixpkgs.sourceInfo.outPath}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
-      ./picluster/common.nix
-    ];
+    modules =
+      sharedModules.piCluster
+      ++ [
+        "${inputs.nixpkgs.sourceInfo.outPath}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
+        ./picluster/common.nix
+      ];
   };
 
   brain-pi4-picluster = {

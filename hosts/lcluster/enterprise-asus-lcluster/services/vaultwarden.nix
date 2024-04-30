@@ -3,7 +3,7 @@
   pkgs,
   ...
 }: {
-    assertions = [
+  assertions = [
     {
       assertion = config.services.nginx.enable && config.services.nginx.virtualHosts ? "${config.networking.hostName}.gulo.dev";
       message = "vaultwarden: vaultwarden depends on acme-nginx-rp.nix";

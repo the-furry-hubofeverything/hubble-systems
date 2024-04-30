@@ -10,9 +10,11 @@ in {
   # TODO: Get impermanance either working or just remove it
   lcluster-common = {
     platform = "x86_64-linux";
-    modules = lclusterModules ++ [
-      hostId-common
-    ];
+    modules =
+      lclusterModules
+      ++ [
+        hostId-common
+      ];
   };
 
   titan-razer-lcluster = {

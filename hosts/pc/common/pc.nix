@@ -61,7 +61,7 @@
     liberation_ttf
     unifont
     winePackages.fonts
-    
+
     quicksand
     ubuntu_font_family
     comic-neue
@@ -72,7 +72,7 @@
   # For compatibility with flatpak etc.
   fonts.fontDir.enable = true;
 
-  fonts.fontconfig.defaultFonts.sansSerif = [ "Inter" ];
+  fonts.fontconfig.defaultFonts.sansSerif = ["Inter"];
 
   boot.kernel.sysctl = {
     # Allow emergency sysrq reboot "reisub"

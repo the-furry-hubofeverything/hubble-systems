@@ -1,9 +1,14 @@
-{ inputs, pkgs, lib, ... }:{
+{
+  inputs,
+  pkgs,
+  lib,
+  ...
+}: {
   imports = [
     inputs.hardware.nixosModules.raspberry-pi-4
     ./hardware-configuration.nix
   ];
-  
+
   hardware = {
     raspberry-pi."4".apply-overlays-dtmerge.enable = true;
     deviceTree = {
@@ -19,7 +24,7 @@
 
   networking.hostName = "brain-pi4-picluster"; # Define your hostname.
 
-  boot.initrd.availableKernelModules = [ "xhci_pci" "usbhid" ];
+  boot.initrd.availableKernelModules = ["xhci_pci" "usbhid"];
   powerManagement.cpuFreqGovernor = lib.mkDefault "ondemand";
   networking.useDHCP = lib.mkDefault true;
 }

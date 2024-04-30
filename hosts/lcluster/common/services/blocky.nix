@@ -1,5 +1,8 @@
-{ config, lib, ... }: 
-let 
+{
+  config,
+  lib,
+  ...
+}: let
   ips = {
     "alex-oracle-remote.gulo.dev" = "100.86.87.1";
     "alan-google-remote.gulo.dev" = "100.86.87.2";
@@ -8,12 +11,11 @@ let
     "titan-razer-lcluster.gulo.dev" = "100.86.28.2";
 
     "gulo-laptop.gulo.dev" = "100.86.127.1";
-    
+
     "brain-pi4-picluster.gulo.dev" = "100.86.30.1";
     "pinky-pi3-picluster.gulo.dev" = "100.86.30.2";
   };
-in 
-{
+in {
   assertions = [
     {
       assertion = config.services.nginx.enable && config.services.nginx.virtualHosts ? "${config.networking.hostName}.gulo.dev";
@@ -38,7 +40,7 @@ in
             "https://dns.quad9.net/dns-query"
             "https://anycast.uncensoreddns.org/dns-query"
           ];
-        };        
+        };
       };
 
       startVerifyUpstream = true;
@@ -74,16 +76,17 @@ in
       };
 
       customDNS = {
-        mapping = ips // {
-
-          # Services
-          # dns.gulo.dev is defined on porkbun
-          "grocy.gulo.dev" = ips."enterprise-asus-lcluster.gulo.dev";
-          "vw.gulo.dev" = ips."enterprise-asus-lcluster.gulo.dev";
-          "flamenco.gulo.dev" = ips."enterprise-asus-lcluster.gulo.dev";
-        };
+        mapping =
+          ips
+          // {
+            # Services
+            # dns.gulo.dev is defined on porkbun
+            "grocy.gulo.dev" = ips."enterprise-asus-lcluster.gulo.dev";
+            "vw.gulo.dev" = ips."enterprise-asus-lcluster.gulo.dev";
+            "flamenco.gulo.dev" = ips."enterprise-asus-lcluster.gulo.dev";
+          };
       };
-      
+
       # I don't want to log your requests please
       log = {
         level = "warn";
@@ -92,16 +95,15 @@ in
     };
   };
 
-
   # Reverse proxy for DoH
   services.nginx.virtualHosts."dns.gulo.dev" = {
     useACMEHost = "gulo.dev";
     forceSSL = true;
-    # block path 
+    # block path
     locations."/" = {
       return = "404";
     };
-    
+
     locations."/dns-query" = {
       proxyPass = "https://127.0.0.1:44343";
       extraConfig =
@@ -111,9 +113,9 @@ in
   };
 
   systemd.services.blocky = {
-    after = [ "network-online.target" ];
-    before = [ "nss-lookup.target" ];
-    wants = [ "network-online.target" "nss-lookup.target" ];
+    after = ["network-online.target"];
+    before = ["nss-lookup.target"];
+    wants = ["network-online.target" "nss-lookup.target"];
 
     serviceConfig = {
       restartSec = "500ms";
@@ -121,9 +123,9 @@ in
   };
 
   networking = {
-    # Allow DNS server access 
+    # Allow DNS server access
     firewall = {
-      allowedUDPPorts = [ 53 ];
+      allowedUDPPorts = [53];
     };
 
     nameservers = [
@@ -133,7 +135,8 @@ in
     ];
   };
 
-  services.nebula.networks."hsmn0".firewall.inbound = lib.optionals config.services.nebula.networks."hsmn0".enable 
+  services.nebula.networks."hsmn0".firewall.inbound =
+    lib.optionals config.services.nebula.networks."hsmn0".enable
     [
       {
         port = "53";

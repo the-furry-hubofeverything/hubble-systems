@@ -9,9 +9,11 @@
 in {
   remote-common = {
     platform = "x86_64-linux";
-    modules = remoteModules ++ [
-      hostId-common
-    ];
+    modules =
+      remoteModules
+      ++ [
+        hostId-common
+      ];
   };
 
   alex-oracle-remote = {
@@ -26,7 +28,7 @@ in {
 
   alan-google-remote = {
     platform = "x86_64-linux";
-    modules = 
+    modules =
       remoteModules
       ++ [
         ./alan-google-remote/configuration.nix

@@ -60,9 +60,11 @@
   };
 
   configFile = {
-    manager = yaml.generate "flamenco-manager.yaml" (defaultConfig.manager // cfg.managerConfig // {
-      listen = cfg.listen.ip + ":" + (toString cfg.listen.port);
-    });
+    manager = yaml.generate "flamenco-manager.yaml" (defaultConfig.manager
+      // cfg.managerConfig
+      // {
+        listen = cfg.listen.ip + ":" + (toString cfg.listen.port);
+      });
     worker = yaml.generate "flamenco-worker.yaml" (defaultConfig.worker // cfg.workerConfig);
   };
 
@@ -104,7 +106,7 @@
     };
   };
 in {
-  meta.maintainers = with lib.maintainers; [ hubble ];
+  meta.maintainers = with lib.maintainers; [hubble];
 
   options.services.flamenco = with lib.types; {
     enable = lib.mkEnableOption "Flamenco, a render farm management software for Blender";

@@ -53,7 +53,7 @@
     qemu = {
       ovmf = {
         enable = true;
-        packages = [ pkgs.OVMFFull.fd ]; # Windows 11 secure boot support https://github.com/NixOS/nixpkgs/issues/164064
+        packages = [pkgs.OVMFFull.fd]; # Windows 11 secure boot support https://github.com/NixOS/nixpkgs/issues/164064
       };
       swtpm.enable = true;
       runAsRoot = true;

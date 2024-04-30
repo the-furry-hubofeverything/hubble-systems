@@ -1,5 +1,10 @@
-{ config, hs-utils, pkgs, lib, ... }: {
-
+{
+  config,
+  hs-utils,
+  pkgs,
+  lib,
+  ...
+}: {
   assertions = [
     {
       assertion = hs-utils.sops.defaultIsEmpty config.sops;
@@ -33,21 +38,26 @@
         PORKBUN_SECRET_API_KEY_FILE=${config.sops.secrets.porkbun-api-sKey.path}
       ''}";
     };
-    
+
     certs."gulo.dev" = {
       domain = "gulo.dev";
-      extraDomainNames = [ "*.gulo.dev" ];
+      extraDomainNames = ["*.gulo.dev"];
       dnsPropagationCheck = true;
     };
   };
-  
-  sops.secrets.porkbun-api-key.owner = if config.security.acme.useRoot then "root" else "acme";
+
+  sops.secrets.porkbun-api-key.owner =
+    if config.security.acme.useRoot
+    then "root"
+    else "acme";
   sops.secrets.porkbun-api-key.group = config.security.acme.defaults.group;
-  sops.secrets.porkbun-api-sKey.owner = if config.security.acme.useRoot then "root" else "acme";
+  sops.secrets.porkbun-api-sKey.owner =
+    if config.security.acme.useRoot
+    then "root"
+    else "acme";
   sops.secrets.porkbun-api-sKey.group = config.security.acme.defaults.group;
 
-
-  users.users.nginx.extraGroups = [ "acme" ];
+  users.users.nginx.extraGroups = ["acme"];
   services.nginx = {
     enable = true;
 

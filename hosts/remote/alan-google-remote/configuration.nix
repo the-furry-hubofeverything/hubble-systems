@@ -1,4 +1,8 @@
-{ lib, inputs, ... }: {
+{
+  lib,
+  inputs,
+  ...
+}: {
   imports = [
     "${inputs.nixpkgs.sourceInfo.outPath}/nixos/modules/virtualisation/google-compute-image.nix"
   ];

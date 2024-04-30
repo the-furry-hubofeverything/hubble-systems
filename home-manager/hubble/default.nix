@@ -46,21 +46,24 @@
     username = "hubble";
     homeDirectory = "/home/hubble";
     stateVersion = "23.05"; # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
-    packages = with pkgs; [
-      # dev packages
-      nixpkgs-fmt
-      inputs.nixd.packages.${pkgs.system}.nixd
-      sops
+    packages = with pkgs;
+      [
+        # dev packages
+        nixpkgs-fmt
+        inputs.nixd.packages.${pkgs.system}.nixd
+        sops
+        alejandra
 
-      easyeffects
+        easyeffects
 
-      inkscape
-      pkgs.element-desktop
-    ] ++ [
-      # To be replaced when upgraded 23.11
-      pkgs.blender-hip_3_6
-      pkgs.unstable.xwaylandvideobridge
-    ];
+        inkscape
+        pkgs.element-desktop
+      ]
+      ++ [
+        # To be replaced when upgraded 23.11
+        pkgs.blender-hip_3_6
+        pkgs.unstable.xwaylandvideobridge
+      ];
 
     pointerCursor = {
       name = "Wii-Pointer";

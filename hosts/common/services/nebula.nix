@@ -1,6 +1,10 @@
-{ config, lib, pkgs, hs-utils, ... }: 
-let 
-
+{
+  config,
+  lib,
+  pkgs,
+  hs-utils,
+  ...
+}: let
   port = 58284;
   name = "hsmn0";
 
@@ -32,11 +36,10 @@ let
   };
 
   # Does any hostnames in lighthouses equal the current machine's hostname?
-  isLighthouse = (builtins.any (x: x == config.networking.hostName) (map (x: x.hostname) lighthouses) );
+  isLighthouse = (builtins.any (x: x == config.networking.hostName) (map (x: x.hostname) lighthouses));
   owner = config.systemd.services."nebula@${name}".serviceConfig.User;
   group = config.systemd.services."nebula@${name}".serviceConfig.Group;
-in 
-{
+in {
   assertions = [
     {
       assertion = hs-utils.sops.defaultIsEmpty config.sops;
@@ -66,8 +69,9 @@ in
     inherit isLighthouse;
 
     staticHostMap = lib.optionalAttrs (!isLighthouse) (lib.attrsets.mergeAttrsList (map (x: {
-      ${x.ip} = x.route;
-    }) lighthouses));
+        ${x.ip} = x.route;
+      })
+      lighthouses));
 
     lighthouses = lib.optionals (!isLighthouse) (map (x: x.ip) lighthouses);
 
@@ -75,7 +79,7 @@ in
       inherit port;
     };
 
-    ca = hs-utils.sops.mkWarning config.sops "nebulaCACert" "nebula: CA cert secret not defined, using placeholder" ./ca.crt;  
+    ca = hs-utils.sops.mkWarning config.sops "nebulaCACert" "nebula: CA cert secret not defined, using placeholder" ./ca.crt;
     cert = hs-utils.sops.mkWarning config.sops "nebulaCert" "nebula: cert secret not defined, using placeholder" ./test.crt;
     key = hs-utils.sops.mkWarning config.sops "nebulaKey" "nebula: key secret not defined, using placeholder" ./test.key;
 
@@ -93,7 +97,7 @@ in
           "97112cb4678924463a7c567d2cc14d6e26f02e821451193e08f613d89beb05b1"
         ];
       };
-      
+
       routines = threads.${lib.last (lib.splitString "-" config.networking.hostName)};
     };
 

@@ -3,11 +3,10 @@
   pkgs,
   ...
 }: {
-
   imports = [
     ./security.nix
   ];
-  
+
   services.logind.lidSwitch = "ignore";
 
   # Enable the OpenSSH daemon.
@@ -16,16 +15,15 @@
     # Forbid root login through SSH.
     settings.PermitRootLogin = "no";
   };
-  
+
   # Enable sound.
   sound.enable = true;
   hardware.pulseaudio.enable = true;
 
   networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
 
-
   boot.kernelModules = [
-    "usb_storage"   # USB mass storage support
+    "usb_storage" # USB mass storage support
   ];
   services.udisks2.enable = true; # userspace mount to /run/media
 
@@ -33,7 +31,7 @@
     kitty.terminfo
     git
   ];
-  
+
   # TODO setup remote jobs using best practices
   nix.settings.trusted-users = ["@wheel" "hubble"];
 

@@ -1,4 +1,9 @@
-{ lib, inputs, pkgs, ... }: {
+{
+  lib,
+  inputs,
+  pkgs,
+  ...
+}: {
   imports = [
     inputs.musnix.nixosModules.musnix
   ];
@@ -17,12 +22,13 @@
   };
 
   # TODO switch to services.pipewire.extraConfig.pipewire in 24.05
-  environment.etc = let json = pkgs.formats.json {};
+  environment.etc = let
+    json = pkgs.formats.json {};
   in {
     "pipewire/pipewire.d/92-clock-rates.conf".source = json.generate "92-clock-rates.conf" {
       "context.properties" = {
         # Avoids resampling
-        "default.clock.allowed-rates" = [ 44100 48000 88200 96000 ];
+        "default.clock.allowed-rates" = [44100 48000 88200 96000];
         # Low latency, but some flexibility
         "default.clock.quantum" = 32;
         "default.clock.min-quantum" = 32;
@@ -34,7 +40,7 @@
   # Various audio optimizations
   musnix.enable = true;
 
-  # Unset musnix's default cpu governor setting - 
+  # Unset musnix's default cpu governor setting -
   # I'm sacrificing realtime-audio for a little bit
   # of flexibility in power management.
   powerManagement.cpuFreqGovernor = lib.mkForce null;

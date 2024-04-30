@@ -1,8 +1,8 @@
-{ lib
-, stdenv
-, fetchFromGitHub
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "koulen";
   version = "unstable-2021-06-07";
@@ -25,8 +25,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "";
     homepage = "https://github.com/danhhong/Koulen";
-    license = with licenses; [ ofl ];
+    license = with licenses; [ofl];
     platforms = platforms.all;
-    maintainers = with maintainers; [ hubble ];
+    maintainers = with maintainers; [hubble];
   };
 }

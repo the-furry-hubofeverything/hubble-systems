@@ -12,29 +12,30 @@
     packHash = "sha256-maxrc3JbI0OpXY7LlevJrulbvVveJvWML7Q512GPeZU=";
   };
 
-  optimizeServerModpack = modpack: pname: version: pkgs.stdenvNoCC.mkDerivation {
-    inherit pname version;
+  optimizeServerModpack = modpack: pname: version:
+    pkgs.stdenvNoCC.mkDerivation {
+      inherit pname version;
 
-    src = pkgs.fetchPackwizModpack {
-      url = "https://github.com/the-furry-hubofeverything/fabric-server-optimizations/raw/f88e977440507469023fc9836aaf245e71bf802f/pack.toml";
-      packHash = "sha256-bd/bzEMiryRP6yp2A126KweBw+LvdoZ4ijHh91WrMmQ=";
+      src = pkgs.fetchPackwizModpack {
+        url = "https://github.com/the-furry-hubofeverything/fabric-server-optimizations/raw/f88e977440507469023fc9836aaf245e71bf802f/pack.toml";
+        packHash = "sha256-bd/bzEMiryRP6yp2A126KweBw+LvdoZ4ijHh91WrMmQ=";
+      };
+
+      inputs = [modpack];
+
+      dontUnpack = true;
+      dontConfig = true;
+      dontBuild = true;
+      dontFixup = true;
+      installPhase = ''
+        runHook preInstall
+
+        mkdir -p $out/mods
+        cp -sr "$src/mods" "${modpack}/mods/" $out/
+
+        runHook postInstall
+      '';
     };
-
-    inputs = [ modpack ];
-
-    dontUnpack = true;
-    dontConfig = true;
-    dontBuild = true;
-    dontFixup = true;
-    installPhase = ''
-      runHook preInstall
-
-      mkdir -p $out/mods
-      cp -sr "$src/mods" "${modpack}/mods/" $out/
-
-      runHook postInstall
-    '';
-  };
 
   # https://flags.sh/
   jvmOptimizationFlags = ''
@@ -89,15 +90,17 @@ in {
 
   # Set ownership for whitelist sops files
   # whitelist secrets must be name "minecraft-{name}-whitelist"
-  sops.secrets = lib.mapAttrs' (
-    serverName: server: {
-      name = "minecraft-${serverName}-whitelist";
-      value = lib.optionalAttrs server.serverProperties.white-list {
-        inherit (config.services.minecraft-servers) group;
-        owner = config.services.minecraft-servers.user;
-      };
-    }
-  ) config.services.minecraft-servers.servers;
+  sops.secrets =
+    lib.mapAttrs' (
+      serverName: server: {
+        name = "minecraft-${serverName}-whitelist";
+        value = lib.optionalAttrs server.serverProperties.white-list {
+          inherit (config.services.minecraft-servers) group;
+          owner = config.services.minecraft-servers.user;
+        };
+      }
+    )
+    config.services.minecraft-servers.servers;
 
   services.minecraft-servers = {
     enable = true;

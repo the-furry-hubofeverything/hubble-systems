@@ -30,7 +30,7 @@
       url = "github:wamserma/flake-programs-sqlite";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    
+
     # Secure boot
     lanzaboote = {
       url = "github:nix-community/lanzaboote/v0.3.0";
@@ -44,7 +44,7 @@
 
     # Impermanence
     impermanence.url = "github:nix-community/impermanence";
-    
+
     # Secrets management
     sops-nix = {
       url = "github:Mic92/sops-nix";
@@ -91,7 +91,7 @@
     hosts = import ./hosts {inherit inputs outputs;};
     users = import ./home-manager {};
 
-    # Helper Functions 
+    # Helper Functions
     hs-utils = import ./utils nixpkgs.lib;
 
     # This is a function that generates an attribute by calling a function you

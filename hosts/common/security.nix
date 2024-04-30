@@ -1,4 +1,8 @@
-{lib, pkgs, ...}:
+{
+  lib,
+  pkgs,
+  ...
+}:
 with lib; {
   boot.kernel.sysctl = {
     # Restrict ptrace() usage to processes with a pre-defined relationship
@@ -86,12 +90,12 @@ with lib; {
 
   security.apparmor.enable = mkDefault true;
   security.apparmor.killUnconfinedConfinables = mkDefault true;
-  
+
   security.sudo.execWheelOnly = true;
 
   services.fail2ban.enable = true;
 
-  # We place down a empty file just so we can test and workaround 
+  # We place down a empty file just so we can test and workaround
   # the fact that we don't actually have default secrets
   sops.defaultSopsFile = ./.sops.yaml;
 }

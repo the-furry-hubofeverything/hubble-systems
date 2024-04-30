@@ -19,7 +19,7 @@
 
   boot.kernelParams = [
     # Switch to tsc (time stamp counter) at the cost of precision
-    "tsc=reliable" 
+    "tsc=reliable"
     "clocksource=tsc"
 
     # https://wiki.linuxaudio.org/wiki/system_configuration#do_i_really_need_a_real-time_kernel

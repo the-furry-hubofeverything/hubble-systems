@@ -38,10 +38,9 @@
 
     outputs.nixosModules.flamenco
     ../../common/services/flamenco.nix
-    
+
     ../../common/services/nebula.nix
   ];
-  
 
   boot.loader.systemd-boot.configurationLimit = 3;
 

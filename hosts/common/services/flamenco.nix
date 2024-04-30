@@ -1,9 +1,15 @@
-{ config, lib, pkgs, inputs, hs-utils, ... }:
-let
+{
+  config,
+  lib,
+  pkgs,
+  inputs,
+  hs-utils,
+  ...
+}: let
   gpu-autoselect = pkgs.writeText "gpu-autoselect.py" (builtins.readFile ./gpu-autoselect.py);
   managerHostname = "enterprise-asus-lcluster";
   managerFileDir = "/main/large/flamenco";
-  isManager = (config.networking.hostName == managerHostname);
+  isManager = config.networking.hostName == managerHostname;
   port = 5260;
 in {
   assertions = [
@@ -27,7 +33,7 @@ in {
 
   services.flamenco = {
     enable = true;
-    listen = lib.optionalAttrs (isManager) {inherit port;};
+    listen = lib.optionalAttrs isManager {inherit port;};
 
     package = pkgs.flamenco.override {
       blender = inputs.blender-bin.packages.${pkgs.system}.blender_3_6;
@@ -37,7 +43,7 @@ in {
       go = pkgs.unstable.go;
       buildGoModule = pkgs.unstable.buildGoModule;
     };
-    role = ["worker"] ++ lib.optionals (isManager) ["manager"];
+    role = ["worker"] ++ lib.optionals isManager ["manager"];
     workerConfig = {
       manager_url = "https://flamenco.gulo.dev";
     };
@@ -59,38 +65,43 @@ in {
   boot.supportedFilesystems = ["cifs"];
   boot.kernelModules = ["cmac"]; # Needed due to titan being like "Could not allocate shash TFM 'cmac(aes)'"
 
-  fileSystems = ( lib.optionalAttrs (!isManager) {
+  fileSystems = (lib.optionalAttrs (!isManager) {
     "/srv/flamenco" = {
       device = "//flamenco.gulo.dev/flamenco";
       fsType = "cifs";
-      options = [
-        "x-systemd.automount"
-        "noauto"
-        "x-systemd.idle-timeout=60"
-        "x-systemd.device-timeout=5s"
-        "x-systemd.mount-timeout=5s"
-        "gid=${toString config.users.groups.render.gid}"
-        "uid=${toString config.users.users.render.uid}"
-      ] ++ (
-        if (!hs-utils.sops.isDefault config.sops "flamencoSambaUser" && !hs-utils.sops.isDefault config.sops "flamencoSambaPasswd") 
-        then ["credentials=${config.sops.templates.".smbcredentials".path}"]
-        else lib.warn 
-          "flamenco: samba secrets not detected, default credentials used: username = flamenco, password = foobar" 
-          ["user=flamenco" "password=foobar"]
-      );
+      options =
+        [
+          "x-systemd.automount"
+          "noauto"
+          "x-systemd.idle-timeout=60"
+          "x-systemd.device-timeout=5s"
+          "x-systemd.mount-timeout=5s"
+          "gid=${toString config.users.groups.render.gid}"
+          "uid=${toString config.users.users.render.uid}"
+        ]
+        ++ (
+          if (!hs-utils.sops.isDefault config.sops "flamencoSambaUser" && !hs-utils.sops.isDefault config.sops "flamencoSambaPasswd")
+          then ["credentials=${config.sops.templates.".smbcredentials".path}"]
+          else
+            lib.warn
+            "flamenco: samba secrets not detected, default credentials used: username = flamenco, password = foobar"
+            ["user=flamenco" "password=foobar"]
+        );
     };
   });
 
-  systemd.tmpfiles.rules = [
-    # WORKAROUND - I can't define the file under flamenco variables, or else the file
-    #              would not be included in the nix store of the workers. 
-    "L+ /run/flamenco/gpu-autoselect.py 0755 render render - ${gpu-autoselect}"
-  ] ++ lib.optionals isManager [
-    # The manager is hosting the files
-    "L+ /srv/flamenco 0755 render render - ${managerFileDir}"
-  ];
+  systemd.tmpfiles.rules =
+    [
+      # WORKAROUND - I can't define the file under flamenco variables, or else the file
+      #              would not be included in the nix store of the workers.
+      "L+ /run/flamenco/gpu-autoselect.py 0755 render render - ${gpu-autoselect}"
+    ]
+    ++ lib.optionals isManager [
+      # The manager is hosting the files
+      "L+ /srv/flamenco 0755 render render - ${managerFileDir}"
+    ];
 
-  services.nginx.virtualHosts."flamenco.gulo.dev" = let 
+  services.nginx.virtualHosts."flamenco.gulo.dev" = let
     proxyPass = "http://127.0.0.1:${toString port}";
   in {
     useACMEHost = "gulo.dev";
@@ -107,10 +118,9 @@ in {
       inherit proxyPass;
       proxyWebsockets = true;
     };
-    
+
     locations."@" = {
       inherit proxyPass;
     };
   };
-
 }

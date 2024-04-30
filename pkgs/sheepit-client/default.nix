@@ -1,23 +1,23 @@
-{ lib
-, stdenv
-, fetchFromGitLab
-, makeWrapper
-, writeText
-, jdk
-, gradle_7
-, git
-, perl
-, glew
-, xorg
-, libxkbcommon
-, libglvnd
-, zlib
-, buildFHSEnv
-, extraPkgs ? pkgs: [ ]
-, extraLibs ? pkgs: [ ]
-}:
-
-let   # fake build to pre-download deps into fixed-output derivation
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  makeWrapper,
+  writeText,
+  jdk,
+  gradle_7,
+  git,
+  perl,
+  glew,
+  xorg,
+  libxkbcommon,
+  libglvnd,
+  zlib,
+  buildFHSEnv,
+  extraPkgs ? pkgs: [],
+  extraLibs ? pkgs: [],
+}: let
+  # fake build to pre-download deps into fixed-output derivation
   pname = "sheepit-client";
   version = "7.23332.0";
 
@@ -37,11 +37,11 @@ let   # fake build to pre-download deps into fixed-output derivation
     name = "${pname}-deps";
     inherit src version patches;
 
-    nativeBuildInputs = [ 
-      jdk 
-      git 
-      perl 
-      gradle_7 
+    nativeBuildInputs = [
+      jdk
+      git
+      perl
+      gradle_7
     ];
 
     buildPhase = ''
@@ -87,78 +87,84 @@ let   # fake build to pre-download deps into fixed-output derivation
       }
     }
   '';
-in stdenv.mkDerivation rec {
-  inherit pname version src patches;
+in
+  stdenv.mkDerivation rec {
+    inherit pname version src patches;
 
-  fhsenv = buildFHSEnv {
-    name = "${pname}-fhs-env";
-    runScript = "";
+    fhsenv = buildFHSEnv {
+      name = "${pname}-fhs-env";
+      runScript = "";
 
-    # TODO Fix sheepit SIGTERM on SIGINT in bwrap
+      # TODO Fix sheepit SIGTERM on SIGINT in bwrap
 
-    targetPkgs = pkgs: with pkgs; [
+      targetPkgs = pkgs:
+        with pkgs;
+          [
+            jdk
+          ]
+          ++ extraPkgs pkgs;
+
+      multiPkgs = pkgs:
+        with pkgs;
+          [
+            libglvnd
+            xorg.libX11
+            xorg.libXfixes
+            xorg.libXi
+            xorg.libXrender
+            xorg.libXxf86vm
+            xorg.libSM
+            xorg.libICE
+            libxkbcommon
+            glew
+            zlib
+          ]
+          ++ extraLibs pkgs;
+    };
+
+    nativeBuildInputs = [
       jdk
-    ] ++ extraPkgs pkgs;
+      git
+      gradle_7
+      makeWrapper
+    ];
 
-    multiPkgs = pkgs: with pkgs; [
-      libglvnd
-      xorg.libX11
-      xorg.libXfixes
-      xorg.libXi
-      xorg.libXrender
-      xorg.libXxf86vm 
-      xorg.libSM
-      xorg.libICE
-      libxkbcommon
-      glew
-      zlib
-    ] ++ extraLibs pkgs;
-  };
+    preBuild = ''
+      printf "${version}" > src/main/resources/VERSION
+    '';
 
+    buildPhase = ''
+      runHook preBuild
 
-  nativeBuildInputs = [ 
-    jdk 
-    git 
-    gradle_7
-    makeWrapper 
-  ];
+      export GRADLE_USER_HOME=$(mktemp -d);
+      gradle --offline --no-daemon --info -Dorg.gradle.java.home=${jdk}/lib/openjdk --exclude-task generateVersionFile --init-script ${gradleInit} shadowJar
 
-  preBuild = ''
-    printf "${version}" > src/main/resources/VERSION
-  '';
+      runHook postBuild
+    '';
 
-  buildPhase = ''
-    runHook preBuild
+    installPhase = ''
+      runHook preInstall
 
-    export GRADLE_USER_HOME=$(mktemp -d);
-    gradle --offline --no-daemon --info -Dorg.gradle.java.home=${jdk}/lib/openjdk --exclude-task generateVersionFile --init-script ${gradleInit} shadowJar
+      mkdir -pv $out/bin $out/share/java
+      cp build/libs/sheepit-client-all.jar $out/share/java/${pname}.jar
 
-    runHook postBuild
-  '';
+      runHook postInstall
+    '';
 
-  installPhase = ''
-    runHook preInstall
+    postFixup = ''
+      makeWrapper ${fhsenv}/bin/${pname}-fhs-env $out/bin/${pname} \
+        --add-flags "${jdk}/bin/java -jar $out/share/java/${pname}.jar"
+    '';
 
-    mkdir -pv $out/bin $out/share/java
-    cp build/libs/sheepit-client-all.jar $out/share/java/${pname}.jar
-
-    runHook postInstall
-  '';
-  
-  postFixup = ''
-    makeWrapper ${fhsenv}/bin/${pname}-fhs-env $out/bin/${pname} \
-      --add-flags "${jdk}/bin/java -jar $out/share/java/${pname}.jar"
-  '';
-
-  meta = with lib; {
-    # supernekonyannyan (an admin) from the Sheepit discord has
-    # requested to clarify that this implementation is not officially 
-    # supported. Please make a issue in nixpkgs before asking sheepit.
-    description = "A client for the Sheepit render farm.";
-    homepage = "https://gitlab.com/sheepitrenderfarm/client/";
-    mainProgram = pname;
-    platforms = [ "x86_64-linux" ];
-    license = licenses.gpl2Only;
-    maintainers = with maintainers; [ hubble ];
-  };
-}
+    meta = with lib; {
+      # supernekonyannyan (an admin) from the Sheepit discord has
+      # requested to clarify that this implementation is not officially
+      # supported. Please make a issue in nixpkgs before asking sheepit.
+      description = "A client for the Sheepit render farm.";
+      homepage = "https://gitlab.com/sheepitrenderfarm/client/";
+      mainProgram = pname;
+      platforms = ["x86_64-linux"];
+      license = licenses.gpl2Only;
+      maintainers = with maintainers; [hubble];
+    };
+  }

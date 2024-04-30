@@ -1,4 +1,8 @@
-{ lib, pkgs, ... }:{
+{
+  lib,
+  pkgs,
+  ...
+}: {
   imports = [
     ./hardware-configuration.nix
   ];
@@ -12,7 +16,7 @@
 
   networking.hostName = "pinky-pi3-picluster"; # Define your hostname.
 
-  boot.initrd.availableKernelModules = [ "usbhid" ];
+  boot.initrd.availableKernelModules = ["usbhid"];
   powerManagement.cpuFreqGovernor = lib.mkDefault "ondemand";
   networking.useDHCP = lib.mkDefault true;
 }

@@ -1,7 +1,11 @@
 # This file defines overlays
 {inputs, ...}: {
   # This one brings our custom packages from the 'pkgs' directory
-  additions = final: _prev: import ../pkgs { inherit (final) callPackage; pkgs = final;};
+  additions = final: _prev:
+    import ../pkgs {
+      inherit (final) callPackage;
+      pkgs = final;
+    };
 
   # This one contains whatever you want to overlay
   # You can change versions, add patches, set compilation flags, anything really.
@@ -9,19 +13,23 @@
   modifications = final: prev: {
     # nix-community/nurl#220
     nurl = prev.nurl.overrideAttrs (_: oldAttrs: {
-      patches = oldAttrs.patches ++ [
-        ./nurl-flake.patch
-      ];
+      patches =
+        oldAttrs.patches
+        ++ [
+          ./nurl-flake.patch
+        ];
     });
 
     # NixOS/nixpkgs#278127
     obs-studio = prev.obs-studio.overrideAttrs (_: oldAttrs: {
-      cmakeFlags = oldAttrs.cmakeFlags ++ [ "-DENABLE_LIBFDK=ON" ];
+      cmakeFlags = oldAttrs.cmakeFlags ++ ["-DENABLE_LIBFDK=ON"];
     });
 
     # NixOS/nixpkgs#119433
-    inherit (inputs.nixpkgs-unstable.legacyPackages.${prev.system})
-      flatpak;
+    inherit
+      (inputs.nixpkgs-unstable.legacyPackages.${prev.system})
+      flatpak
+      ;
 
     # Blender 3.6
     blender-hip_3_6 = prev.blender-hip.overrideAttrs (finalAttrs: oldAttrs: {

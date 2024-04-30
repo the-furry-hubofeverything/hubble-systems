@@ -14,8 +14,8 @@ in {
     nixos-hardware.common-pc-laptop-hdd
 
     inputs.impermanence.nixosModules.impermanence
-    
-    # ACME+nginx reverse proxy   
+
+    # ACME+nginx reverse proxy
     ./services/acme-nginx-rp.nix
 
     # DNS server/ad-blocker with DoH
@@ -92,7 +92,7 @@ in {
   powerManagement.cpuFreqGovernor = "performance";
 
   # === OTHER TWEAKS ===
-  # As they are going to be sitting on a shelf (not to mention without internal HDDs), 
+  # As they are going to be sitting on a shelf (not to mention without internal HDDs),
   # Active drive protection is not necessary
   services.hdapsd.enable = false;
 
