@@ -29,6 +29,8 @@ in {
       ports = {
         # DNS over HTTPS support
         https = 44343;
+        # DNS over TLS support
+        tls = 853;
       };
 
       upstreams = {
@@ -141,6 +143,11 @@ in {
       {
         port = "53";
         proto = "udp";
+        host = "any";
+      }
+      {
+        port = "853";
+        proto = "tcp";
         host = "any";
       }
     ];
