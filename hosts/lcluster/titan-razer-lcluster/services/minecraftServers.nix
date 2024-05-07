@@ -109,7 +109,15 @@ in {
     servers = {
       "SMP" = {
         enable = true;
-        package = pkgs.paperServers.paper;
+        # Exception in thread "ServerMain" java.lang.UnsupportedClassVersionError:
+        # org/bukkit/craftbukkit/Main has been compiled by a more recent version of
+        # the Java Runtime (class file version 65.0), this version of the Java Runtime
+        # only recognizes class file versions up to 63.0
+        #
+        # Retaining unstable jre to avoid further mishaps
+        package = pkgs.paperServers.paper.override {
+          jre = pkgs.unstable.jre;
+        };
         jvmOpts = jvmOptimizationFlags;
 
         serverProperties = {
