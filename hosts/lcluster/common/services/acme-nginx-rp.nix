@@ -37,12 +37,12 @@
         PORKBUN_API_KEY_FILE=${config.sops.secrets.porkbun-api-key.path}
         PORKBUN_SECRET_API_KEY_FILE=${config.sops.secrets.porkbun-api-sKey.path}
       ''}";
+      dnsPropagationCheck = true;
     };
 
     certs."gulo.dev" = {
       domain = "gulo.dev";
       extraDomainNames = ["*.gulo.dev"];
-      dnsPropagationCheck = true;
     };
   };
 
