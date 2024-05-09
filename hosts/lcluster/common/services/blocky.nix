@@ -33,6 +33,9 @@ in {
         tls = 853;
       };
 
+      certFile = config.security.acme.certs."gulo.dev".directory + "/fullchain.pem";
+      keyFile = config.security.acme.certs."gulo.dev".directory + "/key.pem";
+
       upstreams = {
         groups = {
           default = [
@@ -129,16 +132,17 @@ in {
     };
   };
 
+  systemd.services."blocky".serviceConfig.SupplementaryGroups = if config.security.acme.useRoot then ["root"] else ["acme"];
+
   networking = {
     # Allow DNS server access
     firewall = {
       allowedUDPPorts = [53];
+      allowedTCPPorts = [853];
     };
 
-    nameservers = [
+    nameservers = lib.mkForce [
       "127.0.0.1"
-      ips."titan-razer-lcluster.gulo.dev"
-      ips."enterprise-asus-lcluster.gulo.dev"
     ];
   };
 

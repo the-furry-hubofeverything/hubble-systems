@@ -11,12 +11,12 @@
     {
       hostname = "alex-oracle-remote";
       ip = "100.86.87.1";
-      route = ["alex.gulo.dev:${toString port}"];
+      route = ["129.153.99.90"];
     }
     {
       hostname = "alan-google-remote";
       ip = "100.86.87.2";
-      route = ["alan.gulo.dev:${toString port}"];
+      route = ["35.209.133.46"];
     }
   ];
 
@@ -65,6 +65,16 @@ in {
     };
   };
 
+  networking.nameservers = lib.optionals (hostGroup != "remote" && !config.services.blocky.enable) [
+    "100.86.28.1"
+    "100.86.28.2"
+  ];
+
+  services.resolved = lib.optionalAttrs (hostGroup != "remote" && !config.services.blocky.enable) {
+    enable = true;
+    dnsovertls = "opportunistic";
+  };
+
   services.nebula.networks."${name}" = {
     enable = true;
 
@@ -72,7 +82,7 @@ in {
     inherit isLighthouse;
 
     staticHostMap = lib.optionalAttrs (!isLighthouse) (lib.attrsets.mergeAttrsList (map (x: {
-        ${x.ip} = x.route;
+        ${x.ip} = map (route: route + ":${toString port}") x.route;
       })
       lighthouses));
 
