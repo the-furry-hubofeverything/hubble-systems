@@ -44,8 +44,7 @@
     # Fix screen tearing under PRIME
     modesetting.enable = true;
     # Use open source kernel module
-    # TODO: revert when NixOS/nixpkgs#280427 is fixed for 23.11
-    # open = true;
+    open = true;
   };
 
   # GPU switch
