@@ -1,7 +1,6 @@
 {
   lib,
   inputs,
-  pkgs,
   ...
 }: {
   imports = [
@@ -21,19 +20,14 @@
     #jack.enable = true;
   };
 
-  # TODO switch to services.pipewire.extraConfig.pipewire in 24.05
-  environment.etc = let
-    json = pkgs.formats.json {};
-  in {
-    "pipewire/pipewire.d/92-clock-rates.conf".source = json.generate "92-clock-rates.conf" {
-      "context.properties" = {
-        # Avoids resampling
-        "default.clock.allowed-rates" = [44100 48000 88200 96000];
-        # Low latency, but some flexibility
-        "default.clock.quantum" = 32;
-        "default.clock.min-quantum" = 32;
-        "default.clock.max-quantum" = 4096;
-      };
+  services.pipewire.extraConfig.pipewire."92-clock-rates.conf" = {
+    "context.properties" = {
+      # Avoids resampling
+      "default.clock.allowed-rates" = [44100 48000 88200 96000];
+      # Low latency, but some flexibility
+      "default.clock.quantum" = 32;
+      "default.clock.min-quantum" = 32;
+      "default.clock.max-quantum" = 4096;
     };
   };
 
