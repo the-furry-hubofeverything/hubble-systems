@@ -116,16 +116,6 @@ May switch to KDE.
   };
 ```
 
-### OBS missing libfdk AAC encoder
-
-Fixed in NixOS/nixpkgs#278127, but not until NixOS 24.05.
-
-```nix
-  obs-studio = prev.obs-studio.overrideAttrs (_: oldAttrs: {
-    cmakeFlags = oldAttrs.cmakeFlags ++ [ "-DENABLE_LIBFDK=ON" ];
-  });
-```
-
 ### Blender 3.6
 
 Am working on adding it in nixpkgs, but for now I'm doing a bit of a hack

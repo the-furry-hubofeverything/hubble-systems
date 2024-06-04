@@ -20,11 +20,6 @@
         ];
     });
 
-    # NixOS/nixpkgs#278127
-    obs-studio = prev.obs-studio.overrideAttrs (_: oldAttrs: {
-      cmakeFlags = oldAttrs.cmakeFlags ++ ["-DENABLE_LIBFDK=ON"];
-    });
-
     # Blender 3.6
     blender-hip_3_6 = prev.blender-hip.overrideAttrs (finalAttrs: oldAttrs: {
       version = "3.6.11";
