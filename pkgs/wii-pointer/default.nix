@@ -14,7 +14,7 @@
       src = fetchurl {
         name = "linux-cursors.7z";
         url = "https://files.primm.gay/extras/cursors/Wii/Linux%20Cursors.7z";
-        hash = "sha256-ATEERNrI0zR6ZL57cL39P+2Mu/Qf2CaQjksCWZSVia8=";
+        hash = "sha256-M8cerLpAlkKvCqNZU5w4UtIP3nxjeHopa4wNmlxnG5k=";
       };
 
       unpackPhase = ''
