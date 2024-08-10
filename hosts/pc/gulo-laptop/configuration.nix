@@ -26,17 +26,14 @@
   # Firmware update for devices (USB, UEFI, SSD etc.)
   services.fwupd.enable = true;
 
-  boot.kernelParams = [
-  ];
-
   hardware.acpilight.enable = true;
 
   # --- amdgpu options ---
   hardware.amdgpu = {
     # Early KMS
-    loadInInitrd = true;
+    initrd.enable = true;
     # OpenCL runtimes
-    opencl = true;
+    opencl.enable = true;
   };
 
   # --- nvidia options ---
@@ -44,8 +41,8 @@
     # Fix screen tearing under PRIME
     modesetting.enable = true;
     # Use open source kernel module
-    # TODO: revert when NixOS/nixpkgs#280427 is fixed for 23.11
-    # open = true;
+    open = true;
+    package = config.boot.kernelPackages.nvidiaPackages.beta;
   };
 
   # GPU switch
@@ -74,7 +71,6 @@
   # === SYSTEM CONFIG ===
   networking.hostName = "Gulo-Laptop"; # Define your hostname.
 
-  # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.efi.efiSysMountPoint = "/boot/efi";
@@ -93,7 +89,7 @@
   networking.networkmanager.enable = true;
 
   # Kernel selection and modules
-  boot.kernelPackages = pkgs.linuxPackages_zen;
+  boot.kernelPackages = pkgs.unstable.linuxPackages_zen;
   boot.extraModulePackages = with config.boot.kernelPackages; [x86_energy_perf_policy];
   boot.kernelModules = [];
 

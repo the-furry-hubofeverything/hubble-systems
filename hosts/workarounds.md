@@ -37,23 +37,6 @@ Workaround 2 - I couldn't figure out how to add the script to the nix store with
 
 ## pc
 
-### Flatpak Icons and Fonts
-
-This is NixOS/nixpkgs#119433.
-
-I haven't encountered many issues with Icons (since I'm not using a custom icon pack), but I definitely missed fonts,
-especially multilingual ones. 
-
-Current workaround - using nixos-unstable flatpak.
-
-TODO: remove for 24.05
-
-```nix
-    # NixOS/nixpkgs#119433
-    inherit (inputs.nixpkgs-unstable.legacyPackages.${prev.system})
-      flatpak;
-```
-
 ### Blender Steam doesn't run on wayland
 
 The nixpkgs version of Steam doesn't include libdecor, which is needed for Blender in wayland mode. 
@@ -102,9 +85,6 @@ See [PR](https://github.com/nix-community/nurl/pull/220)
 
 ### HIP workaround
 
-> [!NOTE] 
-> This may need to be updated for 23.11
-
 This is required for HIP to work with (at the very least) Blender, even with hipSupport enabled. This is documented on the user-maintained nixos wiki https://nixos.wiki/wiki/AMD_GPU
 
 > Most software has the HIP libraries hard-coded. You can work around it on NixOS by using: 
@@ -134,16 +114,6 @@ May switch to KDE.
   environment.variables = {
     MUTTER_DEBUG_KMS_THREAD_TYPE = "user";
   };
-```
-
-### OBS missing libfdk AAC encoder
-
-Fixed in NixOS/nixpkgs#278127, but not until NixOS 24.05.
-
-```nix
-  obs-studio = prev.obs-studio.overrideAttrs (_: oldAttrs: {
-    cmakeFlags = oldAttrs.cmakeFlags ++ [ "-DENABLE_LIBFDK=ON" ];
-  });
 ```
 
 ### Blender 3.6

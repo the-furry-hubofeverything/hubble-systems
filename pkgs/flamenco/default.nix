@@ -3,6 +3,7 @@
   buildGoModule,
   fetchFromGitea,
   fetchYarnDeps,
+  fixup-yarn-lock,
   makeWrapper,
   blender,
   ffmpeg,
@@ -18,11 +19,6 @@ in
   buildGoModule rec {
     pname = "flamenco";
     inherit version;
-
-    # !!!!!!!!!
-    # fixup-yarn-lock HAS BEEN REMOVED
-    # TODO CHANGE WHEN UPSTREAMING/UPDATING TO 24.05+
-    # !!!!!!!!!
 
     src = fetchFromGitea {
       domain = "projects.blender.org";
@@ -51,6 +47,7 @@ in
       nodejs
       yarn
       prefetch-yarn-deps
+      fixup-yarn-lock
     ];
 
     buildInputs = [

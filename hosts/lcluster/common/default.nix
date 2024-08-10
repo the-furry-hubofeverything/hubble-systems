@@ -58,9 +58,9 @@ in {
   i18n.defaultLocale = "en_CA.UTF-8";
 
   # Configure keymap in X11
-  services.xserver = {
+  services.xserver.xkb = {
     layout = "us";
-    xkbVariant = "";
+    variant = "";
   };
 
   nix = {
