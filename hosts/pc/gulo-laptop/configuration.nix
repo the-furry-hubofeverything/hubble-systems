@@ -38,11 +38,21 @@
 
   # --- nvidia options ---
   hardware.nvidia = {
-    # Fix screen tearing under PRIME
+    # Required for wayland
     modesetting.enable = true;
     # Use open source kernel module
     open = true;
-    package = config.boot.kernelPackages.nvidiaPackages.beta;
+    nvidiaSettings = false;
+    # Use R560 to overcome the external monitor kernel panics
+    # (latest beta as of 2024-08-20) 
+    package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
+      version = "560.31.02";
+      sha256_64bit = "sha256-0cwgejoFsefl2M6jdWZC+CKc58CqOXDjSi4saVPNKY0=";
+      sha256_aarch64 = "sha256-m7da+/Uc2+BOYj6mGON75h03hKlIWItHORc5+UvXBQc=";
+      openSha256 = "sha256-X5UzbIkILvo0QZlsTl9PisosgPj/XRmuuMH+cDohdZQ=";
+      settingsSha256 = "sha256-A3SzGAW4vR2uxT1Cv+Pn+Sbm9lLF5a/DGzlnPhxVvmE=";
+      persistencedSha256 = "sha256-BDtdpH5f9/PutG3Pv9G4ekqHafPm3xgDYdTcQumyMtg=";
+    };
   };
 
   # GPU switch
