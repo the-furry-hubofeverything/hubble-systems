@@ -20,6 +20,11 @@
         ];
     });
 
+    # Add lsof to supergfxctl
+    supergfxctl = prev.supergfxctl.overrideAttrs (_: oldAttrs: {
+      buildInputs = oldAttrs.buildInputs ++ [prev.lsof];
+    });
+
     # Blender 3.6
     blender-hip_3_6 = prev.blender-hip.overrideAttrs (finalAttrs: oldAttrs: {
       version = "3.6.11";
