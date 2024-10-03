@@ -8,7 +8,8 @@
   xdg.portal.enable = true;
 
   # Printer support
-  services.printing.enable = true;
+  # Mitigating CVE-2024-47076, CVE-2024-47175, CVE-2024-47176 and CVE-2024-47177
+  # services.printing.enable = true;
 
   services.avahi.enable = true;
   services.avahi.nssmdns4 = true;
