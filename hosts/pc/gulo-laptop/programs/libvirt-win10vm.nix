@@ -8,12 +8,36 @@
     "pcie_acs_override=id:1022:1639,multifunction,downstream"
   ];
 
+  # amdgpu related workaround for vfio memory shenanigans.
+  
+  # Aug 20 21:58:10 Gulo-Laptop kernel: x86/PAT: CPU 0/KVM:7808 conflicting memory types b0000000-c0000000 write-combining<->uncached-minus
+  # Aug 20 21:58:10 Gulo-Laptop kernel: x86/PAT: memtype_reserve failed [mem 0xb0000000-0xbfffffff], track uncached-minus, req uncached-minus
+  # Aug 20 21:58:10 Gulo-Laptop kernel: ioremap memtype_reserve failed -16
+  
+  # Source: 
+  # https://www.reddit.com/r/VFIO/comments/xt5cdm/dmesg_shows_thousands_of_these_errors_ioremap/
+
+  boot.postBootCommands = ''
+    rmmod vfio
+    rmmod vfio_pci
+    rmmod vfio_iommu_type1
+
+    modprobe nvidia
+    modprobe nvidia_drm
+    modprobe nvidia_uvm
+    modprobe nvidia_modeset
+  '';
+
   boot.kernelModules = [
     "kvm-amd"
   ];
 
   boot.blacklistedKernelModules = [
     "i2c_nvidia_gpu"
+    "nvidia"
+    "nvidia_drm"
+    "nvidia_modeset"
+    "nvidia_uvm"
   ];
 
   virtualisation.libvirtd = {

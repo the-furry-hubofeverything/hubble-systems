@@ -40,7 +40,7 @@
   hardware.nvidia = {
     # Required for wayland
     modesetting.enable = true;
-    # Use open source kernel module
+    # Don't use the open source kernel module, due to its incompatiblity with the SVM fix
     open = true;
     nvidiaSettings = false;
     # Use R560 to overcome the external monitor kernel panics
@@ -58,7 +58,7 @@
   # GPU switch
   environment.systemPackages = with pkgs; [
     cudatoolkit
-    gnomeExtensions.supergfxctl-gex
+    unstable.gnomeExtensions.gpu-supergfxctl-switch
   ];
   services.supergfxd.enable = true;
   services.supergfxd.settings = {
@@ -98,8 +98,17 @@
   # Enable networking
   networking.networkmanager.enable = true;
 
+  # TESTED
+  # Use R560 to overcome the external monitor kernel panics
+  # (latest beta as of 2024-08-20) 
+
+  # - Unstable zen with closed R560 FAIL
+  # - Unstable zen with open R560 SUCCESS
+  # - Stable zen with open R560 FAIL
+  # - Unstable 6.6 with open R560 FAIL, black screen
+
   # Kernel selection and modules
-  boot.kernelPackages = pkgs.linuxPackages_zen;
+  boot.kernelPackages = pkgs.unstable.linuxPackages_zen;
   boot.extraModulePackages = with config.boot.kernelPackages; [x86_energy_perf_policy];
   boot.kernelModules = [];
 
