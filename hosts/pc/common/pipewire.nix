@@ -1,11 +1,14 @@
 {
   lib,
   inputs,
+  pkgs,
   ...
 }: {
   imports = [
     inputs.musnix.nixosModules.musnix
   ];
+
+  # TODO rename to audio.nix
 
   # Enable pipewire and disable pulseaudio
   hardware.pulseaudio.enable = false;
@@ -17,7 +20,7 @@
     wireplumber.enable = true;
 
     # If you want to use JACK applications, uncomment this
-    #jack.enable = true;
+    jack.enable = true;
   };
 
   services.pipewire.extraConfig.pipewire."92-clock-rates.conf" = {
@@ -33,6 +36,11 @@
 
   # Various audio optimizations
   musnix.enable = true;
+
+  environment.systemPackages = [
+    pkgs.sfizz
+    pkgs.carla
+  ];
 
   # Unset musnix's default cpu governor setting -
   # I'm sacrificing realtime-audio for a little bit
