@@ -69,6 +69,9 @@
 
     # Minecraft server utils
     nix-minecraft.url = "github:Infinidoge/nix-minecraft";
+
+    # Muse sounds (experimental)
+    muse-sounds-manager.url = "github:thilobillerbeck/muse-sounds-manager-nix";
   };
 
   outputs = {
