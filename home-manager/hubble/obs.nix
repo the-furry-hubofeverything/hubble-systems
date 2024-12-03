@@ -1,7 +1,8 @@
 {pkgs, ...}: {
   programs.obs-studio = {
     enable = true;
-    plugins = with pkgs; [
+    package = pkgs.unstable.obs-studio;
+    plugins = with pkgs.unstable; [
       obs-studio-plugins.obs-tuna
       obs-studio-plugins.obs-vaapi
       obs-studio-plugins.obs-vkcapture
