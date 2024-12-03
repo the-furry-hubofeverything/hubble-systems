@@ -21,7 +21,7 @@
     ./desktop-environments/gnome.nix
 
     ./hardware/logitechWheelSupport.nix
-    # ./hardware/VR.nix
+    ./hardware/VR.nix
 
     ./programs/kdeconnect.nix
     ./programs/lanzaboote.nix

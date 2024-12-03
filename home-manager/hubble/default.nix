@@ -10,6 +10,7 @@
   imports = [
     outputs.homeManagerModules.git-credential-oauth
     ./obs.nix
+    ./vr.nix
   ];
 
   nixpkgs = {
