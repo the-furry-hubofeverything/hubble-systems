@@ -1,5 +1,5 @@
 {pkgs, ...}: {
-  services.udev.packages = with pkgs; [gnome.gnome-settings-daemon];
+  services.udev.packages = with pkgs; [gnome-settings-daemon];
 
   programs.dconf.enable = true;
 
@@ -14,7 +14,7 @@
     enable = true;
     displayManager.gdm.enable = true;
     desktopManager.gnome.enable = true;
-    excludePackages = [pkgs.xterm pkgs.gnome.gnome-terminal];
+    excludePackages = [pkgs.xterm pkgs.gnome-terminal];
   };
 
   services.displayManager.defaultSession = "gnome";
@@ -23,8 +23,8 @@
     gnomeExtensions.appindicator
     gnomeExtensions.pop-shell
 
-    gnome.gnome-tweaks
-    gnome.adwaita-icon-theme
+    gnome-tweaks
+    adwaita-icon-theme
 
     desktop-file-utils
 
@@ -32,11 +32,9 @@
   ];
 
   environment.gnome.excludePackages =
-    (with pkgs; [
+    with pkgs; [
       gnome-photos
       gnome-tour
-    ])
-    ++ (with pkgs.gnome; [
       gnome-music
       epiphany # web browser
       geary # email reader
@@ -46,7 +44,7 @@
       iagno # go game
       cheese
       gnome-terminal
-    ]);
+    ];
 
   programs.gnome-terminal.enable = false;
 

@@ -85,7 +85,6 @@ in {
   hardware.opengl = {
     enable = true;
     # Vulkan support
-    driSupport = true;
     driSupport32Bit = true;
   };
 

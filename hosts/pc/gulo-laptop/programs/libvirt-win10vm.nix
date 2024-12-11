@@ -113,23 +113,25 @@
   # SMB for second drive
   services.samba = {
     enable = true;
-    extraConfig = ''
-      interfaces = virbr1, lo
-      bind interfaces only = yes
+    settings = {
+      global = {
+        "interfaces" = ["virbr1" "lo"];
+        "bind interfaces only" = "yes";
 
-      # Don't hide dot files - same behavior for windows, prevents Unity/VCC shenanigans
-      # ie. VRChat Creator Companion error "Access to the '[...]\Packages\.gitignore' is denied."
-      hide dot files = No
+        # Don't hide dot files - same behavior for windows, prevents Unity/VCC shenanigans
+        # ie. VRChat Creator Companion error "Access to the '[...]\Packages\.gitignore' is denied."
+        "hide dot files" = "No";
 
-      read raw = yes
-      write raw = yes
-      use sendfile = yes
-      socket options = IPTOS_LOWDELAY TCP_NODELAY IPTOS_THROUGHPUT
-      min protocol = smb2
-      deadtime = 30
+        "read raw" = "yes";
+        "write raw" = "yes";
+        "use sendfile" = "yes";
+        "socket options" = ["IPTOS_LOWDELAY" "TCP_NODELAY" "IPTOS_THROUGHPUT"];
+        "min protocol" = "smb2";
+        "deadtime" = 30;
 
-      server smb encrypt = desired
-    '';
+        "server smb encrypt" = "desired";
+      };
+    };
     shares = {
       Data = {
         path = "/run/media/hubble/Data";

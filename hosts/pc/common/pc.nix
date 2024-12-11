@@ -36,7 +36,6 @@
   hardware.opengl = {
     enable = true;
     # Vulkan support
-    driSupport = true;
     driSupport32Bit = true;
   };
 
@@ -57,7 +56,7 @@
 
   fonts.packages = with pkgs; [
     noto-fonts
-    noto-fonts-cjk
+    noto-fonts-cjk-sans
     noto-fonts-emoji
     liberation_ttf
     unifont
