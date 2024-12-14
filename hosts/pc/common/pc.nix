@@ -50,6 +50,19 @@
 
     kitty
     wii-pointer
+
+    # FHS compatibility shell using appimage environment defaults
+    (pkgs.buildFHSUserEnv(appimageTools.defaultFhsEnvArgs // {
+      name = "fhs-run";
+
+      targetpkgs = pkgs: (with pkgs; [
+        # add additional packages here
+      ]);
+
+      runScript = writeShellScript "fhs-run" ''
+        exec -- "$1" "$@"
+      '';
+    }))
   ];
 
   hardware.enableAllFirmware = true;
