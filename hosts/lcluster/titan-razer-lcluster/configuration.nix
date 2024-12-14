@@ -4,9 +4,12 @@ _: {
     ./services/minecraftServers.nix
   ];
 
-  hardware.nvidia.prime = {
-    intelBusId = "PCI:0:2:0";
-    nvidiaBusId = "PCI:1:0:0";
+  hardware.nvidia = {
+    prime = {
+      intelBusId = "PCI:0:2:0";
+      nvidiaBusId = "PCI:1:0:0";
+    };
+    open = false;
   };
 
   # Use the systemd-boot EFI boot loader.

@@ -131,8 +131,7 @@
 
         "server smb encrypt" = "desired";
       };
-    };
-    shares = {
+
       Data = {
         path = "/run/media/hubble/Data";
         "read only" = "no";

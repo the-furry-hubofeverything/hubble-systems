@@ -13,7 +13,6 @@
   };
 
   # Enable sound.
-  sound.enable = true;
   hardware.pulseaudio.enable = true;
 
   networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.

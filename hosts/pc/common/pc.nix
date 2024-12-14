@@ -33,10 +33,10 @@
   hardware.logitech.wireless.enableGraphical = true;
 
   # OpenGL for desktop and other applications
-  hardware.opengl = {
+  hardware.graphics = {
     enable = true;
     # Vulkan support
-    driSupport32Bit = true;
+    enable32Bit = true;
   };
 
   # Common packages

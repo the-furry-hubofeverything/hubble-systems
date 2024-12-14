@@ -8,10 +8,8 @@
 in {
   imports = [
     nixos-hardware.common-pc
-    nixos-hardware.common-pc-hdd
     nixos-hardware.common-pc-ssd
     nixos-hardware.common-pc-laptop
-    nixos-hardware.common-pc-laptop-hdd
 
     inputs.impermanence.nixosModules.impermanence
 
@@ -82,10 +80,10 @@ in {
   services.irqbalance.enable = true;
 
   # OpenGL for hardware accelerated tasks
-  hardware.opengl = {
+  hardware.graphics = {
     enable = true;
     # Vulkan support
-    driSupport32Bit = true;
+    enable32Bit = true;
   };
 
   powerManagement.cpuFreqGovernor = "performance";
