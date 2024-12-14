@@ -51,7 +51,6 @@ stdenv.mkDerivation rec {
     description = "Server for the multiplayer mod BeamMP for BeamNG.drive";
     homepage = "https://github.com/BeamMP/BeamMP-Server";
     changelog = "https://github.com/BeamMP/BeamMP-Server/blob/${src.rev}/Changelog.md";
-    broken = true; # Potential license conflict
     license = with licenses; [unfree];
     maintainers = with maintainers; [];
   };
