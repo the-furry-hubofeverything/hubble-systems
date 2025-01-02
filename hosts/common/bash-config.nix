@@ -1,6 +1,6 @@
 {pkgs, ...}: {
   environment.systemPackages = with pkgs; [
-    trashy
+    trash-cli
   ];
 
   environment.sessionVariables = rec {
@@ -17,6 +17,6 @@
   };
 
   environment.shellAliases = {
-    rm = "echo -e 'warning: use of rm discouraged. Either use trashy or bypass this warning using \\\\rm'";
+    rm = "echo -e 'warning: use of rm discouraged. Either use trash-put or bypass this warning using \\\\rm'";
   };
 }
