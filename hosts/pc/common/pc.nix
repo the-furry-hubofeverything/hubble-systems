@@ -7,6 +7,8 @@
   services.flatpak.enable = true;
   xdg.portal.enable = true;
 
+  systemd.services.NetworkManager-wait-online.enable = false;
+
   # Printer support
   # Mitigating CVE-2024-47076, CVE-2024-47175, CVE-2024-47176 and CVE-2024-47177
   # services.printing.enable = true;
