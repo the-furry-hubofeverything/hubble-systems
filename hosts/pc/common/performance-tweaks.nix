@@ -10,10 +10,7 @@
     # musnix also sets this
     "vm.swappiness" = lib.mkDefault 10;
   };
-
-  # Distribute irq over multiple cores
-  services.irqbalance.enable = true;
-
+  
   # Automatic nice daemon
   services.ananicy.enable = true;
 
