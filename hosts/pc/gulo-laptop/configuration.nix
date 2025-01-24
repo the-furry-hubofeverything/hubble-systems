@@ -11,6 +11,7 @@
     ./programs/libvirt-win10vm.nix
     ./programs/wireshark.nix
     # ./programs/waydroid.nix
+    ./programs/pipewire.nix
   ];
 
   # Prevent network manager from getting stuck at "wait-online" while switching configs

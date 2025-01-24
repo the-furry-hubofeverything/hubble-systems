@@ -40,6 +40,7 @@
   environment.systemPackages = [
     pkgs.sfizz
     pkgs.carla
+    pkgs.unstable.ardour
   ];
 
   # Unset musnix's default cpu governor setting -
