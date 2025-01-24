@@ -38,8 +38,7 @@
 
   # --- nvidia options ---
   hardware.nvidia = {
-    # Required for wayland
-    modesetting.enable = true;
+    modesetting.enable = false;
     # Don't use the open source kernel module, due to its incompatiblity with the SVM fix
     open = true;
     nvidiaSettings = false;
@@ -55,7 +54,7 @@
   services.supergfxd.settings = {
     vfio_enable = true;
     vfio_save = false;
-    hotplug_type = "None";
+    hotplug_type = "Std";
   };
 
   # Gaming gpu power thing
