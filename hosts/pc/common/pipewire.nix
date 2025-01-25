@@ -37,10 +37,34 @@
   # Various audio optimizations
   musnix.enable = true;
 
+  # various daws and stuff
   environment.systemPackages = [
     pkgs.sfizz
     pkgs.carla
     pkgs.unstable.ardour
+    pkgs.lsp-plugins
+    pkgs.dragonfly-reverb
+    pkgs.drumgizmo
+    pkgs.drumkv1
+    pkgs.geonkick
+    pkgs.infamousPlugins
+    pkgs.master_me
+    pkgs.noise-repellent
+    pkgs.odin2
+    pkgs.opnplug
+    pkgs.padthv1
+    pkgs.rubberband
+    pkgs.samplv1
+    pkgs.setbfree
+    pkgs.sorcer
+    pkgs.wolf-shaper
+    pkgs.zynaddsubfx
+    pkgs.yoshimi
+    pkgs.zam-plugins
+    pkgs.ams
+    pkgs.adlplug
+    pkgs.artyFX
+    pkgs.x42-avldrums
   ];
 
   # Unset musnix's default cpu governor setting -
