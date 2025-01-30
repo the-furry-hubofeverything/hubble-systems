@@ -62,8 +62,8 @@
 in {
   assertions = [
     {
-      assertion = config.services.nginx.enable && config.services.nginx.virtualHosts ? "${config.networking.hostName}.gulo.dev";
-      message = "minecraftServers: ${config.networking.hostName}.gulo.dev is undefinied, this depends on acme-nginx-rp.nix";
+      assertion = config.services.nginx.enable && config.services.nginx.virtualHosts ? "${lib.head (lib.splitString "-" config.networking.hostName)}.nebula.gulo.dev";
+      message = "minecraftServers: ${lib.head (lib.splitString "-" config.networking.hostName)}.nebula.gulo.dev is undefinied, this depends on acme-nginx-rp.nix";
     }
     {
       assertion = hs-utils.sops.defaultIsEmpty config.sops;
@@ -161,7 +161,7 @@ in {
     };
   };
 
-  services.nginx.virtualHosts."${config.networking.hostName}.gulo.dev" = lib.optionalAttrs config.services.minecraft-servers.servers."creative".enable {
+  services.nginx.virtualHosts."${lib.head (lib.splitString "-" config.networking.hostName)}.nebula.gulo.dev" = lib.optionalAttrs config.services.minecraft-servers.servers."creative".enable {
     locations."/mtr-map/" = {
       proxyPass = "http://127.0.0.1:8888/";
       extraConfig =
@@ -171,4 +171,14 @@ in {
         "proxy_ssl_server_name on;";
     };
   };
+
+  services.nebula.networks."hsmn0".firewall.inbound =
+    lib.optionals config.services.nebula.networks."hsmn0".enable
+    [
+      {
+        port = "25565";
+        proto = "tcp";
+        group = ["remote"];
+      }
+    ];
 }

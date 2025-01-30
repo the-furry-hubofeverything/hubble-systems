@@ -7,18 +7,34 @@
   port = 58284;
   name = "hsmn0";
 
-  lighthouses = [
-    {
-      hostname = "alex-oracle-remote";
+  lighthouses = {
+    "alex-oracle-remote" = {
       ip = "100.86.87.1";
       route = ["129.153.99.90"];
-    }
-    {
-      hostname = "alan-google-remote";
+      publicInterface = "ens3";
+    };
+    "alan-google-remote" = {
       ip = "100.86.87.2";
       route = ["35.209.133.46"];
-    }
-  ];
+      publicInterface = "eth0";
+    };
+  };
+
+  # publicServices - For forwarding services from lighthouses to services on the network.
+  # Don't forget to also port rule on nebula and the cloud firewall!!
+  publicServices = {
+    # minecraft servers on Enterprise
+    "minecraft-smp" = {
+      sourcePort = 25565;
+
+      destination = "100.86.28.2";
+      destinationPort = 25565;
+      proto = "tcp";
+    };
+
+    # WORKAROUND - UDP is disabled, since the firewall option asserts only lists of ports, not an empty one.
+    #    Uncomment the "networking.firewall.allowedUDPPorts" line below.
+  };
 
   relayHosts = {
     "alex-oracle-remote" = "100.86.87.1";
@@ -37,7 +53,7 @@
   hostGroup = lib.last (lib.splitString "-" config.networking.hostName);
 
   # Does any hostnames in lighthouses equal the current machine's hostname?
-  isLighthouse = builtins.any (x: x == config.networking.hostName) (map (x: x.hostname) lighthouses);
+  isLighthouse = builtins.hasAttr config.networking.hostName lighthouses;
   isRelay = relayHosts ? ${config.networking.hostName};
 
   owner = config.systemd.services."nebula@${name}".serviceConfig.User;
@@ -75,18 +91,47 @@ in {
     dnsovertls = "opportunistic";
   };
 
+  # Logic for public services. Deployed on any machine in the remote host group
+  networking.nat = lib.optionalAttrs (hostGroup == "remote") {
+    enable = true;
+    internalInterfaces = [("nebula." + name)];
+    externalInterface = lighthouses.${config.networking.hostName}.publicInterface;
+    # Port forwarding doesn't work without manually setting the routing in here.
+    extraCommands = lib.concatLines (
+      (lib.mapAttrsToList (_: x: ''
+          iptables -t nat -A POSTROUTING -d ${x.destination} -p ${x.proto} -m ${x.proto} --dport ${toString x.destinationPort} -j MASQUERADE;
+          iptables -A FORWARD -d ${x.destination} -p ${x.proto} -m ${x.proto} --dport ${toString x.destinationPort} -j LOG
+        '')
+        publicServices)
+    );
+
+    forwardPorts =
+      lib.mapAttrsToList
+      (_: value: {
+        sourcePort = value.sourcePort;
+        destination = value.destination + ":" + toString value.destinationPort;
+        proto = value.proto;
+      })
+      publicServices;
+  };
+
+  networking.firewall.allowedTCPPorts = lib.optionals (hostGroup == "remote") (lib.mapAttrsToList (_: x: lib.optionals (x.proto == "tcp") x.sourcePort) publicServices);
+  # networking.firewall.allowedUDPPorts = lib.optionals (hostGroup == "remote") (lib.mapAttrsToList (_: x: lib.optionals (x.proto == "udp") x.sourcePort) publicServices);
+
+  ### Nebula mesh network service definition Begins here ###
+
   services.nebula.networks."${name}" = {
     enable = true;
 
     # Lighthouse related config
     inherit isLighthouse;
 
-    staticHostMap = lib.optionalAttrs (!isLighthouse) (lib.attrsets.mergeAttrsList (map (x: {
-        ${x.ip} = map (route: route + ":${toString port}") x.route;
+    staticHostMap = lib.optionalAttrs (!isLighthouse) (lib.mergeAttrsList (lib.mapAttrsToList (hostname: info: {
+        ${info.ip} = map (r: r + ":${toString port}") info.route;
       })
       lighthouses));
 
-    lighthouses = lib.optionals (!isLighthouse) (map (x: x.ip) lighthouses);
+    lighthouses = lib.optionals (!isLighthouse) (lib.mapAttrsToList (_: x: x.ip) lighthouses);
 
     listen = {
       inherit port;
