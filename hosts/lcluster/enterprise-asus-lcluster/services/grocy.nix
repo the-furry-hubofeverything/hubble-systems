@@ -1,16 +1,12 @@
-{config, ...}: {
+{
+  config,
+  lib,
+  ...
+}: {
   assertions = [
     {
-      assertion = config.services.nginx.enable && config.services.nginx.virtualHosts ? "${config.networking.hostName}.gulo.dev";
+      assertion = config.services.nginx.enable && config.services.nginx.virtualHosts ? "${lib.head (lib.splitString "-" config.networking.hostName)}.nebula.gulo.dev";
       message = "grocy: grocy depends on acme-nginx-rp.nix";
-    }
-    {
-      assertion = config.services.blocky.enable && config.services.blocky.settings.customDNS.mapping ? "grocy.gulo.dev";
-      message = "grocy: grocy.gulo.dev is not configured in DNS";
-    }
-    {
-      assertion = config.services.blocky.settings.customDNS.mapping."grocy.gulo.dev" == config.services.blocky.settings.customDNS.mapping."${config.networking.hostName}.gulo.dev";
-      message = "grocy: DNS record incorrect, must be set to the correct machine";
     }
   ];
 

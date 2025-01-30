@@ -3,23 +3,12 @@
   lib,
   ...
 }: let
-  ips = {
-    "alex-oracle-remote.gulo.dev" = "100.86.87.1";
-    "alan-google-remote.gulo.dev" = "100.86.87.2";
-
-    "enterprise-asus-lcluster.gulo.dev" = "100.86.28.1";
-    "titan-razer-lcluster.gulo.dev" = "100.86.28.2";
-
-    "gulo-laptop.gulo.dev" = "100.86.127.1";
-
-    "brain-pi4-picluster.gulo.dev" = "100.86.30.1";
-    "pinky-pi3-picluster.gulo.dev" = "100.86.30.2";
-  };
+  # custom DNS moved to porkbun
 in {
   assertions = [
     {
-      assertion = config.services.nginx.enable && config.services.nginx.virtualHosts ? "${config.networking.hostName}.gulo.dev";
-      message = "blocky: ${config.networking.hostName}.gulo.dev is undefinied, this depends on acme-nginx-rp.nix";
+      assertion = config.services.nginx.enable && config.services.nginx.virtualHosts ? "${lib.head (lib.splitString "-" config.networking.hostName)}.nebula.gulo.dev";
+      message = "blocky: ${lib.head (lib.splitString "-" config.networking.hostName)}.nebula.gulo.dev is undefinied, this depends on acme-nginx-rp.nix";
     }
   ];
 
@@ -85,18 +74,6 @@ in {
         };
       };
 
-      customDNS = {
-        mapping =
-          ips
-          // {
-            # Services
-            # dns.gulo.dev is defined on porkbun
-            "grocy.gulo.dev" = ips."enterprise-asus-lcluster.gulo.dev";
-            "vw.gulo.dev" = ips."enterprise-asus-lcluster.gulo.dev";
-            "flamenco.gulo.dev" = ips."enterprise-asus-lcluster.gulo.dev";
-          };
-      };
-
       # I don't want to log your requests please
       log = {
         level = "warn";
@@ -132,7 +109,10 @@ in {
     };
   };
 
-  systemd.services."blocky".serviceConfig.SupplementaryGroups = if config.security.acme.useRoot then ["root"] else ["acme"];
+  systemd.services."blocky".serviceConfig.SupplementaryGroups =
+    if config.security.acme.useRoot
+    then ["root"]
+    else ["acme"];
 
   networking = {
     # Allow DNS server access

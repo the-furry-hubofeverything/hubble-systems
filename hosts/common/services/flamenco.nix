@@ -18,8 +18,8 @@ in {
       message = "flamenco: defaultSopsFile not empty, cannot continue.";
     }
     {
-      assertion = !isManager || (config.services.nginx.enable && config.services.nginx.virtualHosts ? "${config.networking.hostName}.gulo.dev");
-      message = "flamenco: ${config.networking.hostName}.gulo.dev is undefinied, this depends on acme-nginx-rp.nix";
+      assertion = !isManager || (config.services.nginx.enable && config.services.nginx.virtualHosts ? "${lib.head (lib.splitString "-" config.networking.hostName)}.nebula.gulo.dev");
+      message = "flamenco: ${lib.head (lib.splitString "-" config.networking.hostName)}.nebula.gulo.dev is undefinied, this depends on acme-nginx-rp.nix";
     }
     {
       assertion = config.services.nebula.networks ? "hsmn0";

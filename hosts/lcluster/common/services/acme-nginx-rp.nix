@@ -42,7 +42,7 @@
 
     certs."gulo.dev" = {
       domain = "gulo.dev";
-      extraDomainNames = ["*.gulo.dev"];
+      extraDomainNames = ["*.nebula.gulo.dev" "*.gulo.dev"];
     };
   };
 
@@ -69,7 +69,7 @@
 
     # Only allow PFS-enabled ciphers with AES256
     sslCiphers = "AES256+EECDH:AES256+EDH:!aNULL";
-    virtualHosts."${config.networking.hostName}.gulo.dev" = {
+    virtualHosts."${lib.head (lib.splitString "-" config.networking.hostName)}.nebula.gulo.dev" = {
       enableACME = true;
       forceSSL = true;
       acmeRoot = null;

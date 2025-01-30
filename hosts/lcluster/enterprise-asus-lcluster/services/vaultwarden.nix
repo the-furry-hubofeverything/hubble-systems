@@ -1,16 +1,12 @@
-{config, ...}: {
+{
+  config,
+  lib,
+  ...
+}: {
   assertions = [
     {
-      assertion = config.services.nginx.enable && config.services.nginx.virtualHosts ? "${config.networking.hostName}.gulo.dev";
+      assertion = config.services.nginx.enable && config.services.nginx.virtualHosts ? "${lib.head (lib.splitString "-" config.networking.hostName)}.nebula.gulo.dev";
       message = "vaultwarden: vaultwarden depends on acme-nginx-rp.nix";
-    }
-    {
-      assertion = config.services.blocky.enable && config.services.blocky.settings.customDNS.mapping ? "vw.gulo.dev";
-      message = "vaultwarden: vw.gulo.dev is not configured in DNS";
-    }
-    {
-      assertion = config.services.blocky.settings.customDNS.mapping."vw.gulo.dev" == config.services.blocky.settings.customDNS.mapping."${config.networking.hostName}.gulo.dev";
-      message = "vaultwarden: DNS record incorrect, must be set to the correct machine";
     }
     {
       assertion = builtins.elem "tank" config.boot.zfs.extraPools;
