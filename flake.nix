@@ -4,8 +4,7 @@
   inputs = {
     # ===  Private secrets repository ===
     # If testing configuration, please set this to your own copy of secrets.
-    # TODO upload template of secrets
-    hs-secrets.url = "/run/media/hubble/Data/GithubFurry/HS-secrets";
+    hs-secrets.url = "git+ssh://git@alex.gulo.dev:37084/persist/git-server/hs-secrets";
 
     # === Main dependencies ===
     # Nixpkgs

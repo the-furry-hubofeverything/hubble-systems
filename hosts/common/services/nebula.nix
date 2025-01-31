@@ -21,9 +21,13 @@
   };
 
   # publicServices - For forwarding services from lighthouses to services on the network.
-  # Don't forget to also port rule on nebula and the cloud firewall!!
+
+  # WORKAROUND - UDP is disabled, since the firewall option asserts only lists of ports, not an empty one.
+  #    Uncomment the "networking.firewall.allowedUDPPorts" line below.
   publicServices = {
-    # minecraft servers on Enterprise
+    # Don't forget to also port rule on nebula and the cloud firewall!!
+
+    # minecraft servers on Titan
     "minecraft-smp" = {
       sourcePort = 25565;
 
@@ -32,8 +36,14 @@
       proto = "tcp";
     };
 
-    # WORKAROUND - UDP is disabled, since the firewall option asserts only lists of ports, not an empty one.
-    #    Uncomment the "networking.firewall.allowedUDPPorts" line below.
+    # Git server on Enterprise
+    "git" = {
+      sourcePort = 37084;
+
+      destination = "100.86.28.1";
+      destinationPort = 22;
+      proto = "tcp";
+    };
   };
 
   relayHosts = {
@@ -100,7 +110,7 @@ in {
     extraCommands = lib.concatLines (
       (lib.mapAttrsToList (_: x: ''
           iptables -t nat -A POSTROUTING -d ${x.destination} -p ${x.proto} -m ${x.proto} --dport ${toString x.destinationPort} -j MASQUERADE;
-          iptables -A FORWARD -d ${x.destination} -p ${x.proto} -m ${x.proto} --dport ${toString x.destinationPort} -j LOG
+          iptables -A FORWARD -d ${x.destination} -p ${x.proto} -m ${x.proto} --dport ${toString x.destinationPort} -j LOG --log-level 4 --log-prefix "Forwarded: "
         '')
         publicServices)
     );
