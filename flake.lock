@@ -328,7 +328,7 @@
     "hs-secrets": {
       "locked": {
         "lastModified": 1734399155,
-        "narHash": "sha256-9h5c40sjAlRrxSd8Dd6edrjQcKzFHViqrUjhabMh+00=",
+        "narHash": "sha256-2dRoDlpVVNAgceV1mhkcXmvgNk6ALCOpuKXfEd7dQXE=",
         "ref": "refs/heads/master",
         "rev": "1dce6c282b3ebabddf0278653d0a8a95447da346",
         "revCount": 27,
