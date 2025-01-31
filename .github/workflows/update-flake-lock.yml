@@ -8,6 +8,14 @@ jobs:
   lockfile:
     runs-on: ubuntu-latest
     steps:
+      - name: Setup SSH
+        uses: webfactory/ssh-agent@v0.7.0
+        with:
+          ssh-private-key: ${{ secrets.PRIVATE_SSH_KEY }}
+      - name: Add the host key
+        run: |
+          line='[alex.gulo.dev]:37084 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHCOcR1CTLQ7ATvIuwvshI/EM1mqQ5inK5xhj2XWN1lL'
+          echo "$line" >> ~/.ssh/known_hosts
       - name: Checkout repository
         uses: actions/checkout@v4
       - name: Install Nix
@@ -15,7 +23,6 @@ jobs:
       - name: Update flake.lock and create PR
         uses: DeterminateSystems/update-flake-lock@v24
         with:
-          inputs: nixpkgs nixpkgs-unstable hardware home-manager lanzaboote flake-programs-sqlite musnix impermanence sops-nix nix-alien nixd
           pr-title: "Update flake.lock" # Title of PR to be created
           pr-labels: |                  # Labels to be set on the PR
             automated 

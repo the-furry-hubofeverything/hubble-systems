@@ -4,6 +4,7 @@
     ./services/nas.nix
     ./services/grocy.nix
     ./services/vaultwarden.nix
+    ./services/git.nix
   ];
 
   hardware.nvidia = {
