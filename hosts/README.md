@@ -93,5 +93,5 @@ Old laptops for builds and services. These should have ephemeral roots.
 ### [Cloud instances](remote/README.md)
 | Nickname | Model | Hostname | CPU | GPU | Notes |
 |-|-|-|-|-|-|
-| alex | Oracle Free Tier | alex-oracle-remote | 2 vCPU | - | 1 GB RAM, can't use nixos-anywhere |
+| alex | Oracle Free Tier | alex-oracle-remote | 4 vCPU | - | 24 GB RAM |
 | alan | Google Free Tier | alan-google-remote | 0.25 vCPU | - | 1 GB RAM, can't use nixos-anywhere |

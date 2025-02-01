@@ -1,7 +1,6 @@
 {
   pkgs,
   lib,
-  config,
   ...
 }: {
   # Not needed as it's handled in home-manager
@@ -11,5 +10,5 @@
   ];
 
   programs.ccache.enable = true;
-  boot.binfmt.emulatedSystems = lib.optionals (config.nixpkgs.hostPlatform != "aarch64-linux") ["aarch64-linux"];
+  boot.binfmt.emulatedSystems = lib.optionals (pkgs.system != "aarch64-linux") ["aarch64-linux"];
 }

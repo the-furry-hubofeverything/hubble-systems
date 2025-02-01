@@ -1,6 +1,9 @@
-{...}: {
+{inputs, ...}: {
   imports = [
+    inputs.impermanence.nixosModules.impermanence
+
     ./hardware-configuration.nix
+    ../../common/impermanence.nix
   ];
 
   boot.tmp.cleanOnBoot = true;

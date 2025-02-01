@@ -11,7 +11,7 @@
     "alex-oracle-remote" = {
       ip = "100.86.87.1";
       route = ["129.153.99.90"];
-      publicInterface = "ens3";
+      publicInterface = "enp0s6";
     };
     "alan-google-remote" = {
       ip = "100.86.87.2";

@@ -16,7 +16,7 @@ in {
   };
 
   alex-oracle-remote = {
-    platform = "x86_64-linux";
+    platform = "aarch64-linux";
     modules =
       remoteModules
       ++ [
