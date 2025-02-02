@@ -2,10 +2,16 @@
   config,
   lib,
   hs-utils,
+  pkgs,
   ...
 }: let
   port = 58284;
   name = "hsmn0";
+
+  vps-ranges = pkgs.fetchurl {
+    url = "https://raw.githubusercontent.com/the-furry-hubofeverything/vps-ranges/807753a/ip.txt";
+    hash = "sha256-FnYYcb/P9MHGGNOOv7jE/A35GfEn+KoRL06W3lJgWow=";
+  };
 
   lighthouses = {
     "alex-oracle-remote" = {
@@ -34,6 +40,7 @@
       destination = "100.86.28.2";
       destinationPort = 25565;
       proto = "tcp";
+      blocklist = true;
     };
 
     # Git server on Enterprise
@@ -43,6 +50,7 @@
       destination = "100.86.28.1";
       destinationPort = 22;
       proto = "tcp";
+      blocklist = false;
     };
   };
 
@@ -107,12 +115,34 @@ in {
     internalInterfaces = [("nebula." + name)];
     externalInterface = lighthouses.${config.networking.hostName}.publicInterface;
     # Port forwarding doesn't work without manually setting the routing in here.
+    # Also sets up vps-ranges
     extraCommands = lib.concatLines (
-      (lib.mapAttrsToList (_: x: ''
-          iptables -t nat -A POSTROUTING -d ${x.destination} -p ${x.proto} -m ${x.proto} --dport ${toString x.destinationPort} -j MASQUERADE;
-          iptables -A FORWARD -d ${x.destination} -p ${x.proto} -m ${x.proto} --dport ${toString x.destinationPort} -j LOG --log-level 4 --log-prefix "Forwarded: "
-        '')
-        publicServices)
+      [
+        "${pkgs.ipset}/bin/ipset restore < /etc/ipset.conf"
+      ]
+      ++ lib.mapAttrsToList (
+        _: x:
+          ''
+            iptables -t nat -A POSTROUTING -d ${x.destination} -p ${x.proto} -m ${x.proto} --dport ${toString x.destinationPort} -j MASQUERADE
+          ''
+          + lib.optionalString (x.blocklist) ''
+            iptables -I FORWARD 1 -p ${x.proto} -m set --dport ${toString x.destinationPort} --match-set vps-ranges src -j DROP
+          ''
+      )
+      publicServices
+    );
+
+    extraStopCommands = lib.concatLines (
+      lib.mapAttrsToList (
+        _: x:
+          ''
+            iptables -t nat -D POSTROUTING -d ${x.destination} -p ${x.proto} -m ${x.proto} --dport ${toString x.destinationPort} -j MASQUERADE || true
+          ''
+          + lib.optionalString (x.blocklist) ''
+            iptables -D FORWARD -p ${x.proto} -m set --dport ${toString x.destinationPort} --match-set vps-ranges src -j DROP || true
+          ''
+      )
+      publicServices
     );
 
     forwardPorts =
@@ -125,8 +155,26 @@ in {
       publicServices;
   };
 
-  networking.firewall.allowedTCPPorts = lib.optionals (hostGroup == "remote") (lib.mapAttrsToList (_: x: lib.optionals (x.proto == "tcp") x.sourcePort) publicServices);
-  # networking.firewall.allowedUDPPorts = lib.optionals (hostGroup == "remote") (lib.mapAttrsToList (_: x: lib.optionals (x.proto == "udp") x.sourcePort) publicServices);
+  environment.etc."ipset.conf".text = lib.replaceStrings ["\n\n"] ["\n"] (lib.concatLines (
+    [
+      "create vps-ranges hash:net family ipv4 maxelem 1048576 hashsize 1048576 bucketsize 8 -exist"
+      "create vps-ranges6 hash:net family ipv6 maxelem 1048576 hashsize 1048576 bucketsize 8 -exist"
+    ]
+    # filter and add ipv4 ranges
+    ++ map (x: ''
+      add vps-ranges ${x} -exist
+    '') (lib.remove null (map (x:
+      if (builtins.match ''^([0-9]{1,3}\.){3}[0-9]{1,3}/[0-9]{1,2}$'' x != null)
+      then x
+      else null) (lib.splitString "\n" (builtins.readFile "${vps-ranges}"))))
+    # Filter and add ipv6 ranges
+    ++ map (x: ''
+      add vps-ranges6 ${x} -exist
+    '') (lib.remove null (map (x:
+      if (builtins.match ''^(.{0,4}:){3}.{0,4}/[0-9]{2}$'' x != null)
+      then x
+      else null) (lib.splitString "\n" (builtins.readFile "${vps-ranges}"))))
+  ));
 
   ### Nebula mesh network service definition Begins here ###
 
