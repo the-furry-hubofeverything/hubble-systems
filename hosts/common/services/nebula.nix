@@ -1,4 +1,5 @@
 {
+  inputs,
   config,
   lib,
   hs-utils,
@@ -7,11 +8,6 @@
 }: let
   port = 58284;
   name = "hsmn0";
-
-  vps-ranges = pkgs.fetchurl {
-    url = "https://raw.githubusercontent.com/the-furry-hubofeverything/vps-ranges/807753a/ip.txt";
-    hash = "sha256-FnYYcb/P9MHGGNOOv7jE/A35GfEn+KoRL06W3lJgWow=";
-  };
 
   lighthouses = {
     "alex-oracle-remote" = {
@@ -166,14 +162,14 @@ in {
     '') (lib.remove null (map (x:
       if (builtins.match ''^([0-9]{1,3}\.){3}[0-9]{1,3}/[0-9]{1,2}$'' x != null)
       then x
-      else null) (lib.splitString "\n" (builtins.readFile "${vps-ranges}"))))
+      else null) (lib.splitString "\n" (builtins.readFile "${inputs.vps-ranges}/ip.txt"))))
     # Filter and add ipv6 ranges
     ++ map (x: ''
       add vps-ranges6 ${x} -exist
     '') (lib.remove null (map (x:
       if (builtins.match ''^(.{0,4}:){3}.{0,4}/[0-9]{2}$'' x != null)
       then x
-      else null) (lib.splitString "\n" (builtins.readFile "${vps-ranges}"))))
+      else null) (lib.splitString "\n" (builtins.readFile "${inputs.vps-ranges}/ip.txt"))))
   ));
 
   ### Nebula mesh network service definition Begins here ###

@@ -757,7 +757,8 @@
         "nixpkgs": "nixpkgs_5",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "nixpkgs-xr": "nixpkgs-xr",
-        "sops-nix": "sops-nix"
+        "sops-nix": "sops-nix",
+        "vps-ranges": "vps-ranges"
       }
     },
     "rust-overlay": {
@@ -919,6 +920,22 @@
       "original": {
         "owner": "numtide",
         "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "vps-ranges": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1738457938,
+        "narHash": "sha256-JqVJKCuZDEtuCDvrJO9ALdWViWSu5KlCcxUR2amgZt0=",
+        "owner": "the-furry-hubofeverything",
+        "repo": "vps-ranges",
+        "rev": "be49a4688e8a52dcd5678d5b0dc25ebb7970f4b4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "the-furry-hubofeverything",
+        "repo": "vps-ranges",
         "type": "github"
       }
     }

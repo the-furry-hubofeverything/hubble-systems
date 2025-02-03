@@ -44,6 +44,11 @@
     # Impermanence
     impermanence.url = "github:nix-community/impermanence";
 
+    vps-ranges = {
+      url = "github:the-furry-hubofeverything/vps-ranges";
+      flake = false;
+    };
+
     # Secrets management
     sops-nix = {
       url = "github:Mic92/sops-nix";
