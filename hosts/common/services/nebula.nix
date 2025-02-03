@@ -114,6 +114,7 @@ in {
     # Also sets up vps-ranges
     extraCommands = lib.concatLines (
       [
+        "${pkgs.ipset}/bin/ipset flush || true"
         "${pkgs.ipset}/bin/ipset restore < /etc/ipset.conf"
       ]
       ++ lib.mapAttrsToList (
