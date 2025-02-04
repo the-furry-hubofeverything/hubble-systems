@@ -67,11 +67,10 @@
                   exit 1
                 fi
 
-                supergfxctl -m "Vfio"
-
-                while [ "$(supergfxctl -g)" != "Vfio" ]; do
-                  sleep 1
-                done
+                ## Load vfio
+                modprobe vfio
+                modprobe vfio_iommu_type1
+                modprobe vfio_pci
 
                 modprobe -r --remove-holder nvidia_drm
                 modprobe -r --remove-holder nvidia_uvm
@@ -85,19 +84,17 @@
                 systemctl set-property --runtime -- system.slice AllowedCPUs=0-5
               fi
 
-              if [ "$OPERATION" == "stopped" ]; then
-                if [ "$(supergfxctl -g)" != "Vfio" ]; then
-                  notify-send "Libvirt error" "Critical error (unexpected graphics mode)" -u critical
-                  exit 1
-                fi
-                supergfxctl -m "Integrated"
-
+              if [ "$OPERATION" == "release" ]; then
                 ${lib.strings.concatMapStringsSep "\n    " (x: "virsh nodedev-reattach " + x) pciDevices}
 
                 systemctl set-property --runtime -- init.scope AllowedCPUs=0-15
                 systemctl set-property --runtime -- user.slice AllowedCPUs=0-15
                 systemctl set-property --runtime -- system.slice AllowedCPUs=0-15
-
+                
+                ## Unload vfio
+                modprobe -r vfio_pci
+                modprobe -r vfio_iommu_type1
+                modprobe -r vfio
 
                 modprobe nvidia
                 modprobe nvidia_drm
