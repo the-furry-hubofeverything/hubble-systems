@@ -1,13 +1,15 @@
 {lib, ...}: {
   imports = [
     ../../common/servers
-    ../../common/services/nebula.nix
     ../../common/nix-settings.nix
     ../../common/hubbleGroups.nix
     ../../common/security.nix
     ../../common/development.nix
     ../../common/bash-config.nix
     ../../common/network-tuning.nix
+
+    ../../common/services/nebula.nix
+    ../../common/services/monitoring.nix
   ];
 
   # Set your time zone.

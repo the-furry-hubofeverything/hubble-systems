@@ -31,6 +31,9 @@
       ]
       ++ lib.optionals config.services.vaultwarden.enable [
         "/var/lib/bitwarden_rs"
+      ] 
+      ++ lib.optionals config.services.prometheus.enable [
+        ("/var/lib/" + config.services.prometheus.stateDir)
       ];
 
     files = [

@@ -32,6 +32,8 @@ in {
     # nebula
     ../../common/services/nebula.nix
 
+    ../../common/services/monitoring.nix
+
     ../../common/servers
     ../../common/servers/avahi.nix
 

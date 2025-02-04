@@ -10,6 +10,8 @@ _: {
     # nebula
     ../../common/services/nebula.nix
 
+    ../../common/services/monitoring.nix
+
     ../../common/servers
   ];
 

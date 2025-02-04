@@ -39,6 +39,7 @@
     ../../common/services/flamenco.nix
 
     ../../common/services/nebula.nix
+    ../../common/services/monitoring.nix
   ];
 
   boot.loader.systemd-boot.configurationLimit = 3;
