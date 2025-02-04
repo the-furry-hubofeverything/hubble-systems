@@ -31,10 +31,19 @@
       ]
       ++ lib.optionals config.services.vaultwarden.enable [
         "/var/lib/bitwarden_rs"
-      ] 
+      ]
       ++ lib.optionals config.services.prometheus.enable [
         ("/var/lib/" + config.services.prometheus.stateDir)
-      ];
+      ]
+      ++ lib.optionals (config.services.grafana.enable) (map (x: {
+          directory = x;
+          group = "grafana";
+          user = "grafana";
+        })
+        [
+          "/var/lib/grafana/plugins"
+          "/var/lib/grafana/data"
+        ]);
 
     files = [
       "/etc/adjtime"
