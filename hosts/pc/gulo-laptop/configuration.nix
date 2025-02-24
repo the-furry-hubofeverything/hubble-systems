@@ -99,7 +99,7 @@
   # - Unstable 6.6 with open R560 FAIL, black screen
 
   # Kernel selection and modules
-  boot.kernelPackages = pkgs.unstable.linuxPackages_zen;
+  boot.kernelPackages = pkgs.linuxPackages_zen;
   boot.extraModulePackages = with config.boot.kernelPackages; [x86_energy_perf_policy];
   boot.kernelModules = [];
 
