@@ -59,7 +59,7 @@
       ++ [
         inputs.muse-sounds-manager.packages.${pkgs.system}.muse-sounds-manager
         pkgs.unstable.musescore
-        
+
         # To be replaced when upgraded 23.11
         pkgs.blender_3_6
         pkgs.unstable.xwaylandvideobridge
@@ -67,6 +67,8 @@
         # nix dev stuff
         pkgs.nixpkgs-fmt
         inputs.nixd.packages.${pkgs.system}.nixd
+
+        pkgs.unstable.vintagestory
       ];
 
     pointerCursor = {
