@@ -1,6 +1,6 @@
 {pkgs, ...}: {
-  # steering wheel driver
-  hardware.new-lg4ff.enable = true;
+  # steering wheel driver (G920 already has full support)
+  # hardware.new-lg4ff.enable = true;
   # Xbox controller driver
   hardware.xpadneo.enable = true;
 
