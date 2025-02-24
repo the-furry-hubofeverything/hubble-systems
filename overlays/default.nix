@@ -50,6 +50,11 @@
     unstable = import inputs.nixpkgs-unstable {
       inherit (final) system;
       config.allowUnfree = true;
+      
+      # TODO needed for VINTAGE STORY
+      config.permittedInsecurePackages = [
+        "dotnet-runtime-7.0.20"
+      ];
     };
   };
 }
