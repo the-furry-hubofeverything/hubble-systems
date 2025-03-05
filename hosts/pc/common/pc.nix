@@ -54,17 +54,31 @@
     wii-pointer
 
     # FHS compatibility shell using appimage environment defaults
-    (pkgs.buildFHSUserEnv(appimageTools.defaultFhsEnvArgs // {
-      name = "fhs-run";
+    (pkgs.buildFHSUserEnv (appimageTools.defaultFhsEnvArgs
+      // {
+        name = "fhs-run";
 
-      targetpkgs = pkgs: (with pkgs; [
-        # add additional packages here
-      ]);
+        targetpkgs = pkgs: (with pkgs; [
+          # add additional packages here
+        ]);
 
-      runScript = writeShellScript "fhs-run" ''
-        exec -- "$1" "$@"
-      '';
-    }))
+        runScript = writeShellScript "fhs-run" ''
+          exec -- "$1" "$@"
+        '';
+      }))
+
+    # Same thing, but a shell. 
+    (pkgs.buildFHSUserEnv (appimageTools.defaultFhsEnvArgs
+      // {
+        name = "fhs";
+
+        targetpkgs = pkgs: (with pkgs; [
+          # add additional packages here
+        ]);
+
+        profile = ''export FHS=1'';
+        runScript = "bash";
+      }))
   ];
 
   hardware.enableAllFirmware = true;
