@@ -56,6 +56,10 @@
         inkscape
         element-desktop
         kdePackages.xwaylandvideobridge
+
+        libreoffice-qt
+        hunspell
+        hunspellDicts.en_CA-large
       ])
       ++ [
         inputs.muse-sounds-manager.packages.${pkgs.system}.muse-sounds-manager
