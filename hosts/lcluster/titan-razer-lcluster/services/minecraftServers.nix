@@ -161,6 +161,35 @@ in {
     };
   };
 
+  users = {
+    groups.createCreative = {};
+    extraUsers.createCreative = {
+      isSystemUser = true;
+      group = "createCreative";
+      home = "/srv/createCreative";
+      createHome = true;
+      packages = with pkgs; [
+        unstable.jre
+      ];
+    };
+  };
+
+  systemd.services."minecraft-server-create" = {
+    enable = true;
+    description = "Forge Minecraft Create Creative Server";
+    serviceConfig = {
+      ExecStart = "${pkgs.unstable.jre}/bin/java ${jvmOptimizationFlags + "-Xmx8G -Xms8G"} @user_jvm_args.txt @libraries/net/minecraftforge/forge/1.20.1-47.4.0/unix_args.txt";
+      WorkingDirectory = "${config.users.extraUsers.createCreative.home}/forge";
+      Restart = "always";
+      RestartSec = 60;
+    };
+    after = ["network.target"];
+    wantedBy = ["default.target"];
+  };
+
+  networking.firewall.allowedTCPPorts = [25567];
+  networking.firewall.allowedUDPPorts = [25567];
+
   services.nginx.virtualHosts."${lib.head (lib.splitString "-" config.networking.hostName)}.nebula.gulo.dev" = lib.optionalAttrs config.services.minecraft-servers.servers."creative".enable {
     locations."/mtr-map/" = {
       proxyPass = "http://127.0.0.1:8888/";
@@ -177,6 +206,11 @@ in {
     [
       {
         port = "25565";
+        proto = "tcp";
+        group = ["remote"];
+      }
+      {
+        port = "25567";
         proto = "tcp";
         group = ["remote"];
       }

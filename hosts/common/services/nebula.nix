@@ -28,6 +28,7 @@
   #    Uncomment the "networking.firewall.allowedUDPPorts" line below.
   publicServices = {
     # Don't forget to also port rule on nebula and the cloud firewall!!
+    # Forgot to allow port on cloud firewall counter: 1
 
     # minecraft servers on Titan
     "minecraft-smp" = {
@@ -35,6 +36,15 @@
 
       destination = "100.86.28.2";
       destinationPort = 25565;
+      proto = "tcp";
+      blocklist = true;
+    };
+
+    "minecraft-create" = {
+      sourcePort = 25567;
+
+      destination = "100.86.28.2";
+      destinationPort = 25567;
       proto = "tcp";
       blocklist = true;
     };
@@ -116,6 +126,7 @@ in {
       [
         "${pkgs.ipset}/bin/ipset flush || true"
         "${pkgs.ipset}/bin/ipset restore < /etc/ipset.conf"
+        "iptables -I FORWARD 1 -s 73.0.0.0/8 -p tcp -j ACCEPT"
       ]
       ++ lib.mapAttrsToList (
         _: x:
@@ -130,7 +141,10 @@ in {
     );
 
     extraStopCommands = lib.concatLines (
-      lib.mapAttrsToList (
+      [
+        "iptables -I FORWARD 1 -s 73.0.0.0/8 -p tcp -j ACCEPT"
+      ]
+      ++ lib.mapAttrsToList (
         _: x:
           ''
             iptables -t nat -D POSTROUTING -d ${x.destination} -p ${x.proto} -m ${x.proto} --dport ${toString x.destinationPort} -j MASQUERADE || true
