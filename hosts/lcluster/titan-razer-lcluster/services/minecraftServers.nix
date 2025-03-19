@@ -166,7 +166,7 @@ in {
     extraUsers.createCreative = {
       isSystemUser = true;
       group = "createCreative";
-      home = "/srv/createCreative";
+      home = "/home/createCreative";
       createHome = true;
       packages = with pkgs; [
         unstable.jre
