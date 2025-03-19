@@ -12,13 +12,13 @@
   # https://nixos.wiki/wiki/Overlays
   modifications = final: prev: {
     # nix-community/nurl#220
-    nurl = prev.nurl.overrideAttrs (_: oldAttrs: {
-      patches =
-        oldAttrs.patches
-        ++ [
-          ./nurl-flake.patch
-        ];
-    });
+    # nurl = prev.nurl.overrideAttrs (_: oldAttrs: {
+    #   patches =
+    #     oldAttrs.patches
+    #     ++ [
+    #       ./nurl-flake.patch
+    #     ];
+    # });
 
     # Add lsof to supergfxctl
     supergfxctl = prev.supergfxctl.overrideAttrs (_: oldAttrs: {
