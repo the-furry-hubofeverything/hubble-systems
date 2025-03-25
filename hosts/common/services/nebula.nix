@@ -127,6 +127,8 @@ in {
         "${pkgs.ipset}/bin/ipset flush || true"
         "${pkgs.ipset}/bin/ipset restore < /etc/ipset.conf"
         "iptables -I FORWARD 1 -s 73.0.0.0/8 -p tcp -j ACCEPT"
+        "iptables -I FORWARD 2 -m conntrack --ctstate NEW -m set --match-set vps-ranges src -j LOG --log-level 4 --log-prefix \"[vps-ranges][DROP]: \""
+        "iptables -I FORWARD 3 -m conntrack --ctstate NEW -m set ! --match-set vps-ranges src -j LOG --log-level 4 --log-prefix \"[vps-ranges][FORWARD]: \""
       ]
       ++ lib.mapAttrsToList (
         _: x:
@@ -134,7 +136,7 @@ in {
             iptables -t nat -A POSTROUTING -d ${x.destination} -p ${x.proto} -m ${x.proto} --dport ${toString x.destinationPort} -j MASQUERADE
           ''
           + lib.optionalString (x.blocklist) ''
-            iptables -I FORWARD 1 -p ${x.proto} -m set --dport ${toString x.destinationPort} --match-set vps-ranges src -j DROP
+            iptables -A FORWARD -p ${x.proto} -m set --dport ${toString x.destinationPort} --match-set vps-ranges src -j DROP
           ''
       )
       publicServices
@@ -142,7 +144,7 @@ in {
 
     extraStopCommands = lib.concatLines (
       [
-        "iptables -I FORWARD 1 -s 73.0.0.0/8 -p tcp -j ACCEPT"
+        "iptables -D FORWARD -s 73.0.0.0/8 -p tcp -j ACCEPT || true"
       ]
       ++ lib.mapAttrsToList (
         _: x:
