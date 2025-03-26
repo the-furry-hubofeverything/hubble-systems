@@ -18,5 +18,9 @@
 
   environment.shellAliases = {
     rm = "echo -e 'warning: use of rm discouraged. Either use trash-put or bypass this warning using \\\\rm'";
+
+    # Beautiful one liner from https://gist.github.com/theycallmemac/f66b0afeca215df97869dd28612bea74?permalink_comment_id=4376049#gistcomment-4376049
+    # By srozanc-mcs
+    flipcoin = "(( RANDOM % 2 )) && echo \"heads\" || echo \"tails\"";
   };
 }
