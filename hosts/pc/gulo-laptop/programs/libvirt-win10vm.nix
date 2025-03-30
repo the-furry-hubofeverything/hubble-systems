@@ -32,74 +32,29 @@
     hooks = {
       qemu."supergfx-nvidia-hybrid-graphics-switch" = let
         vmName = "win10";
-
-        pciDevices = [
-          # GPU
-          "pci_0000_01_00_0"
-          "pci_0000_01_00_1"
-          "pci_0000_01_00_2"
-          "pci_0000_01_00_3"
-
-          # USB-C
-          "pci_0000_07_00_3"
-        ];
       in
         lib.getExe (pkgs.writeShellApplication {
           name = "qemu-hook";
 
           runtimeInputs = with pkgs; [
-            libvirt
-            kmod
             systemd
-            supergfxctl
-            libnotify
           ];
 
           text = ''
             GUEST_NAME="$1"
             OPERATION="$2"
             # SUB_OPERATION="$3"
-
             if [ "$GUEST_NAME" == "${vmName}" ]; then
               if [ "$OPERATION" == "prepare" ]; then
-                if [ "$(supergfxctl -g)" != "Integrated" ]; then
-                  notify-send "Libvirt error" "Hybrid graphics be in integrated mode" -u critical
-                  exit 1
-                fi
-
-                ## Load vfio
-                modprobe vfio
-                modprobe vfio_iommu_type1
-                modprobe vfio_pci
-
-                modprobe -r --remove-holder nvidia_drm
-                modprobe -r --remove-holder nvidia_uvm
-                modprobe -r --remove-holder nvidia_modeset
-                modprobe -r --remove-holder nvidia
-
-                ${lib.strings.concatMapStringsSep "\n    " (x: "virsh nodedev-detach " + x) pciDevices}
-
                 systemctl set-property --runtime -- init.scope AllowedCPUs=0-5
                 systemctl set-property --runtime -- user.slice AllowedCPUs=0-5
                 systemctl set-property --runtime -- system.slice AllowedCPUs=0-5
               fi
 
               if [ "$OPERATION" == "release" ]; then
-                ${lib.strings.concatMapStringsSep "\n    " (x: "virsh nodedev-reattach " + x) pciDevices}
-
                 systemctl set-property --runtime -- init.scope AllowedCPUs=0-15
                 systemctl set-property --runtime -- user.slice AllowedCPUs=0-15
                 systemctl set-property --runtime -- system.slice AllowedCPUs=0-15
-                
-                ## Unload vfio
-                modprobe -r vfio_pci
-                modprobe -r vfio_iommu_type1
-                modprobe -r vfio
-
-                modprobe nvidia
-                modprobe nvidia_drm
-                modprobe nvidia_uvm
-                modprobe nvidia_modeset
               fi
             fi
           '';
