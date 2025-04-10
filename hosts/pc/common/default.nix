@@ -27,6 +27,7 @@
     ./programs/lanzaboote.nix
     ./programs/libvirt.nix
     ./programs/nix-alien.nix
+    ./programs/ollama.nix
 
     ../../common/security.nix
     ../../common/nix-settings.nix
