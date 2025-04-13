@@ -40,10 +40,10 @@
   # --- nvidia options ---
   hardware.nvidia = {
     modesetting.enable = false;
-    # Don't use the open source kernel module, due to its incompatiblity with the SVM fix
     open = true;
     nvidiaSettings = false;
-    package = config.boot.kernelPackages.nvidiaPackages.beta;
+    powerManagement.finegrained = true;
+    package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
 
   # GPU switch
@@ -52,9 +52,12 @@
     unstable.gnomeExtensions.gpu-supergfxctl-switch
   ];
   services.supergfxd.enable = true;
+  systemd.services.supergfxd.path = [
+    pkgs.lsof
+  ];
   services.supergfxd.settings = {
     vfio_enable = true;
-    vfio_save = false;
+    vfio_save = true;
     hotplug_type = "Std";
   };
 

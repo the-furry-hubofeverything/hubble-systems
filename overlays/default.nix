@@ -20,6 +20,23 @@
     #     ];
     # });
 
+    supergfxctl = prev.supergfxctl.overrideAttrs (_: oldAttrs: rec {
+      version = "5.2.7";
+
+      src = prev.fetchFromGitLab {
+        owner = "the-furry-hubofeverything";
+        repo = "supergfxctl";
+        rev = "0db0bc7c4a21d20dbd8c3dbf1524437f2dc252e5";
+        hash = "sha256-9W2NA2VtoJz/pW7sBlgyQIUTZ/yM0oYwVN2yqXC5jI0=";
+      };
+
+      cargoDeps = oldAttrs.cargoDeps.overrideAttrs (prev.lib.const {
+        name = "${oldAttrs.pname}-vendor.tar.gz";
+        inherit src;
+        outputHash = "sha256-Xzbsl1rSKcKuakdII8pVwG4uC0aDuoP3Y56y5lM9Ma8=";
+      });
+    });
+
     # # Blender 3.6
     # blender-hip_3_6 = prev.blender-hip.overrideAttrs (finalAttrs: oldAttrs: {
     #   version = "3.6.11";
@@ -45,7 +62,7 @@
     unstable = import inputs.nixpkgs-unstable {
       inherit (final) system;
       config.allowUnfree = true;
-      
+
       # TODO needed for VINTAGE STORY
       config.permittedInsecurePackages = [
         "dotnet-runtime-7.0.20"
