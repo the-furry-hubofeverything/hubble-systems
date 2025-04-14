@@ -15,6 +15,8 @@
   # Set your time zone.
   time.timeZone = "America/Phoenix";
 
+  boot.loader.systemd-boot.configurationLimit = 3;
+
   # Select internationalisation properties.
   i18n.defaultLocale = "en_CA.UTF-8";
 
