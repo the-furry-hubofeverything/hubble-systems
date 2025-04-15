@@ -55,10 +55,6 @@
       inputs.nixpkgs.follows = "nixpkgs"; # use our nixpkgs
     };
 
-    # Unify colors
-    # TODO: Actually use this
-    nix-colors.url = "github:misterio77/nix-colors";
-
     # Run unpatched binaries on Nix/NixOS
     nix-alien.url = "github:thiagokokada/nix-alien";
     # Nix language server
