@@ -7,9 +7,7 @@
   imports = [
     inputs.musnix.nixosModules.musnix
   ];
-
-  # TODO rename to audio.nix
-
+  
   # Enable pipewire and disable pulseaudio
   hardware.pulseaudio.enable = false;
   services.pipewire = {

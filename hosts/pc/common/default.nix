@@ -16,7 +16,7 @@
     ./performance-tweaks.nix
     ./security.nix
     ./wayland.nix
-    ./pipewire.nix
+    ./audio.nix
 
     ./desktop-environments/gnome.nix
 

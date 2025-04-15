@@ -23,7 +23,7 @@
     inputs.flake-programs-sqlite.nixosModules.programs-sqlite
   ];
 in {
-  # TODO: use *-common configs to easily replicate configs for debugging instead of machine specific ones.
+  # use *-common configs to easily replicate configs for debugging instead of machine specific ones.
   # That way, we all can use a VM to see if we can replicate a bug, without worrying about machine specifics.
 
   # === Pi cluster ===
