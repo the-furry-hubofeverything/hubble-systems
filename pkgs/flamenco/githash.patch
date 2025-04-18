@@ -1,0 +1,44 @@
+diff --git a/Makefile b/Makefile
+index 409d5ad3..9ba86987 100644
+--- a/Makefile
++++ b/Makefile
+@@ -14 +14 @@ RELEASE_CYCLE := release
+-_GIT_DESCRIPTION_OR_TAG := $(subst v${VERSION}-,,$(shell git describe --tag --dirty --always --abbrev=9))
++
+@@ -21,4 +21 @@ _GIT_DESCRIPTION_OR_TAG := $(subst v${VERSION}-,,$(shell git describe --tag --di
+-GITHASH := $(subst v${VERSION},$(shell git rev-parse --short=9 HEAD),${_GIT_DESCRIPTION_OR_TAG})
+-ifeq (${GITHASH},dirty)
+-GITHASH := $(shell git rev-parse --short=9 HEAD)
+-endif
++GITHASH = ""
+diff --git a/magefiles/build.go b/magefiles/build.go
+index 3ecd2903..9554a7ab 100644
+--- a/magefiles/build.go
++++ b/magefiles/build.go
+@@ -115,4 +115 @@ func buildFlags() ([]string, error) {
+-	hash, err := gitHash()
+-	if err != nil {
+-		return nil, err
+-	}
++	hash := os.Getenv("GITHASH")
+diff --git a/magefiles/version.go b/magefiles/version.go
+index bc5bee51..705d2e9d 100644
+--- a/magefiles/version.go
++++ b/magefiles/version.go
+@@ -7,2 +7 @@ import (
+-
+-	"github.com/magefile/mage/sh"
++	"os"
+@@ -18,4 +16,0 @@ const (
+-func gitHash() (string, error) {
+-	return sh.Output("git", "rev-parse", "--short", "HEAD")
+-}
+-
+@@ -26,6 +21 @@ func Version() error {
+-
+-	hash, err := gitHash()
+-	if err != nil {
+-		return err
+-	}
+-	fmt.Printf("Git Hash    : %s\n", hash)
++	fmt.Printf("Git Hash    : %s\n", os.Getenv("GITHASH"))

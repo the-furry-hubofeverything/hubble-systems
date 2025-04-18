@@ -14,7 +14,7 @@
   yarn,
   prefetch-yarn-deps,
 }: let
-  version = "3.5";
+  version = "3.7";
 in
   buildGoModule rec {
     pname = "flamenco";
@@ -24,12 +24,22 @@ in
       domain = "projects.blender.org";
       owner = "studio";
       repo = "flamenco";
-      rev = "v${version}";
-      hash = "sha256-iAMQv4GzxS5PPQPrLCjBj7qd2HpAg91/BtMRoGTuJ5U=";
+      tag = "v${version}";
+      # from nixos/nixpkgs#387031
+      leaveDotGit = true;
+      # Only keep HEAD, because leaveDotGit is non-deterministic:
+      # https://github.com/NixOS/nixpkgs/issues/8567
+      postFetch = ''
+        hash=$(git -C "$out" rev-parse --short=9 HEAD)
+        rm -r "$out"/.git
+        echo "$hash" > "$out"/HEAD
+      '';
+      hash = "sha256-LJo+yPxT3tWG8bbvKnvJQAs1c47IE5mzA2HznQdGRBQ=";
     };
 
     patches = [
       ./absolute-path-bypass.patch
+      ./githash.patch
     ];
 
     webappOfflineCache = fetchYarnDeps {
@@ -37,7 +47,7 @@ in
       hash = "sha256-QcfyiL2/ALkxZpJyiwyD7xNlkOCPu4THCyywwZ40H8s=";
     };
 
-    vendorHash = "sha256-DJooc+rGQ61lxjqP5+5eyQe7x69R3ADOwHDMu6NbICQ=";
+    vendorHash = "sha256-0q+wMisKmVZuTp1VdJ7GM1xiHM2FJAF0O6IiuwsK3e4=";
 
     nativeBuildInputs = [
       makeWrapper
@@ -63,13 +73,19 @@ in
       patchShebangs web
     '';
 
+    makeFlags = [
+      "GITHASH=$(cat ${src}/HEAD)"
+      "GOOS=linux"
+      "GOARCH=amd64"
+    ];
+
     buildPhase = ''
       runHook preBuild
+      export npm_config_offline=true
 
-      make -s webapp-static
-      make -s flamenco-manager-without-webapp GOOS=linux GOARCH=amd64
-      make -s flamenco-worker GOOS=linux GOARCH=amd64
-
+      make -s webapp-static 
+      make -s flamenco-manager-without-webapp
+      make -s flamenco-worker
       runHook postBuild
     '';
 
