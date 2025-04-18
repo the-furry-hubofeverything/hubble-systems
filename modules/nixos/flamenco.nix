@@ -234,8 +234,8 @@ in {
 
     systemd = {
       services = {
-        flamenco-manager = lib.optionalAttrs (roleIs "manager") (mkService "manager");
-        flamenco-worker = lib.optionalAttrs (roleIs "worker") (mkService "worker");
+        flamenco-manager = (mkService "manager") // {enable = roleIs "manager";};
+        flamenco-worker = (mkService "worker") // {enable = roleIs "worker";};
       };
     };
 
