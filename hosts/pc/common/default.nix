@@ -19,6 +19,7 @@
     ./audio.nix
 
     ./desktop-environments/gnome.nix
+    ./desktop-environments/niri.nix
 
     ./hardware/logitechWheelSupport.nix
     ./hardware/VR.nix

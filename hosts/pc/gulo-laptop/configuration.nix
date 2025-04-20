@@ -39,7 +39,7 @@
 
   # --- nvidia options ---
   hardware.nvidia = {
-    modesetting.enable = false;
+    modesetting.enable = true;
     open = true;
     nvidiaSettings = false;
     powerManagement.finegrained = true;
@@ -58,7 +58,7 @@
   services.supergfxd.settings = {
     vfio_enable = true;
     vfio_save = true;
-    hotplug_type = "Std";
+    hotplug_type = "Asus";
   };
 
   # Gaming gpu power thing
@@ -102,7 +102,7 @@
   # - Unstable 6.6 with open R560 FAIL, black screen
 
   # Kernel selection and modules
-  boot.kernelPackages = pkgs.linuxPackages_zen;
+  boot.kernelPackages = pkgs.unstable.linuxPackages_zen;
   boot.extraModulePackages = with config.boot.kernelPackages; [x86_energy_perf_policy];
   boot.kernelModules = [];
 

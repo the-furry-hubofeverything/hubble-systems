@@ -24,6 +24,13 @@
     # VR related programs
     nixpkgs-xr.url = "github:nix-community/nixpkgs-xr";
 
+    # Niri scrolling desktop environment
+    niri-flake = {
+      url = "github:sodiboo/niri-flake";
+      inputs.nixpkgs.follows = "nixpkgs-unstable"; # use our nixpkgs
+      inputs.nixpkgs-stable.follows = "nixpkgs"; # use our nixpkgs
+    };
+
     # command-not-found for Flake-based, non-channel backed NixOS systems
     flake-programs-sqlite = {
       url = "github:wamserma/flake-programs-sqlite";

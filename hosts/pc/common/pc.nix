@@ -97,6 +97,8 @@
     comic-neue
     koulen
     inter
+
+    powerline-fonts
   ];
 
   # For compatibility with flatpak etc.

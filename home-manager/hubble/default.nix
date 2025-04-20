@@ -11,6 +11,7 @@
     outputs.homeManagerModules.git-credential-oauth
     ./obs.nix
     ./vr.nix
+    ./niri.nix
   ];
 
   nixpkgs = {
