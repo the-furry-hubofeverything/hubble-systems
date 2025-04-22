@@ -20,7 +20,7 @@
       ],
       "runtime" :
       [
-        "${pkgs.opencomposite}/lib/opencomposite"
+        "/home/hubble/.local/share/Steam/steamapps/common/SteamVR"
       ],
       "version" : 1
     }

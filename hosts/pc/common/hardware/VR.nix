@@ -15,7 +15,7 @@ in {
 
   services.monado = {
     enable = true;
-    package = pkgs.unstable.monado;
+    package = pkgs.monado;
     defaultRuntime = true;
   };
 

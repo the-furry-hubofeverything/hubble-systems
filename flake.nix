@@ -22,7 +22,10 @@
     # === NixOS related dependencies ===
 
     # VR related programs
-    nixpkgs-xr.url = "github:nix-community/nixpkgs-xr";
+    nixpkgs-xr = {
+      url = "github:nix-community/nixpkgs-xr";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
 
     # Niri scrolling desktop environment
     niri-flake = {
