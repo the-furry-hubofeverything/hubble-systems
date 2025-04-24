@@ -103,6 +103,8 @@ in {
       "L+ /srv/flamenco 0755 render render - ${managerFileDir}"
     ];
 
+  systemd.services."flamenco-worker".after = lib.optionals (config.services.blocky.enable) ["blocky.service"];
+
   services.nginx.virtualHosts."flamenco.gulo.dev" = let
     proxyPass = "http://127.0.0.1:${toString port}";
   in {
