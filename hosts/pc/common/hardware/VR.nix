@@ -19,6 +19,17 @@ in {
     defaultRuntime = true;
   };
 
+  # Some settings for the HP Reverb G2
+  systemd.user.services."monado".environment = {
+    XRT_COMPOSITOR_FORCE_NVIDIA_DISPLAY = "HP Inc.";
+    XRT_COMPOSITOR_FORCE_WAYLAND_DIRECT = "true";
+    DISPLAY = ":0";
+
+    # 4320x2160@60.00
+    # Full refresh rate causes some issues rn
+    XRT_COMPOSITOR_DESIRED_MODE = "2";
+  };
+
   systemd.user.services.monado.environment = {
     STEAMVR_LH_ENABLE = "1";
     XRT_COMPOSITOR_COMPUTE = "1";
