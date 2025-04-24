@@ -98,7 +98,8 @@
     koulen
     inter
 
-    powerline-fonts
+    font-awesome
+    nerdfonts
   ];
 
   # For compatibility with flatpak etc.
