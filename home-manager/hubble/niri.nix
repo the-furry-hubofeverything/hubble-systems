@@ -27,6 +27,7 @@
     pkgs.swaylock
     pkgs.playerctl
     pkgs.pwvucontrol
+    pkgs.wdisplays
     pkgs.waybar
     pkgs.mako
   ];
