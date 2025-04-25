@@ -68,7 +68,7 @@
 
         # To be replaced when upgraded 23.11
         pkgs.blender_3_6
-        
+
         # nix dev stuff
         pkgs.nixpkgs-fmt
         inputs.nixd.packages.${pkgs.system}.nixd
@@ -92,6 +92,15 @@
       enable = true;
       package = pkgs.vscodium;
     };
+
+    ssh = {
+      enable = true;
+      matchBlocks."git@alex.gulo.dev" = {
+        match = "Host alex.gulo.dev User git";
+        identityFile = "/home/hubble/.ssh/id_hs-secrets";
+      };
+    };
+
     git = {
       enable = true;
       package = pkgs.gitFull;
