@@ -109,6 +109,8 @@ in {
   # Manually override swraid to be disabled, since I'm not using it and it's enabled by default with stateVersion < 23.11
   boot.swraid.enable = false;
 
+  sops.age.keyFile = "/var/lib/sops-nix/key.txt";
+
   # TODO Setup HA sevices
 
   system.stateVersion = "23.05";
