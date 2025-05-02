@@ -22,6 +22,8 @@
 
   # Distribute irq over multiple cores
   services.irqbalance.enable = true;
+  
+  sops.age.keyFile = "/var/lib/sops-nix/key.txt";
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 }

@@ -17,7 +17,6 @@
 
   networking.hostName = "alan-google-remote";
   system.stateVersion = "23.11";
-  sops.age.keyFile = "/var/lib/sops-nix/key.txt";
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 }
