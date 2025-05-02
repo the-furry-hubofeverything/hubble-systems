@@ -5,6 +5,7 @@
     ./services/grocy.nix
     ./services/vaultwarden.nix
     ./services/git.nix
+    ./services/kopia.nix
     ./services/monitoring.nix
   ];
 
