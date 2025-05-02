@@ -1,4 +1,8 @@
-{lib, ...}: {
+{
+  lib,
+  config,
+  ...
+}: {
   boot.kernel.sysctl = {
     # Restrict ptrace() usage to processes with a pre-defined relationship
     # (e.g., parent/child)
@@ -89,6 +93,11 @@
   security.sudo.execWheelOnly = true;
 
   services.fail2ban.enable = true;
+
+  sops.age.keyFile =
+    if (builtins.hasAttr "persistence" config.environment)
+    then "/persist/var/lib/sops-nix/key.txt"
+    else "/var/lib/sops-nix/key.txt";
 
   # We place down a empty file just so we can test and workaround
   # the fact that we don't actually have default secrets

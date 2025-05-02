@@ -44,27 +44,23 @@
           "/var/lib/grafana/data"
         ]);
 
-    files =
-      [
-        "/etc/adjtime"
-        "/etc/machine-id"
+    files = [
+      "/etc/adjtime"
+      "/etc/machine-id"
 
-        "/etc/ssh/ssh_host_ed25519_key"
-        "/etc/ssh/ssh_host_rsa_key"
+      "/etc/ssh/ssh_host_ed25519_key"
+      "/etc/ssh/ssh_host_rsa_key"
 
-        "/var/lib/NetworkManager/secret_key"
-        "/var/lib/NetworkManager/seen-bssids"
-        "/var/lib/NetworkManager/timestamps"
+      "/var/lib/NetworkManager/secret_key"
+      "/var/lib/NetworkManager/seen-bssids"
+      "/var/lib/NetworkManager/timestamps"
 
-        "/var/lib/logrotate.status"
-      ]
-      ++ lib.optionals (builtins.hasAttr "sops" config && config.sops.age.keyFile != null) [
-        config.sops.age.keyFile
-      ];
+      "/var/lib/logrotate.status"
+    ];
   };
 
   fileSystems."/".options = ["noexec"];
   fileSystems."/var/log".options = ["noexec"];
 
-  sops.age.sshKeyPaths = ["/persist/etc/ssh/ssh_host_ed25519_key"];
+  sops.age.sshKeyPaths = lib.optionals (config.sops.age.keyFile == null) ["/persist/etc/ssh/ssh_host_ed25519_key"];
 }
