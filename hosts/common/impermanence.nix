@@ -10,7 +10,6 @@
   '';
 
   imports = [
-    inputs.nix-minecraft.nixosModules.minecraft-servers
   ];
 
   environment.persistence."/persist" = {
@@ -23,7 +22,7 @@
         "/var/lib/systemd/coredump"
         "/var/lib/acme"
       ]
-      ++ lib.optionals config.services.minecraft-servers.enable [
+      ++ lib.optionals (builtins.hasAttr "minecraft-servers" config.services && config.services.minecraft-servers.enable) [
         config.services.minecraft-servers.dataDir
       ]
       ++ lib.optionals config.services.samba.enable [
@@ -45,19 +44,23 @@
           "/var/lib/grafana/data"
         ]);
 
-    files = [
-      "/etc/adjtime"
-      "/etc/machine-id"
+    files =
+      [
+        "/etc/adjtime"
+        "/etc/machine-id"
 
-      "/etc/ssh/ssh_host_ed25519_key"
-      "/etc/ssh/ssh_host_rsa_key"
+        "/etc/ssh/ssh_host_ed25519_key"
+        "/etc/ssh/ssh_host_rsa_key"
 
-      "/var/lib/NetworkManager/secret_key"
-      "/var/lib/NetworkManager/seen-bssids"
-      "/var/lib/NetworkManager/timestamps"
+        "/var/lib/NetworkManager/secret_key"
+        "/var/lib/NetworkManager/seen-bssids"
+        "/var/lib/NetworkManager/timestamps"
 
-      "/var/lib/logrotate.status"
-    ];
+        "/var/lib/logrotate.status"
+      ]
+      ++ lib.optionals (builtins.hasAttr "sops" config && config.sops.age.keyFile != null) [
+        config.sops.age.keyFile
+      ];
   };
 
   fileSystems."/".options = ["noexec"];
