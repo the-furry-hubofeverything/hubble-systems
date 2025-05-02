@@ -3,16 +3,32 @@
 {
   inputs,
   outputs,
+  hs-utils,
+  config,
   pkgs,
   ...
 }: {
+  assertions = [
+    {
+      assertion = hs-utils.sops.defaultIsEmpty config.sops;
+      message = "security: defaultSopsFile not empty, cannot continue";
+    }
+  ];
   # You can import other home-manager modules here
   imports = [
     outputs.homeManagerModules.git-credential-oauth
+    inputs.sops-nix.homeManagerModules.sops
+    inputs.hs-secrets.homeManagerModules.hubble
     ./obs.nix
     ./vr.nix
     ./niri.nix
   ];
+
+
+  sops = {
+    age.keyFile = "${config.home.homeDirectory}/.config/sops/age/keys.txt";
+    defaultSopsFile = ../../hosts/common/.sops.yaml;
+  };
 
   nixpkgs = {
     # You can add overlays here
@@ -74,6 +90,12 @@
         inputs.nixd.packages.${pkgs.system}.nixd
 
         pkgs.unstable.vintagestory
+
+
+        # TODO replace with programs.rclone for 25.05
+        pkgs.rclone
+        pkgs.unstable.kopia
+        pkgs.unstable.kopia-ui
       ];
 
     pointerCursor = {
@@ -100,6 +122,29 @@
         identityFile = "/home/hubble/.ssh/id_hs-secrets";
       };
     };
+
+    # rclone = {
+    #   enable = true;
+    #   remotes = {
+    #     enterprise.config = {
+    #       type = "sftp";
+    #       host = "enterprise.nebula.gulo.dev";
+    #       user = "kopia";
+    #       keyFile = "${config.home.homeDirectory}/.ssh/id_kopia";
+    #     };
+
+    #     b2 = {
+    #       config = {
+    #         type = "b2";
+    #       };
+
+    #       secrets = {
+    #         account = config.sops.secrets.b2ID.path;
+    #         key = config.sops.secrets.b2Key.path;
+    #       };
+    #     };
+    #   };
+    # };
 
     git = {
       enable = true;

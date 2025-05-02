@@ -156,7 +156,7 @@
           home-manager.lib.homeManagerConfiguration {
             # Home-manager requires 'pkgs' instance
             pkgs = nixpkgs.legacyPackages.x86_64-linux;
-            extraSpecialArgs = {inherit inputs outputs;};
+            extraSpecialArgs = {inherit hs-utils inputs outputs;};
             modules = [
               home
             ];
