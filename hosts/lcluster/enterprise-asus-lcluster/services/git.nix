@@ -10,10 +10,7 @@
     home = "/persist/git-server";
     createHome = true;
     shell = "${pkgs.git}/bin/git-shell";
-    openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOnKoFLIrn9/lB2Ymd60sL5EJOHvJTCN+0f/1JZYBAVF git@github-actions"
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICmUurzgVIwqMfMBppbdNyJ37R2CzLMjh7/Y00JWVofp hs-secrets"
-    ];
+    # Authorized keys in hs-secrets
   };
 
   users.groups.git = {};

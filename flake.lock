@@ -293,11 +293,11 @@
     },
     "hs-secrets": {
       "locked": {
-        "lastModified": 1746168458,
-        "narHash": "sha256-61yBtlTIOdwnwZHgLBohQ6KTympXSLZQH01Pla5xeeA=",
+        "lastModified": 1746172174,
+        "narHash": "sha256-hEb9rr3ROL+CWrB6M/bI7fDZyG0w2/omo1yExslmaw8=",
         "ref": "refs/heads/master",
-        "rev": "a9e95f6257d6ca5311db27804611f816faa07802",
-        "revCount": 32,
+        "rev": "9b5aa89a9550c7044bea1787cc7bf43e1af5bbfa",
+        "revCount": 33,
         "type": "git",
         "url": "ssh://git@alex.gulo.dev:37084/persist/git-server/hs-secrets"
       },
