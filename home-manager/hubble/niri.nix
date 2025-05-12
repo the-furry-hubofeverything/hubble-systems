@@ -6,9 +6,12 @@
   imports = [
     inputs.niri-flake.homeModules.niri
   ];
+  nixpkgs.overlays = [inputs.niri-flake.overlays.niri];
+
   programs.niri = {
     enable = true;
     config = null;
+    package = pkgs.niri-unstable;
   };
 
   programs.eww = {
