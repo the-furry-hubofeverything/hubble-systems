@@ -14,7 +14,7 @@ jobs:
           ssh-private-key: ${{ secrets.PRIVATE_SSH_KEY }}
       - name: Add the host key
         run: |
-          line='[alex.gulo.dev]:37084 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHCOcR1CTLQ7ATvIuwvshI/EM1mqQ5inK5xhj2XWN1lL'
+          line='[alex.gulo.dev]:37084 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIF0My7F/J0pJz3DXjyh251t88sadWvPfI2mbpI2XVRWD'
           echo "$line" >> ~/.ssh/known_hosts
       - name: Checkout repository
         uses: actions/checkout@v4
