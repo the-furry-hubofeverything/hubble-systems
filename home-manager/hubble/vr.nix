@@ -1,8 +1,13 @@
 {
   pkgs,
+  inputs,
   config,
   ...
 }: {
+  nixpkgs.overlays = [
+    inputs.nixpkgs-xr.overlays.default
+  ];
+
   # For Monado:
   xdg.configFile."openxr/1/active_runtime.json".source = "${pkgs.monado}/share/openxr/1/openxr_monado.json";
 
@@ -12,7 +17,9 @@
       [
         "${config.xdg.dataHome}/Steam/config"
       ],
-      "external_drivers" : null,
+      "external_drivers" : [
+        "${pkgs.monado}/share/steamvr-monado"
+      ],
       "jsonid" : "vrpathreg",
       "log" :
       [
@@ -20,7 +27,7 @@
       ],
       "runtime" :
       [
-        "/home/hubble/.local/share/Steam/steamapps/common/SteamVR"
+        "${pkgs.opencomposite}/lib/opencomposite"
       ],
       "version" : 1
     }

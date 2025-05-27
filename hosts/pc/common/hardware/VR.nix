@@ -17,6 +17,7 @@ in {
     enable = true;
     package = pkgs.monado;
     defaultRuntime = true;
+    highPriority = true;
   };
 
   # Some settings for the HP Reverb G2
@@ -24,13 +25,12 @@ in {
     XRT_COMPOSITOR_FORCE_NVIDIA_DISPLAY = "HP Inc.";
     XRT_COMPOSITOR_FORCE_WAYLAND_DIRECT = "true";
     DISPLAY = ":0";
+    U_PACING_COMP_MIN_TIME_MS = "16";
 
     # 4320x2160@60.00
     # Full refresh rate causes some issues rn
     XRT_COMPOSITOR_DESIRED_MODE = "2";
-  };
 
-  systemd.user.services.monado.environment = {
     STEAMVR_LH_ENABLE = "1";
     XRT_COMPOSITOR_COMPUTE = "1";
     VIT_SYSTEM_LIBRARY_PATH = basalt + "/lib/libbasalt.so";
