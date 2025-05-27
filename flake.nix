@@ -8,14 +8,14 @@
 
     # === Main dependencies ===
     # Nixpkgs
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     # Also see the 'unstable-packages' overlay at 'overlays/default.nix'.
     hardware.url = "github:nixos/nixos-hardware";
 
     # Home manager
     home-manager = {
-      url = "github:nix-community/home-manager/release-24.11";
+      url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs"; # use our nixpkgs
     };
 
@@ -42,7 +42,7 @@
 
     # Secure boot
     lanzaboote = {
-      url = "github:nix-community/lanzaboote/v0.4.1";
+      url = "github:nix-community/lanzaboote/v0.4.2";
       inputs.nixpkgs.follows = "nixpkgs"; # use our nixpkgs
     };
 
@@ -66,9 +66,15 @@
     };
 
     # Run unpatched binaries on Nix/NixOS
-    nix-alien.url = "github:thiagokokada/nix-alien";
+    nix-alien = {
+      url = "github:thiagokokada/nix-alien";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     # Nix language server
-    nixd.url = "https://flakehub.com/f/nix-community/nixd/*.tar.gz";
+    nixd = {
+      url = "https://flakehub.com/f/nix-community/nixd/*.tar.gz";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # === Extra software ===
     # Blender binaries
@@ -78,10 +84,16 @@
     };
 
     # Minecraft server utils
-    nix-minecraft.url = "github:Infinidoge/nix-minecraft";
+    nix-minecraft = {
+      url = "github:Infinidoge/nix-minecraft";
+      inputs.nixpkgs.follows = "nixpkgs"; # use our nixpkgs
+    };
 
     # Muse sounds (experimental)
-    muse-sounds-manager.url = "github:thilobillerbeck/muse-sounds-manager-nix";
+    muse-sounds-manager = {
+      url = "github:thilobillerbeck/muse-sounds-manager-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {

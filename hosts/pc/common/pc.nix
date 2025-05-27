@@ -55,7 +55,7 @@
     wii-pointer
 
     # FHS compatibility shell using appimage environment defaults
-    (pkgs.buildFHSUserEnv (appimageTools.defaultFhsEnvArgs
+    (pkgs.buildFHSEnv (appimageTools.defaultFhsEnvArgs
       // {
         name = "fhs-run";
 
@@ -69,7 +69,7 @@
       }))
 
     # Same thing, but a shell. 
-    (pkgs.buildFHSUserEnv (appimageTools.defaultFhsEnvArgs
+    (pkgs.buildFHSEnv (appimageTools.defaultFhsEnvArgs
       // {
         name = "fhs";
 
@@ -99,8 +99,7 @@
     inter
 
     font-awesome
-    nerdfonts
-  ];
+  ] ++ builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts);
 
   # For compatibility with flatpak etc.
   fonts.fontDir.enable = true;

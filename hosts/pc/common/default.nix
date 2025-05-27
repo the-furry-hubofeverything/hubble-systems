@@ -18,7 +18,7 @@
     ./wayland.nix
     ./audio.nix
 
-    ./desktop-environments/gnome.nix
+    # ./desktop-environments/gnome.nix
     ./desktop-environments/niri.nix
 
     ./hardware/logitechWheelSupport.nix

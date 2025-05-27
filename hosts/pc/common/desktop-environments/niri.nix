@@ -10,6 +10,8 @@
     package = pkgs.niri-unstable;
   };
 
+  services.xserver.displayManager.gdm.enable = true;
+
   environment.variables.NIXOS_OZONE_WL = "1";
   environment.systemPackages = with pkgs; [
     wl-clipboard

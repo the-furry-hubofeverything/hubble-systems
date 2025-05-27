@@ -30,11 +30,10 @@
         hash = "sha256-9W2NA2VtoJz/pW7sBlgyQIUTZ/yM0oYwVN2yqXC5jI0=";
       };
 
-      cargoDeps = oldAttrs.cargoDeps.overrideAttrs (prev.lib.const {
-        name = "${oldAttrs.pname}-vendor.tar.gz";
+      cargoDeps = final.rustPlatform.fetchCargoVendor {
         inherit src;
-        outputHash = "sha256-Xzbsl1rSKcKuakdII8pVwG4uC0aDuoP3Y56y5lM9Ma8=";
-      });
+        hash = "sha256-LAJC56FhIE5gmKTFLYCAp9FDg8CeSHo+z+gbdTZYNf8=";
+      };
     });
 
     # # Blender 3.6
