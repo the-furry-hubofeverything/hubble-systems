@@ -161,19 +161,27 @@
 
     # Standalone home-manager configuration entrypoint
     # Available through 'home-manager --flake .#your-username@your-hostname'
-    # TODO Setup home-managerfor multi host
+
     homeConfigurations =
-      nixpkgs.lib.mapAttrs (
-        _user: home:
-          home-manager.lib.homeManagerConfiguration {
-            # Home-manager requires 'pkgs' instance
-            pkgs = nixpkgs.legacyPackages.x86_64-linux;
-            extraSpecialArgs = {inherit hs-utils inputs outputs;};
-            modules = [
-              home
-            ];
-          }
+      nixpkgs.lib.concatMapAttrs (
+        hostname: _:
+          nixpkgs.lib.concatMapAttrs (
+            user: home: {
+              ${user + "@" + hostname} = home-manager.lib.homeManagerConfiguration {
+                # Home-manager requires 'pkgs' instance
+                pkgs = nixpkgs.legacyPackages.x86_64-linux;
+                extraSpecialArgs = {
+                  inherit hs-utils inputs outputs;
+                  hostConfig = outputs.nixosConfigurations.${hostname};
+                };
+                modules = [
+                  home
+                ];
+              };
+            }
+          )
+          users
       )
-      users;
+      hosts;
   };
 }
