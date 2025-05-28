@@ -11,6 +11,14 @@
   };
 
   services.xserver.displayManager.gdm.enable = true;
+  services.power-profiles-daemon.enable = true;
+  services.gvfs.enable = true;
+
+  programs.nautilus-open-any-terminal = {
+    enable = true;
+    terminal = "kitty";
+  };
+
 
   environment.variables.NIXOS_OZONE_WL = "1";
   environment.systemPackages = with pkgs; [
@@ -18,6 +26,7 @@
     wayland-utils
     gamescope
     xwayland-satellite
+    nautilus
     unstable.waypaper
   ];
 }
