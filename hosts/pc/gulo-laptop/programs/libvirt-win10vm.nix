@@ -32,12 +32,25 @@
     hooks = {
       qemu."supergfx-nvidia-hybrid-graphics-switch" = let
         vmName = "win10";
+
+        pciDevices = [
+          # GPU
+          "pci_0000_01_00_0"
+          "pci_0000_01_00_1"
+          "pci_0000_01_00_2"
+          "pci_0000_01_00_3"
+
+          # USB-C Bus
+          "pci_0000_07_00_3"
+        ];
       in
         lib.getExe (pkgs.writeShellApplication {
           name = "qemu-hook";
 
           runtimeInputs = with pkgs; [
             systemd
+            sysctl
+            kmod
           ];
 
           text = ''
@@ -46,12 +59,25 @@
             # SUB_OPERATION="$3"
             if [ "$GUEST_NAME" == "${vmName}" ]; then
               if [ "$OPERATION" == "prepare" ]; then
+                modprobe -r nvidia_drm
+                modprobe -r nvidia_modeset
+                modprobe -r nvidia_uvm
+                modprobe -r nvidia_wmi_ec_backlight
+                modprobe -r nvidia
+                modprobe -r i2c_nvidia_gpu
+
+                ${lib.concatStringsSep "\n" (lib.map (x: "virsh nodedev-reattach --device " + x) pciDevices)}
+
+                sysctl vm.nr_hugepages = ${builtins.toString (21340160 / 2048)}
+
                 systemctl set-property --runtime -- init.scope AllowedCPUs=0-5
                 systemctl set-property --runtime -- user.slice AllowedCPUs=0-5
                 systemctl set-property --runtime -- system.slice AllowedCPUs=0-5
               fi
 
               if [ "$OPERATION" == "release" ]; then
+                sysctl vm.nr_hugepages = 0
+
                 systemctl set-property --runtime -- init.scope AllowedCPUs=0-15
                 systemctl set-property --runtime -- user.slice AllowedCPUs=0-15
                 systemctl set-property --runtime -- system.slice AllowedCPUs=0-15
