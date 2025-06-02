@@ -74,6 +74,8 @@
         element-desktop
         kdePackages.xwaylandvideobridge
 
+        gnome-calculator
+
         libreoffice-qt
         hunspell
         hunspellDicts.en_CA-large
