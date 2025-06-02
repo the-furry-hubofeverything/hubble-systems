@@ -29,12 +29,14 @@ in {
         };
         version = rev;
 
-        patches = previousAttrs.patches ++ [
-          (pkgs.fetchpatch {
-            url = "https://aur.archlinux.org/cgit/aur.git/plain/010-monado-vulkan-headers1.4.310-fix.patch?h=monado";
-            hash = "sha256-yydbH/7aVKE3HH4ecJ10dfcX0Wilm9jSFyF0zpMq/B0=";
-          })
-        ];
+        patches =
+          previousAttrs.patches
+          ++ [
+            (pkgs.fetchpatch {
+              url = "https://aur.archlinux.org/cgit/aur.git/plain/010-monado-vulkan-headers1.4.310-fix.patch?h=monado";
+              hash = "sha256-yydbH/7aVKE3HH4ecJ10dfcX0Wilm9jSFyF0zpMq/B0=";
+            })
+          ];
       }
     );
     defaultRuntime = true;
@@ -44,13 +46,16 @@ in {
   # Some settings for the HP Reverb G2
   systemd.user.services."monado".environment = {
     XRT_COMPOSITOR_FORCE_NVIDIA_DISPLAY = "HP Inc.";
+    XRT_COMPOSITOR_FORCE_NVIDIA = "1";
     XRT_COMPOSITOR_FORCE_WAYLAND_DIRECT = "true";
+    U_PACING_COMP_MIN_TIME_MS = "10";
     DISPLAY = ":0";
-    U_PACING_COMP_MIN_TIME_MS = "16";
 
     # 4320x2160@60.00
     # Full refresh rate causes some issues rn
     XRT_COMPOSITOR_DESIRED_MODE = "2";
+
+    WMR_HANDTRACKING = "0";
 
     STEAMVR_LH_ENABLE = "1";
     XRT_COMPOSITOR_COMPUTE = "1";
