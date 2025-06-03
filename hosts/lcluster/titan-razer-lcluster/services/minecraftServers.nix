@@ -11,6 +11,11 @@
     packHash = "sha256-maxrc3JbI0OpXY7LlevJrulbvVveJvWML7Q512GPeZU=";
   };
 
+  guloIndustriesPack = pkgs.fetchPackwizModpack {
+    url = "https://raw.githubusercontent.com/the-furry-hubofeverything/gulo-industries-pack/3708cebe81151650cd4dd16652a493f7d7b71149/pack.toml";
+    packHash = "sha256-TWtoenkXCl6AX74uRFZqnPjmrTKW5HPwJDnaBdALPaI=";
+  };
+
   optimizeServerModpack = modpack: pname: version:
     pkgs.stdenvNoCC.mkDerivation {
       inherit pname version;
@@ -178,6 +183,7 @@ in {
     enable = true;
     description = "Forge Minecraft Create Creative Server";
     serviceConfig = {
+      ExecStartPre = "${pkgs.coreutils}/bin/ln -sfn ${guloIndustriesPack}/mods mods";
       ExecStart = "${pkgs.unstable.jre}/bin/java ${jvmOptimizationFlags + "-Xmx8G -Xms8G"} @user_jvm_args.txt @libraries/net/minecraftforge/forge/1.20.1-47.4.0/unix_args.txt";
       WorkingDirectory = "${config.users.extraUsers.createCreative.home}/forge";
       Restart = "always";
