@@ -51,6 +51,7 @@
             systemd
             sysctl
             kmod
+            libvirt
           ];
 
           text = ''
@@ -68,7 +69,7 @@
 
                 ${lib.concatStringsSep "\n" (lib.map (x: "virsh nodedev-reattach --device " + x) pciDevices)}
 
-                sysctl vm.nr_hugepages = ${builtins.toString (21340160 / 2048)}
+                sysctl vm.nr_hugepages=${builtins.toString (20971520 / 2048)}
 
                 systemctl set-property --runtime -- init.scope AllowedCPUs=0-5
                 systemctl set-property --runtime -- user.slice AllowedCPUs=0-5
@@ -76,7 +77,7 @@
               fi
 
               if [ "$OPERATION" == "release" ]; then
-                sysctl vm.nr_hugepages = 0
+                sysctl vm.nr_hugepages=0
 
                 systemctl set-property --runtime -- init.scope AllowedCPUs=0-15
                 systemctl set-property --runtime -- user.slice AllowedCPUs=0-15
