@@ -27,6 +27,7 @@
     gamescope
     xwayland-satellite
     nautilus
+    gnome-text-editor
     unstable.waypaper
   ];
 }
