@@ -75,6 +75,7 @@
         kdePackages.xwaylandvideobridge
 
         gnome-calculator
+        loupe
 
         libreoffice-qt
         hunspell
