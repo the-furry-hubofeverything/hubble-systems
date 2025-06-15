@@ -4,7 +4,7 @@
   ...
 }: {
   boot.kernelParams = [
-    "amd_iommu=on"
+    "amd_iommu=pt"
     "pcie_acs_override=id:1022:1639,multifunction,downstream"
 
     # amdgpu related workaround for vfio memory shenanigans.
@@ -42,6 +42,7 @@
 
           # USB-C Bus
           "pci_0000_07_00_3"
+          "pci_0000_07_00_4"
         ];
       in
         lib.getExe (pkgs.writeShellApplication {
@@ -70,6 +71,7 @@
                 ${lib.concatStringsSep "\n" (lib.map (x: "virsh nodedev-reattach --device " + x) pciDevices)}
 
                 sysctl vm.nr_hugepages=${builtins.toString (20971520 / 2048)}
+                sysctl kernel.split_lock_mitigate=0
 
                 systemctl set-property --runtime -- init.scope AllowedCPUs=0-5
                 systemctl set-property --runtime -- user.slice AllowedCPUs=0-5
@@ -78,6 +80,7 @@
 
               if [ "$OPERATION" == "release" ]; then
                 sysctl vm.nr_hugepages=0
+                sysctl kernel.split_lock_mitigate=1
 
                 systemctl set-property --runtime -- init.scope AllowedCPUs=0-15
                 systemctl set-property --runtime -- user.slice AllowedCPUs=0-15
