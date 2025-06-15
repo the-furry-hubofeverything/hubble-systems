@@ -70,6 +70,8 @@
 
         easyeffects
 
+        signal-desktop
+
         inkscape
         element-desktop
         kdePackages.xwaylandvideobridge
