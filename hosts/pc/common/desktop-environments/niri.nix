@@ -14,6 +14,9 @@
   services.power-profiles-daemon.enable = true;
   services.gvfs.enable = true;
 
+  services.gnome.gnome-keyring.enable = true;
+  programs.seahorse.enable = true;
+
   programs.nautilus-open-any-terminal = {
     enable = true;
     terminal = "kitty";
