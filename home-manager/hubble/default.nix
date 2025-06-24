@@ -24,7 +24,6 @@
     ./niri.nix
   ];
 
-
   sops = {
     age.keyFile = "${config.home.homeDirectory}/.config/sops/age/keys.txt";
     defaultSopsFile = ../../hosts/common/.sops.yaml;
@@ -95,7 +94,6 @@
         inputs.nixd.packages.${pkgs.system}.nixd
 
         pkgs.unstable.vintagestory
-
 
         # TODO replace with programs.rclone for 25.05
         pkgs.rclone
@@ -174,12 +172,15 @@
   };
 
   i18n.inputMethod = {
-    enabled = "fcitx5";
-    fcitx5.addons = with pkgs; [
-      fcitx5-gtk
-      fcitx5-chinese-addons
-      fcitx5-nord
-    ];
+    enable = true;
+    type = "fcitx5";
+    fcitx5 = {
+      addons = with pkgs; [
+        fcitx5-gtk
+        fcitx5-chinese-addons
+      ];
+      waylandFrontend = true;
+    };
   };
 
   # Bluetooth Media controls
