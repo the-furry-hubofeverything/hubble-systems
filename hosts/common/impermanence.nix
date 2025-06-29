@@ -59,7 +59,8 @@
     ];
   };
 
-  fileSystems."/".options = ["noexec"];
+  # TODO Gen2 - exclude /tmp from noexec
+  # dh_sqlite.NativeLibraryNotFoundException: No native library found -> IT DROVE ME NUTS
   fileSystems."/var/log".options = ["noexec"];
 
   sops.age.sshKeyPaths = lib.optionals (config.sops.age.keyFile == null) ["/persist/etc/ssh/ssh_host_ed25519_key"];
