@@ -12,8 +12,8 @@
   };
 
   guloIndustriesPack = pkgs.fetchPackwizModpack {
-    url = "https://raw.githubusercontent.com/the-furry-hubofeverything/gulo-industries-pack/3708cebe81151650cd4dd16652a493f7d7b71149/pack.toml";
-    packHash = "sha256-TWtoenkXCl6AX74uRFZqnPjmrTKW5HPwJDnaBdALPaI=";
+    url = "https://raw.githubusercontent.com/the-furry-hubofeverything/gulo-industries-pack/a70072f7d322f9cc15d79eea27e2261fde1de87f/pack.toml";
+    packHash = "sha256-ykePvErbsGl0jZKEVg57TGt8L3CLv1OA4WoruDQ9vuc=";
   };
 
   optimizeServerModpack = modpack: pname: version:
@@ -183,6 +183,9 @@ in {
     enable = true;
     description = "Forge Minecraft Create Creative Server";
     serviceConfig = {
+      # TODO maybe instead of root noexec, just move the tmp to home folder
+      User = "createCreative";
+      Group = "createCreative";
       ExecStartPre = "${pkgs.coreutils}/bin/ln -sfn ${guloIndustriesPack}/mods mods";
       ExecStart = "${pkgs.unstable.jre}/bin/java ${jvmOptimizationFlags + "-Xmx8G -Xms8G"} @user_jvm_args.txt @libraries/net/minecraftforge/forge/1.20.1-47.4.0/unix_args.txt";
       WorkingDirectory = "${config.users.extraUsers.createCreative.home}/forge";
