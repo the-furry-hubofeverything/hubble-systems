@@ -12,12 +12,36 @@
   # Printer support
   services.printing.enable = true;
   # Mitigating CVE-2024-47076, CVE-2024-47175, CVE-2024-47176 and CVE-2024-47177
-  systemd.services.cups-browsed.enable = false; 
+  systemd.services.cups-browsed.enable = false;
 
   services.avahi.enable = true;
   services.avahi.nssmdns4 = true;
   # for a WiFi printer
   services.avahi.openFirewall = true;
+
+  services.syncthing.openDefaultPorts = true;
+
+  services.nebula.networks."hsmn0".firewall = let
+    groups = [
+      "mobile"
+      "pc"
+    ];
+  in {
+    inbound =
+      builtins.map
+      (group: {
+        port = "22000";
+        inherit group;
+        proto = "any";
+      })
+      groups
+      ++ builtins.map (group: {
+        port = "21027";
+        inherit group;
+        proto = "udp";
+      })
+      groups;
+  };
 
   # bluetooth settings
   hardware.bluetooth.settings = {
@@ -68,7 +92,7 @@
         '';
       }))
 
-    # Same thing, but a shell. 
+    # Same thing, but a shell.
     (pkgs.buildFHSEnv (appimageTools.defaultFhsEnvArgs
       // {
         name = "fhs";
@@ -84,22 +108,24 @@
 
   hardware.enableAllFirmware = true;
 
-  fonts.packages = with pkgs; [
-    noto-fonts
-    noto-fonts-cjk-sans
-    noto-fonts-emoji
-    liberation_ttf
-    unifont
-    winePackages.fonts
+  fonts.packages = with pkgs;
+    [
+      noto-fonts
+      noto-fonts-cjk-sans
+      noto-fonts-emoji
+      liberation_ttf
+      unifont
+      winePackages.fonts
 
-    quicksand
-    ubuntu_font_family
-    comic-neue
-    koulen
-    inter
+      quicksand
+      ubuntu_font_family
+      comic-neue
+      koulen
+      inter
 
-    font-awesome
-  ] ++ builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts);
+      font-awesome
+    ]
+    ++ builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts);
 
   # For compatibility with flatpak etc.
   fonts.fontDir.enable = true;
