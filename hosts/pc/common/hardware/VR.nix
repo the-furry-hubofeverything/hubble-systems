@@ -17,25 +17,66 @@ in {
     enable = true;
     package = pkgs.monado.overrideAttrs (
       finalAttrs: previousAttrs: let
-        # Newest as of 2025-05-28
-        rev = "0197eeddf3c21b01c714609584d9ed801ba630f0";
+        # Newest as of 2025-07-10
+        rev = "467166935eea0183a8c8f5884c4ecd20c0eeacfb";
       in {
         src = pkgs.fetchFromGitLab {
           domain = "gitlab.freedesktop.org";
           owner = "thaytan";
           repo = "monado";
           inherit rev;
-          hash = "sha256-o9JI2vCuDHEI6MNIWjbw7HGUBsnRQo58AUtDw1XUgw8=";
+          hash = "sha256-IKO/bhUsISmRb3k+wAEscuTUXDyrzyVYQG1eJkLCIUI=";
         };
         version = rev;
 
         patches =
           previousAttrs.patches
           ++ [
-            (pkgs.fetchpatch {
-              url = "https://aur.archlinux.org/cgit/aur.git/plain/010-monado-vulkan-headers1.4.310-fix.patch?h=monado";
-              hash = "sha256-yydbH/7aVKE3HH4ecJ10dfcX0Wilm9jSFyF0zpMq/B0=";
-            })
+            (
+              pkgs.fetchpatch {
+                url = "https://aur.archlinux.org/cgit/aur.git/plain/010-monado-vulkan-headers1.4.310-fix.patch?h=monado";
+                hash = "sha256-yydbH/7aVKE3HH4ecJ10dfcX0Wilm9jSFyF0zpMq/B0=";
+              }
+            )
+
+            # enables XRT_COMPOSITOR_USE_PRESENT_WAIT
+            (
+              pkgs.fetchpatch {
+                url = "https://gitlab.freedesktop.org/monado/monado/-/merge_requests/2490.diff";
+                hash = "sha256-x3eJVvgt/5BPI5XezKykf3bejMNbeZRzI903eP6TsLw=";
+              }
+            )
+            (
+              pkgs.fetchpatch {
+                url = "https://gitlab.freedesktop.org/monado/monado/-/merge_requests/2452.patch";
+                hash = "sha256-WXqqgNns+GyuME+TttNzubQJtXtxUVotkZ4VYPQrerQ=";
+              }
+            )
+            (
+              pkgs.fetchpatch {
+                url = "https://gitlab.freedesktop.org/monado/monado/-/merge_requests/2486.patch";
+                hash = "sha256-RxiAN0v14sKGC5ZKEgWVvs5adl8DyBeSZ2HbynmpbQI=";
+              }
+            )
+
+            (
+              pkgs.fetchpatch {
+                url = "https://gitlab.freedesktop.org/monado/monado/-/merge_requests/2512.patch";
+                hash = "sha256-z4sBJxvXwP76MPYQTvrdYb8K5DHwosfBmPdmg5Pn6Gs=";
+              }
+            )
+            (
+              pkgs.fetchpatch {
+                url = "https://gitlab.freedesktop.org/monado/monado/-/merge_requests/2515.patch";
+                hash = "sha256-t5M6kEtwGRTHa6YbM8w4d5pLygLZQwy9YFWcfEwOhBQ=";
+              }
+            )
+            (
+              pkgs.fetchpatch {
+                url = "https://gitlab.freedesktop.org/monado/monado/-/merge_requests/2502.patch";
+                hash = "sha256-y6/zzFpGcYvkzF7LW49EEMS8YIP7GKXAWqQc0dDnaFE=";
+              }
+            )
           ];
       }
     );
@@ -48,6 +89,7 @@ in {
     XRT_COMPOSITOR_FORCE_NVIDIA_DISPLAY = "HP Inc.";
     XRT_COMPOSITOR_FORCE_NVIDIA = "1";
     XRT_COMPOSITOR_FORCE_WAYLAND_DIRECT = "true";
+    XRT_COMPOSITOR_USE_PRESENT_WAIT = "1";
     U_PACING_COMP_MIN_TIME_MS = "10";
     DISPLAY = ":0";
 
