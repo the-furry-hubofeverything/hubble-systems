@@ -76,6 +76,7 @@
         kdePackages.xwaylandvideobridge
 
         gnome-calculator
+        gnome-disk-utility
         loupe
 
         libreoffice-qt
