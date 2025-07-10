@@ -14,6 +14,8 @@
   services.power-profiles-daemon.enable = true;
   services.gvfs.enable = true;
 
+  xdg.portal.extraPortals = [pkgs.xdg-desktop-portal-gtk];
+
   services.gnome.gnome-keyring.enable = true;
   programs.seahorse.enable = true;
 
@@ -21,7 +23,6 @@
     enable = true;
     terminal = "kitty";
   };
-
 
   environment.variables.NIXOS_OZONE_WL = "1";
   environment.systemPackages = with pkgs; [
