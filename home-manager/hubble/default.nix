@@ -80,6 +80,8 @@
         loupe
 
         libreoffice-qt
+        anki-bin
+
         hunspell
         hunspellDicts.en_CA-large
       ])
