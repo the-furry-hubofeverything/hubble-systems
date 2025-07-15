@@ -87,8 +87,12 @@
           # add additional packages here
         ]);
 
+        environment = {
+          QT_QPA_PLATFORM_PLUGIN_PATH="${qt5.qtbase.bin}/lib/qt-${qt5.qtbase.version}/plugins/platforms";
+        };
+
         runScript = writeShellScript "fhs-run" ''
-          exec -- "$1" "$@"
+          exec "$@"
         '';
       }))
 
@@ -100,6 +104,10 @@
         targetpkgs = pkgs: (with pkgs; [
           # add additional packages here
         ]);
+
+        environment = {
+          QT_QPA_PLATFORM_PLUGIN_PATH="${qt5.qtbase.bin}/lib/qt-${qt5.qtbase.version}/plugins/platforms";
+        };
 
         profile = ''export FHS=1'';
         runScript = "bash";
