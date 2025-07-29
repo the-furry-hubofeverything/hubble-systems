@@ -34,7 +34,6 @@
     pkgs.pwvucontrol
     pkgs.wdisplays
     pkgs.waybar
-    pkgs.mako
     pkgs.swaynotificationcenter
   ];
 }
