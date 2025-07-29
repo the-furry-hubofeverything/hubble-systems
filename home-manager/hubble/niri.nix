@@ -35,5 +35,6 @@
     pkgs.wdisplays
     pkgs.waybar
     pkgs.mako
+    pkgs.swaynotificationcenter
   ];
 }
