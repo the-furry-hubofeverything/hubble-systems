@@ -36,7 +36,7 @@ in {
     listen = lib.optionalAttrs isManager {inherit port;};
 
     package = pkgs.flamenco.override {
-      blender = inputs.blender-bin.packages.${pkgs.system}.blender_3_6;
+      blender = inputs.blender-bin.packages.${pkgs.system}.blender_4_5;
 
       # I need go 1.22, but flamenco isn't upstream yet, soooooo....
       # TODO remove when flamenco is upstream
