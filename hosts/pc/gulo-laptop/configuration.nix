@@ -74,6 +74,7 @@
 
   # === SYSTEM CONFIG ===
   networking.hostName = "Gulo-Laptop"; # Define your hostname.
+  networking.hostId = "1f2c71f3";
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;

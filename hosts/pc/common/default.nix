@@ -42,6 +42,8 @@
 
     ../../common/services/nebula.nix
     ../../common/services/monitoring.nix
+
+    ../../common/filesystems/zfs.nix
   ];
 
   boot.loader.systemd-boot.configurationLimit = 3;
