@@ -46,7 +46,7 @@ in {
     # Global config
     settings = {
       global = {
-        "hosts allow" = ["100.86.0.0/17" "192.168.1.0/24" "lo"];
+        "hosts allow" = ["100.86.0.0/17" "10.88.111.0/24" "lo"];
 
         "create mask" = "0664";
         "force create mode" = "0664";
