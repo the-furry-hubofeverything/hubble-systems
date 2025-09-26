@@ -37,10 +37,6 @@ in {
 
     package = pkgs.flamenco.override {
       blender = inputs.blender-bin.packages.${pkgs.system}.blender_4_5;
-
-      # I need go 1.22, but flamenco isn't upstream yet, soooooo....
-      # TODO remove when flamenco is upstream
-      inherit (pkgs.unstable) go buildGoModule;
     };
     role = ["worker"] ++ lib.optionals isManager ["manager"];
     workerConfig = {
