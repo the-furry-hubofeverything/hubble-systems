@@ -73,8 +73,6 @@
 
         inkscape
         element-desktop
-        kdePackages.xwaylandvideobridge
-
         gnome-calculator
         gnome-disk-utility
         loupe
@@ -102,6 +100,9 @@
         pkgs.rclone
         pkgs.unstable.kopia
         pkgs.unstable.kopia-ui
+
+        pkgs.wtype
+        pkgs.unstable.wluma
       ];
 
     pointerCursor = {
