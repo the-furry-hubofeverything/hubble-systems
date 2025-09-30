@@ -4,8 +4,8 @@
   ...
 }: {
   boot.kernelParams = [
-    "amd_iommu=pt"
-    "pcie_acs_override=id:1022:1639,multifunction,downstream"
+    "intel_iommu=on"
+    # "pcie_acs_override=id:1022:1639,multifunction,downstream"
 
     # amdgpu related workaround for vfio memory shenanigans.
 
@@ -20,13 +20,13 @@
   ];
 
   boot.kernelModules = [
-    "kvm-amd"
+    "kvm-intel"
   ];
 
   virtualisation.libvirtd = {
     allowedBridges = [
       "virbr0"
-      "virbr1"
+      # "virbr1"
     ];
 
     hooks = {
@@ -39,10 +39,6 @@
           "pci_0000_01_00_1"
           "pci_0000_01_00_2"
           "pci_0000_01_00_3"
-
-          # USB-C Bus
-          "pci_0000_07_00_3"
-          "pci_0000_07_00_4"
         ];
       in
         lib.getExe (pkgs.writeShellApplication {
@@ -70,7 +66,7 @@
 
                 ${lib.concatStringsSep "\n" (lib.map (x: "virsh nodedev-reattach --device " + x) pciDevices)}
 
-                sysctl vm.nr_hugepages=${builtins.toString (20971520 / 2048)}
+                sysctl vm.nr_hugepages=${builtins.toString (13670400 / 2048)}
                 sysctl kernel.split_lock_mitigate=0
 
                 systemctl set-property --runtime -- init.scope AllowedCPUs=0-5
@@ -92,41 +88,45 @@
     };
   };
 
-  # SMB for second drive
-  services.samba = {
-    enable = true;
-    settings = {
-      global = {
-        "interfaces" = ["virbr1" "lo"];
-        "bind interfaces only" = "yes";
+  # # SMB for second drive
+  # services.samba = {
+  #   enable = true;
+  #   settings = {
+  #     global = {
+  #       "interfaces" = ["virbr1" "lo"];
+  #       "bind interfaces only" = "yes";
 
-        # Don't hide dot files - same behavior for windows, prevents Unity/VCC shenanigans
-        # ie. VRChat Creator Companion error "Access to the '[...]\Packages\.gitignore' is denied."
-        "hide dot files" = "No";
+  #       # Don't hide dot files - same behavior for windows, prevents Unity/VCC shenanigans
+  #       # ie. VRChat Creator Companion error "Access to the '[...]\Packages\.gitignore' is denied."
+  #       "hide dot files" = "No";
 
-        "read raw" = "yes";
-        "write raw" = "yes";
-        "use sendfile" = "yes";
-        "socket options" = ["IPTOS_LOWDELAY" "TCP_NODELAY" "IPTOS_THROUGHPUT"];
-        "min protocol" = "smb2";
-        "deadtime" = 30;
+  #       "read raw" = "yes";
+  #       "write raw" = "yes";
+  #       "use sendfile" = "yes";
+  #       "socket options" = ["IPTOS_LOWDELAY" "TCP_NODELAY" "IPTOS_THROUGHPUT"];
+  #       "min protocol" = "smb2";
+  #       "deadtime" = 30;
 
-        "server smb encrypt" = "desired";
-      };
+  #       "server smb encrypt" = "desired";
+  #     };
 
-      Data = {
-        path = "/run/media/hubble/Data";
-        "read only" = "no";
-        browsable = "yes";
-      };
-    };
-    openFirewall = false;
-  };
-  # Workaround for interface specific "openFirewall"
-  networking.firewall.interfaces."virbr1" = {
-    allowedTCPPorts = [139 445];
-    allowedUDPPorts = [137 138];
-  };
+  #     Data = {
+  #       path = "/run/media/hubble/Data";
+  #       "read only" = "no";
+  #       browsable = "yes";
+  #     };
+  #   };
+  #   openFirewall = false;
+  # };
+  # # Workaround for interface specific "openFirewall"
+  # networking.firewall.interfaces."virbr1" = {
+  #   allowedTCPPorts = [139 445];
+  #   allowedUDPPorts = [137 138];
+  # };
+
+  environment.persistence."/persist".directories = ["/var/lib/libvirt"];
+
+  security.tpm2.enable = true;
 
   # VRChat firewall ports
   networking.firewall.interfaces."virbr0" = {

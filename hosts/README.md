@@ -82,7 +82,7 @@ Old laptops for builds and services. These should have ephemeral roots.
 
 | Nickname | Model | Hostname | CPU | GPU | Notes |
 |-|-|-|-|-|-|
-| titan | Razer Blade 15 RZ09-01953 | titan-razer-lcluster | i7-7700HQ | GTX 1060 | no ethernet, battery or screen |
+| titan | Razer Blade 15 RZ09-02886E92 | titan-razer-lcluster | i7-8750H | RTX 2060 | no ethernet or battery |
 | enterprise | ASUS FX53VD | enterprise-asus-lcluster | i7-7700HQ | GTX 1050 | DVD drive available, no battery |
 
 ### [Personal Computers](pc/README.md)

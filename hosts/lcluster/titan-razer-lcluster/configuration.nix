@@ -2,6 +2,8 @@ _: {
   imports = [
     ./hardware-configuration.nix
     ./services/minecraftServers.nix
+    ./services/libvirt-win10vm.nix
+    ../../pc/common/programs/libvirt.nix
   ];
 
   hardware.nvidia = {
@@ -9,7 +11,7 @@ _: {
       intelBusId = "PCI:0:2:0";
       nvidiaBusId = "PCI:1:0:0";
     };
-    open = false;
+    open = true;
   };
 
   # Use the systemd-boot EFI boot loader.
