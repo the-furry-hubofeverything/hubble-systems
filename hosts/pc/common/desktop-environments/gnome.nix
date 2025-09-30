@@ -27,8 +27,6 @@
     adwaita-icon-theme
 
     desktop-file-utils
-
-    polkit_gnome
   ];
 
   environment.gnome.excludePackages =
