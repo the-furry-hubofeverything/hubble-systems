@@ -63,7 +63,6 @@
   relayHosts = {
     "alex-oracle-remote" = "100.86.87.1";
     "alan-google-remote" = "100.86.87.2";
-    "brain-pi4-picluster" = "100.86.30.1";
   };
 
   # Set number of routines based on thread count
@@ -204,9 +203,10 @@ in {
 
     lighthouses = lib.optionals (!isLighthouse) (lib.mapAttrsToList (_: x: x.ip) lighthouses);
 
-    listen = {
-      inherit port;
-    };
+    listen =
+      if (hostGroup == "remote")
+      then {inherit port;}
+      else {port = 0;};
 
     ca = hs-utils.sops.mkWarning config.sops "nebulaCACert" "nebula: CA cert secret not defined on ${config.networking.hostName}, using placeholder" ./ca.crt;
     cert = hs-utils.sops.mkWarning config.sops "nebulaCert" "nebula: cert secret not defined on ${config.networking.hostName}, using placeholder" ./test.crt;
