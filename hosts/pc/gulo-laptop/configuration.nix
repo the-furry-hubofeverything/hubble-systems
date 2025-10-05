@@ -1,6 +1,7 @@
 {
   inputs,
   config,
+  lib,
   pkgs,
   ...
 }: {
@@ -8,7 +9,6 @@
     inputs.hardware.nixosModules.omen-15-en0010ca
 
     ./hardware-configuration.nix
-    ./programs/libvirt-win10vm.nix
     ./programs/wireshark.nix
     # ./programs/waydroid.nix
     ./programs/pipewire.nix
@@ -43,7 +43,14 @@
     open = true;
     nvidiaSettings = false;
     powerManagement.finegrained = true;
-    package = config.boot.kernelPackages.nvidiaPackages.stable;
+    # NixOS/nixpkgs#429624
+    package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
+      version = "580.82.07";
+      sha256_64bit = "sha256-Bh5I4R/lUiMglYEdCxzqm3GLolQNYFB0/yJ/zgYoeYw=";
+      openSha256 = "sha256-8/7ZrcwBMgrBtxebYtCcH5A51u3lAxXTCY00LElZz08=";
+      settingsSha256 = "";
+      usePersistenced = false;
+    };
   };
 
   # GPU switch
@@ -95,7 +102,7 @@
 
   # TESTED
   # Use R560 to overcome the external monitor kernel panics
-  # (latest beta as of 2024-08-20) 
+  # (latest beta as of 2024-08-20)
 
   # - Unstable zen with closed R560 FAIL
   # - Unstable zen with open R560 SUCCESS
@@ -103,9 +110,23 @@
   # - Unstable 6.6 with open R560 FAIL, black screen
 
   # Kernel selection and modules
-  boot.kernelPackages = pkgs.unstable.linuxPackages_zen;
+  boot.kernelPackages = pkgs.linuxPackages_zen;
   boot.extraModulePackages = with config.boot.kernelPackages; [x86_energy_perf_policy];
   boot.kernelModules = [];
+
+  # disable dying dedicated GPU
+  services.xserver.videoDrivers = lib.mkForce [
+    "amdgpu"
+  ];
+
+  boot.blacklistedKernelModules = [
+    "nvidia"
+    "nvidiafb"
+    "nvidia-drm"
+    "nvidia-uvm"
+    "nvidia-modeset"
+    "nouveau"
+  ];
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
