@@ -19,6 +19,7 @@ in {
     Install.WantedBy = ["timers.target"];
     Timer = {
       OnCalendar = "hourly";
+      AccuracySec = "1s";
       Unit = "chime-by-hour.service";
     };
   };
