@@ -23,6 +23,10 @@
     }
   ];
 
+  boot.kernel.sysctl = {
+    "vm.max_map_count" = 16777216;
+  };
+
   environment.systemPackages = [
     pkgs.protonup-ng
     pkgs.gamescope
