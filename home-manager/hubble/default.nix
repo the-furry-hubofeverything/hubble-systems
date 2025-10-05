@@ -113,6 +113,8 @@
       x11.enable = true;
     };
   };
+  
+  services.arrpc.enable = true;
 
   # Enable home-manager and git
   programs = {
