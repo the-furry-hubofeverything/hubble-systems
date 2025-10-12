@@ -28,7 +28,7 @@
   };
 
   environment.systemPackages = [
-    pkgs.protonup-ng
+    pkgs.protonup-qt
     pkgs.gamescope
   ];
 }
