@@ -37,22 +37,6 @@
     opencl.enable = true;
   };
 
-  # --- nvidia options ---
-  hardware.nvidia = {
-    modesetting.enable = true;
-    open = true;
-    nvidiaSettings = false;
-    powerManagement.finegrained = true;
-    # NixOS/nixpkgs#429624
-    package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
-      version = "580.82.07";
-      sha256_64bit = "sha256-Bh5I4R/lUiMglYEdCxzqm3GLolQNYFB0/yJ/zgYoeYw=";
-      openSha256 = "sha256-8/7ZrcwBMgrBtxebYtCcH5A51u3lAxXTCY00LElZz08=";
-      settingsSha256 = "";
-      usePersistenced = false;
-    };
-  };
-
   # GPU switch
   environment.systemPackages = with pkgs; [
     cudatoolkit
@@ -119,7 +103,7 @@
     "amdgpu"
   ];
 
-  boot.blacklistedKernelModules = [
+  boot.blacklistedKernelModules = lib.mkIf (config.specialisation == {}) [
     "nvidia"
     "nvidiafb"
     "nvidia-drm"
@@ -127,6 +111,23 @@
     "nvidia-modeset"
     "nouveau"
   ];
+
+  specialisation = {
+    multimonitor.configuration = {
+      system.nixos.tags = ["multimonitor"];
+
+      services.xserver.videoDrivers = lib.mkForce [
+        "nvidia"
+      ];
+      # --- nvidia options ---
+      hardware.nvidia = {
+        modesetting.enable = true;
+        nvidiaSettings = false;
+        powerManagement.finegrained = true;
+        prime.reverseSync.enable = true;
+      };
+    };
+  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
