@@ -33,6 +33,8 @@ in {
     ../../common/services/nebula.nix
 
     ../../common/services/monitoring.nix
+    
+    ../../common/services/nix-builder.nix
 
     ../../common/servers
     ../../common/servers/avahi.nix

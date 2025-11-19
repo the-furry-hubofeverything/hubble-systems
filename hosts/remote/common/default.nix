@@ -10,6 +10,8 @@
 
     ../../common/services/nebula.nix
     ../../common/services/monitoring.nix
+
+    ../../common/services/nix-builder.nix
   ];
 
   # Set your time zone.

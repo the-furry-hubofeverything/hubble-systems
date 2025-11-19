@@ -12,6 +12,8 @@ _: {
 
     ../../common/services/monitoring.nix
 
+    ../../common/services/nix-builder.nix
+
     ../../common/servers
   ];
 

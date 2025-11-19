@@ -17,6 +17,7 @@
     ./security.nix
     ./wayland.nix
     ./audio.nix
+    ./nix-remote-build.nix
 
     # ./desktop-environments/gnome.nix
     ./desktop-environments/niri.nix
@@ -43,7 +44,9 @@
     ../../common/services/nebula.nix
     ../../common/services/monitoring.nix
 
-    ../../common/filesystems/zfs.nix
+    ../../common/services/nix-builder.nix
+
+    # ../../common/filesystems/zfs.nix
   ];
 
   boot.loader.systemd-boot.configurationLimit = 3;
