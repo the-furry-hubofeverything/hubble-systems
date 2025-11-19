@@ -86,7 +86,8 @@
       ])
       ++ [
         inputs.muse-sounds-manager.packages.${pkgs.system}.muse-sounds-manager
-        pkgs.unstable.musescore
+        pkgs.musescore
+        pkgs.audacity
 
         # To be replaced when upgraded 23.11
         pkgs.blender_3_6
