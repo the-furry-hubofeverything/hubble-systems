@@ -8,6 +8,7 @@
   xdg.portal.enable = true;
 
   systemd.services.NetworkManager-wait-online.enable = false;
+  systemd.coredump.enable = false; # Takes too long, too much resources and not often used. Can disable whenever.
 
   # Printer support
   services.printing.enable = true;
