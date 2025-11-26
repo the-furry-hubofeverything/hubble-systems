@@ -4,7 +4,7 @@
     createHome = true;
     group = "nixremote";
     isSystemUser = true;
-    homeMode = 540;
+    homeMode = "540";
   };
 
   services.openssh.extraConfig = ''

@@ -17,7 +17,6 @@
     ./security.nix
     ./wayland.nix
     ./audio.nix
-    ./nix-remote-build.nix
 
     # ./desktop-environments/gnome.nix
     ./desktop-environments/niri.nix
