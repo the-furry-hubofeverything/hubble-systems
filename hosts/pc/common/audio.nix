@@ -39,7 +39,7 @@
   environment.systemPackages = [
     pkgs.sfizz
     pkgs.carla
-    pkgs.unstable.ardour
+    pkgs.ardour
     pkgs.lsp-plugins
     pkgs.dragonfly-reverb
     pkgs.drumgizmo
