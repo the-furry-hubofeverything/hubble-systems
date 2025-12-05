@@ -112,6 +112,10 @@
     "nouveau"
   ];
 
+  boot.kernelParams = [
+    "cpuidle.off=1"
+  ];
+
   specialisation = {
     multimonitor.configuration = {
       system.nixos.tags = ["multimonitor"];
