@@ -83,6 +83,8 @@
 
         hunspell
         hunspellDicts.en_CA-large
+        edmarketconnector
+        min-ed-launcher
       ])
       ++ [
         inputs.muse-sounds-manager.packages.${pkgs.system}.muse-sounds-manager
@@ -114,7 +116,17 @@
       x11.enable = true;
     };
   };
-  
+
+  xdg.desktopEntries = {
+    "E:D Market Connector" = {
+      name = "E:D Market Connector";
+      genericName = "edmarketconnector";
+      exec = "env EDMC_SPANSH_ROUTER_XCLIP=${pkgs.wl-clipboard}/bin/wl-copy LD_LIBRARY_PATH=${pkgs.gtk4-layer-shell}:\\$LD_LIBRARY_PATH edmarketconnector";
+      terminal = false;
+      categories = ["Game" "Utility"];
+    };
+  };
+
   services.arrpc.enable = true;
 
   # Enable home-manager and git
