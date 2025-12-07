@@ -87,7 +87,7 @@
         min-ed-launcher
       ])
       ++ [
-        inputs.muse-sounds-manager.packages.${pkgs.system}.muse-sounds-manager
+        inputs.muse-sounds-manager.packages.${pkgs.stdenv.hostPlatform.system}.muse-sounds-manager
         pkgs.musescore
         pkgs.audacity
 
@@ -96,7 +96,7 @@
 
         # nix dev stuff
         pkgs.nixpkgs-fmt
-        inputs.nixd.packages.${pkgs.system}.nixd
+        inputs.nixd.packages.${pkgs.stdenv.hostPlatform.system}.nixd
 
         pkgs.unstable.vintagestory
 

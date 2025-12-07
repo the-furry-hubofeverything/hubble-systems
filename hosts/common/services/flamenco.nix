@@ -36,7 +36,7 @@ in {
     listen = lib.optionalAttrs isManager {inherit port;};
 
     package = pkgs.flamenco.override {
-      blender = inputs.blender-bin.packages.${pkgs.system}.blender_4_5;
+      blender = inputs.blender-bin.packages.${pkgs.stdenv.hostPlatform.system}.blender_4_5;
     };
     role = ["worker"] ++ lib.optionals isManager ["manager"];
     workerConfig = {

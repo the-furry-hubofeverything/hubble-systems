@@ -10,7 +10,7 @@
     package = pkgs.niri-unstable;
   };
 
-  services.xserver.displayManager.gdm.enable = true;
+  services.displayManager.gdm.enable = true;
   services.power-profiles-daemon.enable = true;
   services.gvfs.enable = true;
 

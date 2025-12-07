@@ -3,7 +3,7 @@
     ./security.nix
   ];
 
-  services.logind.lidSwitch = "ignore";
+  services.logind.settings.Login.HandleLidSwitch = "ignore";
 
   # Enable the OpenSSH daemon.
   services.openssh = {

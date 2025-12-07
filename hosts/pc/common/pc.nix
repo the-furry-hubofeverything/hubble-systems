@@ -121,13 +121,13 @@
     [
       noto-fonts
       noto-fonts-cjk-sans
-      noto-fonts-emoji
+      noto-fonts-color-emoji
       liberation_ttf
       unifont
       winePackages.fonts
 
       quicksand
-      ubuntu_font_family
+      ubuntu-classic
       comic-neue
       koulen
       inter

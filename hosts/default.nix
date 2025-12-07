@@ -21,6 +21,9 @@
   sharedModules = [
     inputs.sops-nix.nixosModules.sops
     inputs.flake-programs-sqlite.nixosModules.programs-sqlite
+    ({...}: {
+      programs.command-not-found.enable = true;
+    })
   ];
 in {
   # use *-common configs to easily replicate configs for debugging instead of machine specific ones.
