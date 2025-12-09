@@ -14,7 +14,7 @@
   yarn,
   prefetch-yarn-deps,
 }: let
-  version = "3.7";
+  version = "3.8";
 in
   buildGoModule rec {
     pname = "flamenco";
@@ -34,20 +34,19 @@ in
         rm -r "$out"/.git
         echo "$hash" > "$out"/HEAD
       '';
-      hash = "sha256-LJo+yPxT3tWG8bbvKnvJQAs1c47IE5mzA2HznQdGRBQ=";
+      hash = "sha256-c8xZJhdup+OGfsvGNahEQ1OqtUCHSXUV5xW9FPmcyYE=";
     };
 
     patches = [
-      ./absolute-path-bypass.patch
       ./githash.patch
     ];
 
     webappOfflineCache = fetchYarnDeps {
       yarnLock = "${src}/web/app/yarn.lock";
-      hash = "sha256-QcfyiL2/ALkxZpJyiwyD7xNlkOCPu4THCyywwZ40H8s=";
+      hash = "";
     };
 
-    vendorHash = "sha256-0q+wMisKmVZuTp1VdJ7GM1xiHM2FJAF0O6IiuwsK3e4=";
+    vendorHash = "";
 
     nativeBuildInputs = [
       makeWrapper
