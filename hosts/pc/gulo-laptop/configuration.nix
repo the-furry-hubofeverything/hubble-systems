@@ -1,7 +1,6 @@
 {
   inputs,
   config,
-  lib,
   pkgs,
   ...
 }: {
@@ -111,6 +110,12 @@
     prime.reverseSync.enable = true;
   };
 
+  # Disable CPU boost
+  system.activationScripts = {
+    disableCPUBoost.text = ''
+      echo 0 > /sys/devices/system/cpu/cpufreq/boost
+    '';
+  };
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave
