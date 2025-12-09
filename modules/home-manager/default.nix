@@ -4,4 +4,5 @@
   # List your module files here
   # my-module = import ./my-module.nix;
   git-credential-oauth = import ./git-credential-oauth.nix;
+  activate-linux = import ./activate-linux.nix;
 }

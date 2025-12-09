@@ -17,6 +17,7 @@
   # You can import other home-manager modules here
   imports = [
     outputs.homeManagerModules.git-credential-oauth
+    outputs.homeManagerModules.activate-linux
     inputs.sops-nix.homeManagerModules.sops
     inputs.hs-secrets.homeManagerModules.hubble
     ./obs.nix
@@ -128,6 +129,7 @@
   };
 
   services.arrpc.enable = true;
+  services.activate-linux.enable = true;
 
   # Enable home-manager and git
   programs = {
@@ -140,9 +142,24 @@
 
     ssh = {
       enable = true;
-      matchBlocks."git@alex.gulo.dev" = {
-        match = "Host alex.gulo.dev User git";
-        identityFile = "/home/hubble/.ssh/id_hs-secrets";
+      enableDefaultConfig = false;
+      matchBlocks = {
+        "git@alex.gulo.dev" = {
+          match = "Host alex.gulo.dev User git";
+          identityFile = "/home/hubble/.ssh/id_hs-secrets";
+        };
+        "*" = {
+          forwardAgent = false;
+          addKeysToAgent = "no";
+          compression = false;
+          serverAliveInterval = 0;
+          serverAliveCountMax = 3;
+          hashKnownHosts = false;
+          userKnownHostsFile = "~/.ssh/known_hosts";
+          controlMaster = "no";
+          controlPath = "~/.ssh/master-%r@%n:%p";
+          controlPersist = "no";
+        };
       };
     };
 
@@ -172,9 +189,12 @@
     git = {
       enable = true;
       package = pkgs.gitFull;
-      userEmail = "hubblethewolverine@gmail.com";
-      userName = "the-furry-hubofeverything";
-      extraConfig = {
+      settings = {
+        user = {
+          email = "hubblethewolverine@gmail.com";
+          name = "the-furry-hubofeverything";
+        };
+
         # Remember to run `git maintenance start`
         core.autocrlf = "input";
         http.postBuffer = "524288000";
@@ -197,7 +217,7 @@
     fcitx5 = {
       addons = with pkgs; [
         fcitx5-gtk
-        fcitx5-chinese-addons
+        qt6Packages.fcitx5-chinese-addons
       ];
       waylandFrontend = true;
     };

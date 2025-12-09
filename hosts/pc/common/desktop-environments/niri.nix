@@ -10,7 +10,9 @@
     package = pkgs.niri-unstable;
   };
 
-  services.displayManager.gdm.enable = true;
+  niri-flake.cache.enable = true;
+
+  services.displayManager.cosmic-greeter.enable = true;
   services.power-profiles-daemon.enable = true;
   services.gvfs.enable = true;
 
@@ -29,11 +31,21 @@
     wl-clipboard
     wayland-utils
     gamescope
-    xwayland-satellite
-    nautilus
+    inputs.niri-flake.packages.${stdenv.hostPlatform.system}.xwayland-satellite-unstable
     file-roller
-    gnome-text-editor
     unstable.waypaper
     glib
-  ];
+
+
+    cosmic-files
+    cosmic-edit
+    cosmic-icons
+    cosmic-player
+    cosmic-randr
+    cosmic-screenshot
+    cosmic-term
+    cosmic-wallpapers
+    networkmanagerapplet
+    pop-icon-theme
+];
 }

@@ -98,39 +98,17 @@
   boot.extraModulePackages = with config.boot.kernelPackages; [x86_energy_perf_policy];
   boot.kernelModules = [];
 
-  # disable dying dedicated GPU
-  services.xserver.videoDrivers = lib.mkForce [
-    "amdgpu"
-  ];
-
-  boot.blacklistedKernelModules = lib.mkIf (config.specialisation == {}) [
-    "nvidia"
-    "nvidiafb"
-    "nvidia-drm"
-    "nvidia-uvm"
-    "nvidia-modeset"
-    "nouveau"
-  ];
-
   boot.kernelParams = [
     "cpuidle.off=1"
   ];
 
-  specialisation = {
-    multimonitor.configuration = {
-      system.nixos.tags = ["multimonitor"];
-
-      services.xserver.videoDrivers = lib.mkForce [
-        "nvidia"
-      ];
-      # --- nvidia options ---
-      hardware.nvidia = {
-        modesetting.enable = true;
-        nvidiaSettings = false;
-        powerManagement.finegrained = true;
-        prime.reverseSync.enable = true;
-      };
-    };
+  # --- nvidia options ---
+  hardware.nvidia = {
+    videoAcceleration = true;
+    modesetting.enable = true;
+    nvidiaSettings = false;
+    powerManagement.finegrained = true;
+    prime.reverseSync.enable = true;
   };
 
   # This value determines the NixOS release from which the default
