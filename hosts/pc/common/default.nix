@@ -27,6 +27,7 @@
     ./programs/kdeconnect.nix
     ./programs/lanzaboote.nix
     ./programs/libvirt.nix
+    ./programs/libvirt-win10vm.nix
     ./programs/nix-alien.nix
     ./programs/ollama.nix
 
