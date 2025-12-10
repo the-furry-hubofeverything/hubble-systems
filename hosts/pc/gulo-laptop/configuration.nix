@@ -57,9 +57,12 @@
     nv_powermizer_mode = 1;
   };
 
-  # HIP workaround
   systemd.tmpfiles.rules = [
+    # HIP workaround
     "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.rocmPackages.clr}"
+
+    # disable CPU boost
+    "w     /sys/devices/system/cpu/cpufreq/boost   -    -    -     -   0"
   ];
 
   # === SYSTEM CONFIG ===
@@ -110,12 +113,6 @@
     prime.reverseSync.enable = true;
   };
 
-  # Disable CPU boost
-  system.activationScripts = {
-    disableCPUBoost.text = ''
-      echo 0 > /sys/devices/system/cpu/cpufreq/boost
-    '';
-  };
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave
