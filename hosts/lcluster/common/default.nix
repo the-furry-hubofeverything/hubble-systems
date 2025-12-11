@@ -26,8 +26,8 @@ in {
     # ./services/sheepit.nix
 
     # flamenco
-    outputs.nixosModules.flamenco
-    ../../common/services/flamenco.nix
+    # outputs.nixosModules.flamenco
+    # ../../common/services/flamenco.nix
 
     # nebula
     ../../common/services/nebula.nix

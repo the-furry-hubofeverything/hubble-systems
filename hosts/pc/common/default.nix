@@ -38,13 +38,11 @@
     ../../common/bash-config.nix
     ../../common/network-tuning.nix
 
-    outputs.nixosModules.flamenco
-    ../../common/services/flamenco.nix
+    # outputs.nixosModules.flamenco
+    # ../../common/services/flamenco.nix
 
     ../../common/services/nebula.nix
     ../../common/services/monitoring.nix
-
-    ../../common/services/nix-builder.nix
 
     # ../../common/filesystems/zfs.nix
   ];
