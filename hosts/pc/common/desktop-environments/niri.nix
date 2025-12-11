@@ -16,7 +16,13 @@
   services.power-profiles-daemon.enable = true;
   services.gvfs.enable = true;
 
-  xdg.portal.extraPortals = [pkgs.xdg-desktop-portal-gtk];
+  xdg.portal = {
+    extraPortals = [
+      pkgs.xdg-desktop-portal-gtk
+      pkgs.xdg-desktop-portal-cosmic
+      pkgs.xdg-desktop-portal-gnome
+    ];
+  };
 
   services.gnome.gnome-keyring.enable = true;
   programs.seahorse.enable = true;
@@ -33,19 +39,12 @@
     gamescope
     inputs.niri-flake.packages.${stdenv.hostPlatform.system}.xwayland-satellite-unstable
     file-roller
-    unstable.waypaper
+    nautilus
+    waypaper
     glib
 
-
-    cosmic-files
     cosmic-edit
-    cosmic-icons
-    cosmic-player
-    cosmic-randr
-    cosmic-screenshot
-    cosmic-term
-    cosmic-wallpapers
     networkmanagerapplet
     pop-icon-theme
-];
+  ];
 }
