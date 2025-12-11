@@ -3,6 +3,7 @@
     inputs.impermanence.nixosModules.impermanence
 
     ./hardware-configuration.nix
+    ./services/znc.nix
     ../../common/impermanence.nix
   ];
 
