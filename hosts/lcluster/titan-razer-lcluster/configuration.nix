@@ -2,8 +2,6 @@ _: {
   imports = [
     ./hardware-configuration.nix
     ./services/minecraftServers.nix
-    ./services/libvirt-win10vm.nix
-    ../../pc/common/programs/libvirt.nix
   ];
 
   hardware.nvidia = {
