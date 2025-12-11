@@ -4,7 +4,12 @@
   commonVMConfig,
   ...
 }: let
-  pcModules = sharedModules ++ [./common];
+  pcModules =
+    sharedModules
+    ++ [
+      ./common
+      inputs.niri-flake.nixosModules.niri
+    ];
 in {
   pc-common = {
     platform = "x86_64-linux";
@@ -22,7 +27,6 @@ in {
       ++ [
         ./gulo-laptop/configuration.nix
         inputs.hs-secrets.nixosModules.pc.Gulo-Laptop
-        inputs.niri-flake.nixosModules.niri
       ];
   };
 }
