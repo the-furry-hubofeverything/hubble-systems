@@ -12,6 +12,14 @@
     enable = true;
     remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
     dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+    extraPackages = with pkgs; [
+      gamescope
+    ];
+  };
+
+  programs.gamescope = {
+    enable = true;
+    capSysNice = true;
   };
 
   security.pam.loginLimits = lib.mkForce [
@@ -29,6 +37,5 @@
 
   environment.systemPackages = [
     pkgs.protonup-qt
-    pkgs.gamescope
   ];
 }
