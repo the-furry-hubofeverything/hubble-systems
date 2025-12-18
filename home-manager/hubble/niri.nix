@@ -35,5 +35,7 @@
     pkgs.wdisplays
     pkgs.waybar
     pkgs.swaynotificationcenter
+    pkgs.adw-bluetooth
+    pkgs.labwc
   ];
 }
