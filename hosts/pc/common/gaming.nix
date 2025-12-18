@@ -19,7 +19,6 @@
 
   programs.gamescope = {
     enable = true;
-    capSysNice = true;
   };
 
   security.pam.loginLimits = lib.mkForce [
