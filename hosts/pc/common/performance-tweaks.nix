@@ -1,4 +1,4 @@
-{lib, ...}: {
+{lib, pkgs, ...}: {
   # CPU thermal
   services.thermald.enable = true;
 
@@ -12,8 +12,12 @@
   };
   
   # Automatic nice daemon
-  services.ananicy.enable = true;
-
+  services.ananicy = {
+    enable = true;
+    package = pkgs.ananicy-cpp;
+    rulesProvider = pkgs.ananicy-rules-cachyos;
+  };
+  
   boot.kernelParams = [
     # Switch to tsc (time stamp counter) at the cost of precision
     "tsc=reliable"
