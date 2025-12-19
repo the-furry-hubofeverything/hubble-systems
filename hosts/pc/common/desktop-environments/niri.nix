@@ -36,7 +36,6 @@
   environment.systemPackages = with pkgs; [
     wl-clipboard
     wayland-utils
-    gamescope
     inputs.niri-flake.packages.${stdenv.hostPlatform.system}.xwayland-satellite-unstable
     file-roller
     nautilus
