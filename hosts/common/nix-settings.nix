@@ -32,9 +32,9 @@
       experimental-features = "nix-command flakes";
       # Deduplicate and optimize nix store
       auto-optimise-store = true;
+      # let builders use substitutes
+      builders-use-substitutes = true;
     };
     gc.automatic = true;
-    # optional, useful when the builder has a faster internet connection than yours
-    extraOptions = "builders-use-substitutes = true";
   };
 }

@@ -252,11 +252,6 @@ in {
           port = "any";
           proto = "icmp";
         }
-        {
-          group = "pc";
-          port = "22";
-          proto = "tcp";
-        }
       ];
     };
   };

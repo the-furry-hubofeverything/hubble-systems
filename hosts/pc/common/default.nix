@@ -75,6 +75,42 @@
         "cuda-maintainers.cachix.org-1:0dq3bujKpuEPMCX6U4WylrUDZ9JyUG0VpVZa7CNfq5E="
       ];
     };
+    buildMachines = [
+      {
+        hostName = "enterprise.nebula.gulo.dev";
+        system = "x86_64-linux";
+        protocol = "ssh-ng";
+        # default is 1 but may keep the builder idle in between builds
+        maxJobs = 4;
+        # how fast is the builder compared to your local machine
+        speedFactor = 1;
+        supportedFeatures = ["nixos-test" "benchmark" "big-parallel" "kvm"];
+        mandatoryFeatures = [];
+      }
+      {
+        hostName = "titan.nebula.gulo.dev";
+        system = "x86_64-linux";
+        protocol = "ssh-ng";
+        # default is 1 but may keep the builder idle in between builds
+        maxJobs = 4;
+        # how fast is the builder compared to your local machine
+        speedFactor = 1;
+        supportedFeatures = ["nixos-test" "benchmark" "big-parallel" "kvm"];
+        mandatoryFeatures = [];
+      }
+      {
+        hostName = "alex.nebula.gulo.dev";
+        system = "aarch64-linux";
+        protocol = "ssh-ng";
+        # default is 1 but may keep the builder idle in between builds
+        maxJobs = 4;
+        # how fast is the builder compared to your local machine
+        speedFactor = 2;
+        supportedFeatures = ["nixos-test" "benchmark" "big-parallel" "kvm"];
+        mandatoryFeatures = [];
+      }
+    ];
+    distributedBuilds = true;
   };
 
   system.stateVersion = "23.05";

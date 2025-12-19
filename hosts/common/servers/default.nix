@@ -27,8 +27,7 @@
     git
   ];
 
-  # TODO setup remote jobs using best practices
-  nix.settings.trusted-users = ["@wheel" "hubble"];
+  nix.settings.trusted-users = ["@wheel" "hubble" "nixremote"];
 
   # Since we can't manually respond to a panic, just reboot.
   boot.kernelParams = ["panic=1" "boot.panic_on_fail"];
