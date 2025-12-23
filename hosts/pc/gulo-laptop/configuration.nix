@@ -110,7 +110,7 @@
     modesetting.enable = true;
     nvidiaSettings = false;
     powerManagement.finegrained = true;
-    prime.reverseSync.enable = true;
+    prime.offload.enable = true;
   };
 
   # This value determines the NixOS release from which the default
