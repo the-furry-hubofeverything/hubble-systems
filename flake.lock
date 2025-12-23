@@ -22,6 +22,26 @@
         "type": "github"
       }
     },
+    "clipboard-sync": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1759253700,
+        "narHash": "sha256-pDsDzWEBaZlT9lHsBZMGm8aBJGncMxqerKwkzjEM/EI=",
+        "owner": "dnut",
+        "repo": "clipboard-sync",
+        "rev": "138a59b8f3044dd9e7dcccd9607bbbb48c14bae6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "dnut",
+        "repo": "clipboard-sync",
+        "type": "github"
+      }
+    },
     "crane": {
       "locked": {
         "lastModified": 1754269165,
@@ -610,6 +630,7 @@
     "root": {
       "inputs": {
         "blender-bin": "blender-bin",
+        "clipboard-sync": "clipboard-sync",
         "flake-programs-sqlite": "flake-programs-sqlite",
         "hardware": "hardware",
         "home-manager": "home-manager",

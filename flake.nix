@@ -94,6 +94,11 @@
       url = "github:thilobillerbeck/muse-sounds-manager-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    clipboard-sync = {
+      url = "github:dnut/clipboard-sync";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {

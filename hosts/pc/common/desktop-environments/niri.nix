@@ -4,6 +4,9 @@
   ...
 }: {
   nixpkgs.overlays = [inputs.niri-flake.overlays.niri];
+  imports = [
+    inputs.clipboard-sync.nixosModules.default
+  ];
 
   programs.niri = {
     enable = true;
@@ -26,6 +29,7 @@
 
   services.gnome.gnome-keyring.enable = true;
   programs.seahorse.enable = true;
+  services.clipboard-sync.enable = true;
 
   programs.nautilus-open-any-terminal = {
     enable = true;
