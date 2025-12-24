@@ -5,7 +5,7 @@
 }: {
   assertions = [
     {
-      assertion = builtins.hasAttr "Pass.password" config.services.znc.config;
+      assertion = builtins.hasAttr "Pass" config.services.znc.config;
       message = "znc credentials not defined";
     }
   ];
