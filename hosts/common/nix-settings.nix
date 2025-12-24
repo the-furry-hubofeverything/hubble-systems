@@ -36,5 +36,6 @@
       builders-use-substitutes = true;
     };
     gc.automatic = true;
+    gc.options = "--delete-older-than 7d";
   };
 }
