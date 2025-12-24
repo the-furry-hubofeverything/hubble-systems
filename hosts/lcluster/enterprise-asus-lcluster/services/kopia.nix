@@ -6,6 +6,9 @@
   users.users.kopia = {
     isSystemUser = true;
     group = "kopia";
+    extraGroups = [
+      "nebula"
+    ];
     home = "/mass/kopia/backup";
     # Authorized keys in hs-secrets
   };
@@ -15,16 +18,13 @@
   services.openssh = {
     enable = true;
     extraConfig = ''
-      Match user kopia
+      Match User kopia
         AllowTcpForwarding no
         AllowAgentForwarding no
         PasswordAuthentication no
         PermitTTY no
         X11Forwarding no 
         ForceCommand internal-sftp
-
-      Match Address 10.86.87.*
-        AllowUsers kopia
     '';
   };
 

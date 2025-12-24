@@ -77,7 +77,7 @@
     };
     buildMachines = [
       {
-        hostName = "enterprise.nebula.gulo.dev";
+        hostName = "nixremote@alex.nebula.gulo.dev";
         system = "x86_64-linux";
         protocol = "ssh-ng";
         # default is 1 but may keep the builder idle in between builds
@@ -88,7 +88,7 @@
         mandatoryFeatures = [];
       }
       {
-        hostName = "titan.nebula.gulo.dev";
+        hostName = "nixremote@alex.nebula.gulo.dev";
         system = "x86_64-linux";
         protocol = "ssh-ng";
         # default is 1 but may keep the builder idle in between builds
@@ -99,7 +99,7 @@
         mandatoryFeatures = [];
       }
       {
-        hostName = "alex.nebula.gulo.dev";
+        hostName = "nixremote@alex.nebula.gulo.dev";
         system = "aarch64-linux";
         protocol = "ssh-ng";
         # default is 1 but may keep the builder idle in between builds
@@ -112,6 +112,11 @@
     ];
     distributedBuilds = true;
   };
+
+  programs.ssh.extraConfig = ''
+    Match Host *.nebula.gulo.dev User nixremote
+      IdentityFile /home/hubble/.ssh/id_nixremote
+  '';
 
   system.stateVersion = "23.05";
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";

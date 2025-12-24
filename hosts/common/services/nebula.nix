@@ -167,6 +167,12 @@ in {
       publicServices;
   };
 
+  # SSH reject any public service SSH users from not within network
+  services.openssh.extraConfig = lib.mkOrder 100 ''
+    Match Address !10.86.0.0/17
+      DenyGroups nebula
+  '';
+
   environment.etc."ipset.conf".text = lib.replaceStrings ["\n\n"] ["\n"] (lib.concatLines (
     [
       "create vps-ranges hash:net family ipv4 maxelem 1048576 hashsize 1048576 bucketsize 8 -exist"

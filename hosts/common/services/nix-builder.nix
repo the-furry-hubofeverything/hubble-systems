@@ -12,6 +12,7 @@
     shell = pkgs.bash;
     extraGroups = [
       "wheel"
+      "nebula"
     ];
     homeMode = "540";
   };
@@ -21,8 +22,7 @@
   };
 
   services.openssh.extraConfig = ''
-    Match Address 100.86.127.*
-      AllowUsers nixremote
+    Match User nixremote
       AllowTcpForwarding no
       AllowAgentForwarding no
       PasswordAuthentication no

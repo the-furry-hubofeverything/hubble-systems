@@ -111,6 +111,11 @@ in {
   # Manually override swraid to be disabled, since I'm not using it and it's enabled by default with stateVersion < 23.11
   boot.swraid.enable = false;
 
+  # Disallow any SSH connections except from nebula or local subnet
+  services.openssh.extraConfig = lib.mkOrder 100 ''
+    Match Address !192.168.88.0/24,!10.86.87.0/24,!10.86.127.0/24
+      AllowUsers !*
+  '';
 
   # TODO Setup HA sevices
 

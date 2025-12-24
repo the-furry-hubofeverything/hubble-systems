@@ -7,6 +7,9 @@
   users.users.git = {
     isSystemUser = true;
     group = "git";
+    extraGroups = [
+      "nebula"
+    ];
     home = "/persist/git-server";
     createHome = true;
     shell = "${pkgs.git}/bin/git-shell";
@@ -18,15 +21,12 @@
   services.openssh = {
     enable = true;
     extraConfig = ''
-      Match user git
+      Match User git
         AllowTcpForwarding no
         AllowAgentForwarding no
         PasswordAuthentication no
         PermitTTY no
         X11Forwarding no
-
-      Match Address 10.86.87.*
-        AllowUsers git
     '';
   };
 
