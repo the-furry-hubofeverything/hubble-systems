@@ -108,6 +108,7 @@
 
         pkgs.wtype
         pkgs.unstable.wluma
+        pkgs.rquickshare
       ];
 
     pointerCursor = {
