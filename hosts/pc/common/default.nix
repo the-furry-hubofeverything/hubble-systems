@@ -113,6 +113,9 @@
     distributedBuilds = true;
   };
 
+  # For rquickshare in home-manager
+  networking.firewall.allowedTCPPorts = [ 30609 ];
+
   programs.ssh.extraConfig = ''
     Match Host *.nebula.gulo.dev User nixremote
       IdentityFile /home/hubble/.ssh/id_nixremote

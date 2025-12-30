@@ -119,6 +119,16 @@
     };
   };
 
+  xdg.dataFile."dev.mandre.rquickshare/.settings.json".text = ''
+    {
+      "visibility": 0,
+      "autostart": false,
+      "realclose": false,
+      "startminimized": false,
+      "port": 30609
+    }
+  '';
+
   xdg.desktopEntries = {
     "E:D Market Connector" = {
       name = "E:D Market Connector";
