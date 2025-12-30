@@ -77,7 +77,7 @@
     };
     buildMachines = [
       {
-        hostName = "nixremote@alex.nebula.gulo.dev";
+        hostName = "nixremote@enterprise.nebula.gulo.dev";
         system = "x86_64-linux";
         protocol = "ssh-ng";
         # default is 1 but may keep the builder idle in between builds
@@ -88,7 +88,7 @@
         mandatoryFeatures = [];
       }
       {
-        hostName = "nixremote@alex.nebula.gulo.dev";
+        hostName = "nixremote@titan.nebula.gulo.dev";
         system = "x86_64-linux";
         protocol = "ssh-ng";
         # default is 1 but may keep the builder idle in between builds
