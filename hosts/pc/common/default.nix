@@ -81,9 +81,9 @@
         system = "x86_64-linux";
         protocol = "ssh-ng";
         # default is 1 but may keep the builder idle in between builds
-        maxJobs = 4;
+        maxJobs = 8;
         # how fast is the builder compared to your local machine
-        speedFactor = 1;
+        speedFactor = 2;
         supportedFeatures = ["nixos-test" "benchmark" "big-parallel" "kvm"];
         mandatoryFeatures = [];
       }
