@@ -228,6 +228,8 @@
     fcitx5 = {
       addons = with pkgs; [
         fcitx5-gtk
+        fcitx5-m17n
+        fcitx5-rime
         qt6Packages.fcitx5-chinese-addons
       ];
       waylandFrontend = true;
