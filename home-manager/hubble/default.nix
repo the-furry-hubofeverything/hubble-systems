@@ -23,7 +23,7 @@
     ./obs.nix
     ./vr.nix
     ./niri.nix
-    ./chimeByHour.nix
+    ./clockChime.nix
   ];
 
   sops = {

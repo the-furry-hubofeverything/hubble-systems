@@ -11,22 +11,22 @@ in {
   assertions = [
     {
       assertion = hostConfig.config.services.pipewire.enable;
-      message = "chimeByHour requires pipewire";
+      message = "clockChime requires pipewire";
     }
   ];
 
-  systemd.user.timers."chime-by-hour" = {
+  systemd.user.timers."clock-chime" = {
     Install.WantedBy = ["timers.target"];
     Timer = {
-      OnCalendar = "hourly";
+      OnCalendar = "*:0/15"; # ever multiple of fifteen on minutes
       AccuracySec = "1s";
-      Unit = "chime-by-hour.service";
+      Unit = "clock-chime.service";
     };
   };
 
-  systemd.user.services."chime-by-hour" = {
+  systemd.user.services."clock-chime" = {
     Unit = {
-      Description = "Hourly Chime";
+      Description = "Clock Chimes";
     };
 
     Service = {
