@@ -32,13 +32,6 @@ in {
         patches =
           previousAttrs.patches
           ++ [
-            (
-              pkgs.fetchpatch {
-                url = "https://aur.archlinux.org/cgit/aur.git/plain/010-monado-vulkan-headers1.4.310-fix.patch?h=monado";
-                hash = "sha256-yydbH/7aVKE3HH4ecJ10dfcX0Wilm9jSFyF0zpMq/B0=";
-              }
-            )
-
             # enables XRT_COMPOSITOR_USE_PRESENT_WAIT
             (
               pkgs.fetchpatch {
