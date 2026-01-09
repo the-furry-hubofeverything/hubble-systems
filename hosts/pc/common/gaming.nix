@@ -14,6 +14,7 @@
     dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
     extraPackages = with pkgs; [
       gamescope
+      gamescope-wsi
     ];
   };
 
