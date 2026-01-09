@@ -57,14 +57,14 @@
             # SUB_OPERATION="$3"
             if [ "$GUEST_NAME" == "${vmName}" ]; then
               if [ "$OPERATION" == "prepare" ]; then
-                modprobe -r nvidia_drm
-                modprobe -r nvidia_modeset
-                modprobe -r nvidia_uvm
-                modprobe -r nvidia_wmi_ec_backlight
-                modprobe -r nvidia
-                modprobe -r i2c_nvidia_gpu
+                systemctl stop --user -M hubble@ pipewire*.service --state loaded
 
-                ${lib.concatStringsSep "\n" (lib.map (x: "virsh nodedev-reattach --device " + x) pciDevices)}
+                modprobe -r --remove-dependencies nvidia_drm
+                modprobe -r --remove-dependencies nvidia_modeset
+                modprobe -r --remove-dependencies nvidia_uvm
+                modprobe -r --remove-dependencies nvidia_wmi_ec_backlight
+                modprobe -r --remove-dependencies nvidia
+                modprobe -r --remove-dependencies i2c_nvidia_gpu
 
                 sysctl vm.nr_hugepages=${builtins.toString (19530000 / 2048)}
                 sysctl kernel.split_lock_mitigate=0
@@ -72,6 +72,10 @@
                 systemctl set-property --runtime -- init.scope AllowedCPUs=0-5
                 systemctl set-property --runtime -- user.slice AllowedCPUs=0-5
                 systemctl set-property --runtime -- system.slice AllowedCPUs=0-5
+              fi
+
+              if [ "$OPERATION" == "started" ]; then
+                systemctl start --user -M hubble@ pipewire*.service --all --state loaded
               fi
 
               if [ "$OPERATION" == "release" ]; then
