@@ -141,6 +141,11 @@
 
   fonts.fontconfig.defaultFonts.sansSerif = ["Inter"];
 
+  # Support F1-F10 Keys on lofree flow keyboard
+  boot.extraModprobeConfig = ''
+    options hid_apple fnmode=2
+  '';
+
   boot.kernel.sysctl = {
     # Allow emergency sysrq reboot "reisub"
     "kernel.sysrq" = 246;
