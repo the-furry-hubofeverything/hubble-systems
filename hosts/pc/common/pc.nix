@@ -51,10 +51,8 @@
     };
   };
 
-  # v4l2loopback
-  boot.extraModulePackages = [
-    config.boot.kernelPackages.v4l2loopback
-  ];
+  # OBS cam setup
+  programs.obs-studio.enableVirtualCamera = true;
 
   # Logitech Wireless peripheral udev support (including unify)
   hardware.logitech.wireless.enable = true;
