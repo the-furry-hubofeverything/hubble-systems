@@ -1,0 +1,75 @@
+#!/usr/bin/env nix-shell
+#!nix-shell -i python -p python3
+
+import argparse
+import subprocess
+import json
+import difflib
+import platform
+
+def deploy(machine: str, dry: bool):
+    if machine == "":
+        print("Something went wrong, list of accepted machines are - ", machines)
+        exit(1)
+    
+    machine_shortname = (machine.split("-"))[0]
+    machine_group = (machine.split("-"))[-1]
+
+    if machine == platform.node():
+        print("Unable to comply, this script is not meant for the local machine")
+        exit(1)
+    elif machine_group == "common":
+        print("Unable to comply, common profiles are not meant to be deployed")
+        print("Interpreted machine:", machine)
+        exit(1)
+    
+    command = ["nixos-rebuild", "boot", "--flake", ".#" + machine, "--target-host", "nixremote@" + machine_shortname.lower() + ".nebula.gulo.dev", "--sudo"]
+
+    if dry:
+        print("Would run:", " ".join(command))
+    else:
+        subprocess.run(
+            command, check=True
+        )
+
+parser = argparse.ArgumentParser(
+                    prog='deploy',
+                    description='Hubble systems deployment helper',
+                    epilog='Overcomplicated runner')
+
+parser.add_argument("machine", type=str, help="machine to deploy to")
+parser.add_argument("-d", "--dry", "--dry-run", action='store_true', help="dry run")
+
+# Imports machines via nix eval. Python bindings for nix are still experimental so...
+machines = json.loads((subprocess.run(
+    ["nix", "eval", ".#nixosConfigurations", "--apply", "builtins.attrNames", "--json"], check=True, capture_output=True)).stdout)
+
+# read the commandline
+argparse = parser.parse_args()
+
+# partial matches (but limited to exact letter sequence)
+selected_machine = list(filter(
+    lambda m: (argparse.machine).lower() in m.lower(), 
+    machines
+    ))
+
+if len(selected_machine) == 0:
+    error_msg = ["Couldn't find", argparse.machine]
+
+    # Get suggestion based on fuzzy match
+    close_match = list(difflib.get_close_matches(argparse.machine, machines, cutoff=0.3))
+    if len(close_match) != 0:
+        error_msg += "\nDid you mean", close_match[0] + "?"
+        if (input(" ".join(error_msg) + " [Y/n] > ")).lower() in ("yes", "y", ""):
+            deploy(close_match[0], argparse.dry)
+            exit(0)
+        else:
+            print("Aborted")
+            exit(1)
+
+    print(" ".join(error_msg))
+    exit(1)
+
+deploy(selected_machine[0], argparse.dry)
+
+    

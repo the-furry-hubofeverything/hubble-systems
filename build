@@ -1,0 +1,4 @@
+#!/usr/bin/env nix-shell
+#!nix-shell -i bash -p nix-output-monitor
+
+nom build .#nixosConfigurations.{Gulo-Laptop,brain-pi4-picluster,enterprise-asus-lcluster,titan-razer-lcluster,alan-google-remote,alex-oracle-remote}.config.system.build.toplevel
