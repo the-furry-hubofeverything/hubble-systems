@@ -11,6 +11,5 @@
       obs-studio-plugins.obs-pipewire-audio-capture
       obs-studio-plugins.looking-glass-obs
     ];
-    enableVirtualCamera = true;
   };
 }
