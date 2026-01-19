@@ -12,6 +12,24 @@
     enable = true;
     remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
     dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+    gamescopeSession = {
+      enable = true;
+      env = {
+        PROTON_USE_NTSYNC = "1";
+        DXVK_HDR = "1";
+      };
+      args = [
+        "-w 2560"
+        "-h 1440"
+        "--enable-hdr"
+        "--adaptive-sync"
+        "--hdr-itm-enable" 
+        "--hdr-itm-target-nits 600" 
+        "--hdr-itm-sdr-nits 100" 
+        "--hdr-sdr-content-nits 400"
+        "-O DP-2"
+      ];
+    };
     extraPackages = with pkgs; [
       gamescope
       gamescope-wsi
