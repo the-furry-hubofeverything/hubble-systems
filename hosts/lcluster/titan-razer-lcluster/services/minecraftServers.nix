@@ -12,8 +12,8 @@
   };
 
   guloIndustriesPack = pkgs.fetchPackwizModpack {
-    url = "https://raw.githubusercontent.com/the-furry-hubofeverything/gulo-industries-pack/a70072f7d322f9cc15d79eea27e2261fde1de87f/pack.toml";
-    packHash = "sha256-ykePvErbsGl0jZKEVg57TGt8L3CLv1OA4WoruDQ9vuc=";
+    url = "https://raw.githubusercontent.com/the-furry-hubofeverything/gulo-industries-pack/7c52b87fe02b40efaba9cbfea053e1ae12ed5110/pack.toml";
+    packHash = "sha256-do17tGlEAmomh7imsdhjMXs1Q77u48m2z3OBC1TqLvM=";
   };
 
   optimizeServerModpack = modpack: pname: version:
