@@ -7,7 +7,7 @@ import json
 import difflib
 import platform
 
-def deploy(machine: str, dry: bool):
+def deploy(machine: str, dry: bool, switch: bool):
     if machine == "":
         print("Something went wrong, list of accepted machines are - ", machines)
         exit(1)
@@ -22,8 +22,13 @@ def deploy(machine: str, dry: bool):
         print("Unable to comply, common profiles are not meant to be deployed")
         print("Interpreted machine:", machine)
         exit(1)
-    
-    command = ["nixos-rebuild", "boot", "--flake", ".#" + machine, "--target-host", "nixremote@" + machine_shortname.lower() + ".nebula.gulo.dev", "--sudo"]
+
+    if switch:
+        action = "switch"
+    else:
+        action = "boot" 
+        
+    command = ["nixos-rebuild", action, "--flake", ".#" + machine, "--target-host", "nixremote@" + machine_shortname.lower() + ".nebula.gulo.dev", "--sudo"]
 
     if dry:
         print("Would run:", " ".join(command))
@@ -39,6 +44,7 @@ parser = argparse.ArgumentParser(
 
 parser.add_argument("machine", type=str, help="machine to deploy to")
 parser.add_argument("-d", "--dry", "--dry-run", action='store_true', help="dry run")
+parser.add_argument("-s", "--switch", action='store_true', help="run 'nixos-rebuild switch' instead of 'boot'")
 
 # Imports machines via nix eval. Python bindings for nix are still experimental so...
 machines = json.loads((subprocess.run(
@@ -70,6 +76,6 @@ if len(selected_machine) == 0:
     print(" ".join(error_msg))
     exit(1)
 
-deploy(selected_machine[0], argparse.dry)
+deploy(selected_machine[0], argparse.dry, argparse.switch)
 
     
