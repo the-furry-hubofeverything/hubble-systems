@@ -13,6 +13,7 @@
   nebulaGroups = [
     "lcluster"
     "pc"
+    "mobile"
   ];
 in {
   boot.zfs.extraPools = [
