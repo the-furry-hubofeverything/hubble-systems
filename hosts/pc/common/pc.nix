@@ -44,6 +44,10 @@
       groups;
   };
 
+  hardware.opentabletdriver = {
+    enable = true;
+  };
+
   # bluetooth settings
   hardware.bluetooth = {
 
