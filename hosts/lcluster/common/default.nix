@@ -47,6 +47,8 @@ in {
     ../../common/bash-config.nix
     ../../common/network-tuning.nix
 
+    ../../common/dhcp-ntp.nix
+
     ../../common/filesystems/btrfs-with-rollback.nix
     ../../common/filesystems/mergerfs.nix
     ../../common/filesystems/zfs.nix

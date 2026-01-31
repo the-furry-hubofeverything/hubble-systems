@@ -38,6 +38,8 @@
     ../../common/bash-config.nix
     ../../common/network-tuning.nix
 
+    ../../common/dhcp-ntp.nix
+
     # outputs.nixosModules.flamenco
     # ../../common/services/flamenco.nix
 
