@@ -45,9 +45,13 @@
   };
 
   # bluetooth settings
-  hardware.bluetooth.settings = {
-    General = {
-      Experimental = true;
+  hardware.bluetooth = {
+
+    package = pkgs.bluez-experimental;
+    settings = {
+      General = {
+        Experimental = true;
+      };
     };
   };
 
