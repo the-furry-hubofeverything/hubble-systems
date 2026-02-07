@@ -20,7 +20,7 @@
     outputs.homeManagerModules.activate-linux
     inputs.sops-nix.homeManagerModules.sops
     inputs.hs-secrets.homeManagerModules.hubble
-    ./vr.nix
+    # ./vr.nix
     ./niri.nix
     ./clockChime.nix
   ];
