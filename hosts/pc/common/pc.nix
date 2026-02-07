@@ -59,9 +59,6 @@
     };
   };
 
-  # OBS cam setup
-  programs.obs-studio.enableVirtualCamera = true;
-
   # Logitech Wireless peripheral udev support (including unify)
   hardware.logitech.wireless.enable = true;
   hardware.logitech.wireless.enableGraphical = true;

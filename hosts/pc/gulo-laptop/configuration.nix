@@ -9,6 +9,7 @@
 
     ./hardware-configuration.nix
     ./programs/wireshark.nix
+    ../common/programs/obs.nix
     # ./programs/waydroid.nix
     ./programs/pipewire.nix
   ];
