@@ -22,7 +22,7 @@ def deploy(machine: str, dry: bool, switch: bool):
         print("Unable to comply, common profiles are not meant to be deployed")
         print("Interpreted machine:", machine)
         exit(1)
-    elif machine_group == "picluster"
+    elif machine_group == "picluster":
         print("Unable to comply, picluster uses generic-extlinux-compatible, which makes sudo rules complicated")
         print("TODO: create secure sudo rules for this boot method")
         print("Interpreted machine:", machine)
