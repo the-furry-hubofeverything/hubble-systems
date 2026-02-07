@@ -132,7 +132,7 @@
     "E:D Market Connector" = {
       name = "E:D Market Connector";
       genericName = "edmarketconnector";
-      exec = "env EDMC_SPANSH_ROUTER_XCLIP=${pkgs.wl-clipboard}/bin/wl-copy LD_LIBRARY_PATH=${pkgs.gtk4-layer-shell}:\\$LD_LIBRARY_PATH edmarketconnector";
+      exec = "env EDMC_SPANSH_ROUTER_XCLIP=${pkgs.wl-clipboard}/bin/wl-copy edmarketconnector";
       terminal = false;
       categories = ["Game" "Utility"];
     };
