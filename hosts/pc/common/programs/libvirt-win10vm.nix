@@ -23,6 +23,10 @@
     "kvm-intel"
   ];
 
+  boot.kernel.sysctl = {
+    "kernel.split_lock_mitigate" = 0;
+  };
+
   virtualisation.libvirtd = {
     allowedBridges = [
       "virbr0"
@@ -67,7 +71,6 @@
                 modprobe -r --remove-dependencies i2c_nvidia_gpu
 
                 sysctl vm.nr_hugepages=${builtins.toString (19530000 / 2048)}
-                sysctl kernel.split_lock_mitigate=0
 
                 systemctl set-property --runtime -- init.scope AllowedCPUs=0-5
                 systemctl set-property --runtime -- user.slice AllowedCPUs=0-5
@@ -80,7 +83,6 @@
 
               if [ "$OPERATION" == "release" ]; then
                 sysctl vm.nr_hugepages=0
-                sysctl kernel.split_lock_mitigate=1
 
                 systemctl set-property --runtime -- init.scope AllowedCPUs=0-15
                 systemctl set-property --runtime -- user.slice AllowedCPUs=0-15

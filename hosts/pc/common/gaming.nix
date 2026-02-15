@@ -1,8 +1,14 @@
 {
   pkgs,
   lib,
+  inputs,
   ...
 }: {
+
+  imports = [
+    inputs.nix-gaming.nixosModules.platformOptimizations
+  ];
+
   programs.gamemode = {
     enable = true;
     settings.general.renice = 10;
@@ -12,6 +18,13 @@
     enable = true;
     remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
     dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+    extraPackages = with pkgs; [
+      gamescope
+      gamescope-wsi
+    ];
+    platformOptimizations.enable = true;
+
+    # WIP
     gamescopeSession = {
       enable = true;
       env = {
@@ -30,10 +43,6 @@
         "-O DP-2"
       ];
     };
-    extraPackages = with pkgs; [
-      gamescope
-      gamescope-wsi
-    ];
   };
 
   services.udev.extraRules = ''
@@ -59,9 +68,17 @@
 
   boot.kernel.sysctl = {
     "vm.max_map_count" = 16777216;
+    "fs.file-max" = 524288;
+  };
+
+  nix.settings = {
+    substituters = ["https://nix-gaming.cachix.org"];
+    trusted-public-keys = ["nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="];
   };
 
   environment.systemPackages = [
     pkgs.protonup-qt
+
+    # inputs.nix-gaming.packages.${pkgs.stdenv.hostPlatform.system}.star-citizen
   ];
 }

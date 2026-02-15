@@ -6,6 +6,7 @@
 }: {
   imports = [
     inputs.musnix.nixosModules.musnix
+    inputs.nix-gaming.nixosModules.pipewireLowLatency
   ];
   
   # Enable pipewire and disable pulseaudio
@@ -16,6 +17,7 @@
     alsa.support32Bit = true;
     pulse.enable = true;
     wireplumber.enable = true;
+    lowLatency.enable = true;
 
     # If you want to use JACK applications, uncomment this
     jack.enable = true;
@@ -25,10 +27,6 @@
     "context.properties" = {
       # Avoids resampling
       "default.clock.allowed-rates" = [44100 48000 88200 96000];
-      # Low latency, but some flexibility
-      "default.clock.quantum" = 32;
-      "default.clock.min-quantum" = 32;
-      "default.clock.max-quantum" = 4096;
     };
   };
 
