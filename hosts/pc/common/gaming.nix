@@ -4,7 +4,6 @@
   inputs,
   ...
 }: {
-
   imports = [
     inputs.nix-gaming.nixosModules.platformOptimizations
   ];
@@ -36,9 +35,9 @@
         "-h 1440"
         "--enable-hdr"
         "--adaptive-sync"
-        "--hdr-itm-enable" 
-        "--hdr-itm-target-nits 600" 
-        "--hdr-itm-sdr-nits 100" 
+        "--hdr-itm-enable"
+        "--hdr-itm-target-nits 600"
+        "--hdr-itm-sdr-nits 100"
         "--hdr-sdr-content-nits 400"
         "-O DP-2"
       ];
@@ -67,7 +66,6 @@
   ];
 
   boot.kernel.sysctl = {
-    "vm.max_map_count" = 16777216;
     "fs.file-max" = 524288;
   };
 
@@ -79,6 +77,10 @@
   environment.systemPackages = [
     pkgs.protonup-qt
 
-    # inputs.nix-gaming.packages.${pkgs.stdenv.hostPlatform.system}.star-citizen
+    (inputs.nix-gaming.packages.${pkgs.stdenv.hostPlatform.system}.star-citizen.override
+    (prev: {
+      location = "/run/media/hubble/Data/Games/star-citizen";
+    }))
+    pkgs.wineWowPackages.stagingFull
   ];
 }

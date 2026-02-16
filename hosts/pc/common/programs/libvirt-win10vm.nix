@@ -24,7 +24,7 @@
   ];
 
   boot.kernel.sysctl = {
-    "kernel.split_lock_mitigate" = 0;
+    "kernel.split_lock_mitigate" = lib.mkForce 0;
   };
 
   virtualisation.libvirtd = {

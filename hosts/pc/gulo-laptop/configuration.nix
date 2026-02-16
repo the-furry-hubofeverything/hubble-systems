@@ -11,7 +11,6 @@
     ./programs/wireshark.nix
     ../common/programs/obs.nix
     # ./programs/waydroid.nix
-    ./programs/pipewire.nix
   ];
 
   # Prevent network manager from getting stuck at "wait-online" while switching configs
