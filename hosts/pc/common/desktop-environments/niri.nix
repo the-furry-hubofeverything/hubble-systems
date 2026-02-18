@@ -29,7 +29,6 @@
 
   services.gnome.gnome-keyring.enable = true;
   programs.seahorse.enable = true;
-  services.clipboard-sync.enable = true;
 
   programs.nautilus-open-any-terminal = {
     enable = true;
