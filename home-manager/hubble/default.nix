@@ -87,7 +87,7 @@
         min-ed-launcher
       ])
       ++ [
-        inputs.muse-sounds-manager.packages.${pkgs.stdenv.hostPlatform.system}.muse-sounds-manager
+        pkgs.muse-sounds-manager
         pkgs.musescore
         pkgs.audacity
 

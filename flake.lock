@@ -348,26 +348,6 @@
         "type": "github"
       }
     },
-    "muse-sounds-manager": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1711493694,
-        "narHash": "sha256-u6hPaeOUsV/d/kBNo1vlG6X0/gHvTkHfCECH9pjFnV8=",
-        "owner": "thilobillerbeck",
-        "repo": "muse-sounds-manager-nix",
-        "rev": "06b0da28c54331d5af73efd2ebf264ce914e5936",
-        "type": "github"
-      },
-      "original": {
-        "owner": "thilobillerbeck",
-        "repo": "muse-sounds-manager-nix",
-        "type": "github"
-      }
-    },
     "musnix": {
       "inputs": {
         "nixpkgs": [
@@ -719,7 +699,6 @@
         "hs-secrets": "hs-secrets",
         "impermanence": "impermanence",
         "lanzaboote": "lanzaboote",
-        "muse-sounds-manager": "muse-sounds-manager",
         "musnix": "musnix",
         "niri-flake": "niri-flake",
         "nix-alien": "nix-alien",
