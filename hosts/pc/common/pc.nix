@@ -144,6 +144,13 @@
 
   fonts.fontconfig.defaultFonts.sansSerif = ["Inter"];
 
+  # lid switch handling
+  services.logind.settings.Login = {
+    HandleLidSwitch = "suspend-then-hibernate";
+    HandleLidSwitchExternalPower= "ignore";
+    HandleLidSwitchDocked= "ignore";
+  };
+
   # Support F1-F10 Keys on lofree flow keyboard
   boot.extraModprobeConfig = ''
     options hid_apple fnmode=2
