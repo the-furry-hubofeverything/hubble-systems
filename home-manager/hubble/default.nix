@@ -108,6 +108,7 @@
         pkgs.wtype
         pkgs.unstable.wluma
         pkgs.rquickshare
+        pkgs.wl-mirror
       ];
 
     pointerCursor = {
@@ -135,6 +136,18 @@
       exec = "env EDMC_SPANSH_ROUTER_XCLIP=${pkgs.wl-clipboard}/bin/wl-copy edmarketconnector";
       terminal = false;
       categories = ["Game" "Utility"];
+    };
+
+    "wl-mirror" = {
+      name = "wl-mirror";
+      comment = "Mirrors a wayland output to a window";
+      prefersNonDefaultGPU = true;
+      settings = {
+        Keywords = "Mirror;Output";
+      };
+      type = "Application";
+      icon = "utilities-terminal";
+      exec="bash -c \"wl-mirror \\\\$(niri msg outputs | grep '^Output' | cut -d'(' -f 2 | cut -d')' -f 1 | fuzzel --dmenu --prompt 'src? ')\"";
     };
   };
 
