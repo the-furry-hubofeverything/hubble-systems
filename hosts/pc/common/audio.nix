@@ -35,7 +35,7 @@
 
   # various daws and stuff
   environment.systemPackages = [
-    pkgs.sfizz
+    pkgs.unstable.sfizz-ui
     pkgs.carla
     pkgs.ardour
     pkgs.lsp-plugins
