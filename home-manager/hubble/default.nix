@@ -109,6 +109,22 @@
         pkgs.unstable.wluma
         pkgs.rquickshare
         pkgs.wl-mirror
+
+        (inputs.snekstudio.packages.${pkgs.stdenv.hostPlatform.system}.default.overrideAttrs
+          (f: p: {
+            patches =
+              p.patches
+              ++ [
+                (pkgs.fetchpatch {
+                  url = "https://github.com/ExpiredPopsicle/SnekStudio/pull/166.diff";
+                  hash = "sha256-xW/3tYe5zFfTTwbFUnGRf67kA6socwatzO5B2I7XT/0=";
+                })
+                (pkgs.fetchpatch {
+                  url = "https://github.com/ExpiredPopsicle/SnekStudio/pull/158.diff";
+                  hash = "sha256-5to372jo4uAd/uGiutisAzKHyNKwBRDQUlP8BSO11N4=";
+                })
+              ];
+          }))
       ];
 
     pointerCursor = {
@@ -147,7 +163,7 @@
       };
       type = "Application";
       icon = "utilities-terminal";
-      exec="bash -c \"wl-mirror \\\\$(niri msg outputs | grep '^Output' | cut -d'(' -f 2 | cut -d')' -f 1 | fuzzel --dmenu --prompt 'src? ')\"";
+      exec = "bash -c \"wl-mirror \\\\$(niri msg outputs | grep '^Output' | cut -d'(' -f 2 | cut -d')' -f 1 | fuzzel --dmenu --prompt 'src? ')\"";
     };
   };
 

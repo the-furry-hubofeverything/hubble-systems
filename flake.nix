@@ -98,6 +98,12 @@
       url = "github:fufexan/nix-gaming";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+
+    snekstudio = {
+      # our snekstudio. Until it gets merged upstream.
+      url = "git+https://github.com/the-furry-hubofeverything/SnekStudio.git?ref=nix-flake";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
   };
 
   outputs = {
