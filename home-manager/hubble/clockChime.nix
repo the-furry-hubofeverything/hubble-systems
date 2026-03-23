@@ -33,7 +33,7 @@ in {
       Type = "oneshot";
       ExecStart = pkgs.writeShellScript "chime.sh" ''
         cat /dev/zero | head -c 23000 | ${hostConfig.config.services.pipewire.package}/bin/pw-play -a -
-        ${hostConfig.config.services.pipewire.package}/bin/pw-play ${chime}
+        env PIPEWIRE_LATENCY=256/48000 ${hostConfig.config.services.pipewire.package}/bin/pw-play ${chime}
       '';
     };
   };
