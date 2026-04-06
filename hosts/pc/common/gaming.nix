@@ -76,11 +76,6 @@
 
   environment.systemPackages = [
     pkgs.protonup-qt
-
-    (inputs.nix-gaming.packages.${pkgs.stdenv.hostPlatform.system}.star-citizen.override
-    (prev: {
-      location = "/run/media/hubble/Data/Games/star-citizen";
-    }))
     pkgs.wineWowPackages.stagingFull
   ];
 }
