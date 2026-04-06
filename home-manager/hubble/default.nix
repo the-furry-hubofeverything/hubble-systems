@@ -107,8 +107,10 @@
 
         pkgs.wtype
         pkgs.unstable.wluma
-        pkgs.rquickshare
+        pkgs.unstable.rquickshare
         pkgs.wl-mirror
+
+        pkgs.appimage-run
 
         (inputs.snekstudio.packages.${pkgs.stdenv.hostPlatform.system}.default.overrideAttrs
           (f: p: {
