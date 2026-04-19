@@ -18,59 +18,16 @@ in {
     package = pkgs.monado.overrideAttrs (
       finalAttrs: previousAttrs: let
         # Newest as of 2025-07-10
-        rev = "467166935eea0183a8c8f5884c4ecd20c0eeacfb";
+        rev = "d77f2f157c1d668696f05f12e4b1220dd064674a";
       in {
         src = pkgs.fetchFromGitLab {
           domain = "gitlab.freedesktop.org";
           owner = "thaytan";
           repo = "monado";
           inherit rev;
-          hash = "sha256-IKO/bhUsISmRb3k+wAEscuTUXDyrzyVYQG1eJkLCIUI=";
+          hash = "";
         };
         version = rev;
-
-        patches =
-          previousAttrs.patches
-          ++ [
-            # enables XRT_COMPOSITOR_USE_PRESENT_WAIT
-            (
-              pkgs.fetchpatch {
-                url = "https://gitlab.freedesktop.org/monado/monado/-/merge_requests/2490.diff";
-                hash = "sha256-x3eJVvgt/5BPI5XezKykf3bejMNbeZRzI903eP6TsLw=";
-              }
-            )
-            (
-              pkgs.fetchpatch {
-                url = "https://gitlab.freedesktop.org/monado/monado/-/merge_requests/2452.patch";
-                hash = "sha256-WXqqgNns+GyuME+TttNzubQJtXtxUVotkZ4VYPQrerQ=";
-              }
-            )
-            (
-              pkgs.fetchpatch {
-                url = "https://gitlab.freedesktop.org/monado/monado/-/merge_requests/2486.patch";
-                hash = "sha256-RxiAN0v14sKGC5ZKEgWVvs5adl8DyBeSZ2HbynmpbQI=";
-              }
-            )
-
-            (
-              pkgs.fetchpatch {
-                url = "https://gitlab.freedesktop.org/monado/monado/-/merge_requests/2512.patch";
-                hash = "sha256-z4sBJxvXwP76MPYQTvrdYb8K5DHwosfBmPdmg5Pn6Gs=";
-              }
-            )
-            (
-              pkgs.fetchpatch {
-                url = "https://gitlab.freedesktop.org/monado/monado/-/merge_requests/2515.patch";
-                hash = "sha256-t5M6kEtwGRTHa6YbM8w4d5pLygLZQwy9YFWcfEwOhBQ=";
-              }
-            )
-            (
-              pkgs.fetchpatch {
-                url = "https://gitlab.freedesktop.org/monado/monado/-/merge_requests/2502.patch";
-                hash = "sha256-y6/zzFpGcYvkzF7LW49EEMS8YIP7GKXAWqQc0dDnaFE=";
-              }
-            )
-          ];
       }
     );
     defaultRuntime = true;
@@ -81,9 +38,10 @@ in {
   systemd.user.services."monado".environment = {
     XRT_COMPOSITOR_FORCE_NVIDIA_DISPLAY = "HP Inc.";
     XRT_COMPOSITOR_FORCE_NVIDIA = "1";
-    XRT_COMPOSITOR_FORCE_WAYLAND_DIRECT = "true";
+    XRT_COMPOSITOR_FORCE_WAYLAND_DIRECT = "1";
+    
     XRT_COMPOSITOR_USE_PRESENT_WAIT = "1";
-    U_PACING_COMP_MIN_TIME_MS = "15";
+    U_PACING_COMP_TIME_FRACTION_PRECENT = "90";
     DISPLAY = ":0";
 
     # 4320x2160@60.00

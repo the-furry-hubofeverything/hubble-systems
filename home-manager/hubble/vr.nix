@@ -30,7 +30,7 @@ in {
       ],
       "runtime" :
       [
-        "${pkgs.opencomposite}/lib/opencomposite"
+        "${inputs.nixpkgs-xr.packages.${pkgs.stdenv.hostPlatform.system}.xrizer}/lib/xrizer/bin/linux64/vrclient.so"
       ],
       "version" : 1
     }
