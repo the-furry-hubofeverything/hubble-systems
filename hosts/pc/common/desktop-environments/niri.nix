@@ -63,6 +63,7 @@
   environment.variables.NIXOS_OZONE_WL = "1";
   environment.systemPackages = with pkgs; [
     wl-clipboard
+    cliphist
     wayland-utils
     inputs.niri-flake.packages.${stdenv.hostPlatform.system}.xwayland-satellite-unstable
     file-roller
