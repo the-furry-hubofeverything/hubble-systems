@@ -25,7 +25,7 @@ in {
           owner = "thaytan";
           repo = "monado";
           inherit rev;
-          hash = "";
+          hash = "sha256-RBZHHqW5gLzLK49/cl4lEAuikUhVJeY4jtLnD+dnev8=";
         };
         version = rev;
       }
