@@ -6,7 +6,6 @@
 }: {
   imports = [
     inputs.musnix.nixosModules.musnix
-    inputs.nix-gaming.nixosModules.pipewireLowLatency
   ];
   
   # Enable pipewire and disable pulseaudio
@@ -17,7 +16,6 @@
     alsa.support32Bit = true;
     pulse.enable = true;
     wireplumber.enable = true;
-    lowLatency.enable = true;
 
     # If you want to use JACK applications, uncomment this
     jack.enable = true;
@@ -31,8 +29,55 @@
   };
 
   # Various audio optimizations
-  musnix.enable = true;
+    boot = {
+      kernel.sysctl = {
+        "vm.swappiness" = 10;
+      };
+      kernelParams = [ "threadirqs" ];
+    };
 
+    environment.sessionVariables =
+      let
+        makePluginPath =
+        format:
+          "$HOME/.${format}:" +
+          (lib.makeSearchPath format [
+            "$HOME/.nix-profile/lib"
+            "/run/current-system/sw/lib"
+            "/etc/profiles/per-user/$USER/lib"
+            ]);
+      in
+      {
+        CLAP_PATH = lib.mkDefault (makePluginPath "clap");
+        DSSI_PATH = lib.mkDefault (makePluginPath "dssi");
+        LADSPA_PATH = lib.mkDefault (makePluginPath "ladspa");
+        LV2_PATH = lib.mkDefault (makePluginPath "lv2");
+        LXVST_PATH = lib.mkDefault (makePluginPath "lxvst");
+        VST3_PATH = lib.mkDefault (makePluginPath "vst3");
+        VST_PATH = lib.mkDefault (makePluginPath "vst");
+      };
+    security.pam.loginLimits = [
+      {
+        domain = "@audio";
+        item = "memlock";
+        type = "-";
+        value = "unlimited";
+      }
+      {
+        domain = "@audio";
+        item = "rtprio";
+        type = "-";
+        value = "99";
+      }
+    ];
+
+    services.udev = {
+      extraRules = ''
+        KERNEL=="rtc0", GROUP="audio"
+        KERNEL=="hpet", GROUP="audio"
+        DEVPATH=="/devices/virtual/misc/cpu_dma_latency", OWNER="root", GROUP="audio", MODE="0660"
+      '';
+    };
   # various daws and stuff
   environment.systemPackages = [
     pkgs.unstable.sfizz-ui
@@ -63,8 +108,5 @@
     pkgs.x42-avldrums
   ];
 
-  # Unset musnix's default cpu governor setting -
-  # I'm sacrificing realtime-audio for a little bit
-  # of flexibility in power management.
-  powerManagement.cpuFreqGovernor = lib.mkForce null;
+  powerManagement.cpuFreqGovernor = "performance";
 }

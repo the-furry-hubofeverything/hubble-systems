@@ -56,7 +56,13 @@
     enable = true;
   };
 
-  security.pam.loginLimits = lib.mkForce [
+  security.pam.loginLimits = lib.mkBefore [
+    {
+      domain = "users";
+      item = "nofile";
+      type = "soft";
+      value = "524288";
+    }
     {
       domain = "users";
       item = "nofile";
