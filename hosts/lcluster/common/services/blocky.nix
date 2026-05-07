@@ -16,6 +16,7 @@ in {
     enable = true;
     settings = {
       ports = {
+        # DNS ports in HS-secrets
         # DNS over HTTPS support
         https = 44343;
         # DNS over TLS support
