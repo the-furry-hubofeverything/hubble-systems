@@ -6,4 +6,5 @@
 
   flamenco = import ./flamenco.nix;
   grocy = import ./grocy.nix;
+  leantime = import ./leantime.nix;
 }

@@ -6,6 +6,7 @@ pkgs: {
   beammp-launcher = pkgs.callPackage ./beammp-launcher/default.nix {};
   flamenco = pkgs.callPackage ./flamenco/default.nix {};
   koulen = pkgs.callPackage ./koulen/default.nix {};
+  leantime = pkgs.callPackage ./leantime/default.nix {};
   # sheepit-client = pkgs.callPackage ./sheepit-client/default.nix {};
   wii-pointer = pkgs.callPackage ./wii-pointer/default.nix {player = 1;};
   wii-pointer-p2 = pkgs.callPackage ./wii-pointer/default.nix {player = 2;};

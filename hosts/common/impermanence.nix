@@ -34,6 +34,9 @@
       ++ lib.optionals config.services.prometheus.enable [
         ("/var/lib/" + config.services.prometheus.stateDir)
       ]
+      ++ lib.optionals config.services.mysql.enable [
+        "/var/lib/mysql"
+      ]
       ++ lib.optionals (config.services.grafana.enable) (map (x: {
           directory = x;
           group = "grafana";

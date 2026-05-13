@@ -7,6 +7,7 @@
     ./services/git.nix
     ./services/kopia.nix
     ./services/monitoring.nix
+    ./services/leantime.nix
   ];
 
   hardware.nvidia = {
