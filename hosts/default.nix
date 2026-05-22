@@ -41,7 +41,6 @@ in {
   inherit
     (import ./lcluster {inherit commonVMConfig inputs outputs sharedModules;})
     # lcluster-common #Issue - acme-nginx-rp requires secrets, and many services depend on it so...
-    
     enterprise-asus-lcluster
     titan-razer-lcluster
     ;
@@ -59,5 +58,12 @@ in {
     remote-common
     alex-oracle-remote
     alan-google-remote
+    ;
+
+  inherit
+    (import ./imacs {inherit commonVMConfig inputs outputs sharedModules;})
+    imac-common
+    ennos-imac
+    lily-imac
     ;
 }
