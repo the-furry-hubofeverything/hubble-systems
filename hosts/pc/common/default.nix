@@ -90,12 +90,19 @@
         mandatoryFeatures = [];
       }
       {
-        hostName = "nixremote@titan.nebula.gulo.dev";
+        hostName = "nixremote@ennos.nebula.gulo.dev";
         system = "x86_64-linux";
         protocol = "ssh-ng";
-        # default is 1 but may keep the builder idle in between builds
+        maxJobs = 8;
+        speedFactor = 1;
+        supportedFeatures = ["nixos-test" "benchmark" "big-parallel" "kvm"];
+        mandatoryFeatures = [];
+      }
+      {
+        hostName = "nixremote@lily.nebula.gulo.dev";
+        system = "x86_64-linux";
+        protocol = "ssh-ng";
         maxJobs = 4;
-        # how fast is the builder compared to your local machine
         speedFactor = 1;
         supportedFeatures = ["nixos-test" "benchmark" "big-parallel" "kvm"];
         mandatoryFeatures = [];
@@ -104,9 +111,7 @@
         hostName = "nixremote@alex.nebula.gulo.dev";
         system = "aarch64-linux";
         protocol = "ssh-ng";
-        # default is 1 but may keep the builder idle in between builds
-        maxJobs = 4;
-        # how fast is the builder compared to your local machine
+        maxJobs = 8;
         speedFactor = 2;
         supportedFeatures = ["nixos-test" "benchmark" "big-parallel" "kvm"];
         mandatoryFeatures = [];
