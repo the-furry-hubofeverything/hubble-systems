@@ -1,7 +1,6 @@
 _: {
   imports = [
     ./hardware-configuration.nix
-    ./services/minecraftServers.nix
   ];
 
   hardware.nvidia = {

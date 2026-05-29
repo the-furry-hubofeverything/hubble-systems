@@ -8,6 +8,7 @@
     inputs.hardware.nixosModules.common-cpu-intel
     inputs.hardware.nixosModules.common-hidpi
     ./hardware-configuration.nix
+    ./services/minecraftServers.nix
   ];
 
   boot = {

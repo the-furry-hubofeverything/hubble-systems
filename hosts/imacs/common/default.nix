@@ -14,7 +14,7 @@ in {
     inputs.impermanence.nixosModules.impermanence
 
     # ACME+nginx reverse proxy
-    # ./services/acme-nginx-rp.nix
+    ../../common/services/acme-nginx-rp.nix
 
     # DNS server/ad-blocker with DoH
     # ./services/blocky.nix
