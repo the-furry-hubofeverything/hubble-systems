@@ -90,6 +90,7 @@
         pkgs.muse-sounds-manager
         pkgs.musescore
         pkgs.audacity
+        pkgs.synthesia
 
         # To be replaced when upgraded 23.11
         pkgs.blender_3_6
