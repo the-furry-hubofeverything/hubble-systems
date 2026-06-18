@@ -104,6 +104,11 @@
       url = "git+https://github.com/the-furry-hubofeverything/SnekStudio.git?ref=nix-flake";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+
+    omenctl = {
+      url = "github:yunusemreyl/OmenCtl/v1.5.3";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
   };
 
   outputs = {

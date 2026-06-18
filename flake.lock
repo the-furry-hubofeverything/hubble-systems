@@ -746,6 +746,27 @@
         "type": "github"
       }
     },
+    "omenctl": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs-unstable"
+        ]
+      },
+      "locked": {
+        "lastModified": 1780743682,
+        "narHash": "sha256-Ddb9mEC79vLE6TmRlbTRTrfQ3tqr+jDN+ViOgr2rLjI=",
+        "owner": "yunusemreyl",
+        "repo": "OmenCtl",
+        "rev": "56ba9c206df7d4056592dc4e89c1f63b8c31fedb",
+        "type": "github"
+      },
+      "original": {
+        "owner": "yunusemreyl",
+        "ref": "v1.5.3",
+        "repo": "OmenCtl",
+        "type": "github"
+      }
+    },
     "pre-commit": {
       "inputs": {
         "flake-compat": "flake-compat",
@@ -788,6 +809,7 @@
         "nixpkgs": "nixpkgs_2",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "nixpkgs-xr": "nixpkgs-xr",
+        "omenctl": "omenctl",
         "snekstudio": "snekstudio",
         "sops-nix": "sops-nix",
         "vps-ranges": "vps-ranges"

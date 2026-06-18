@@ -6,6 +6,7 @@
 }: {
   imports = [
     inputs.hardware.nixosModules.omen-15-en0010ca
+    inputs.omenctl.nixosModules.default
 
     ./hardware-configuration.nix
     ./programs/wireshark.nix
@@ -64,6 +65,8 @@
     # disable CPU boost
     "w     /sys/devices/system/cpu/cpufreq/boost   -    -    -     -   0"
   ];
+
+  programs.omenctl.enable = true;
 
   # === SYSTEM CONFIG ===
   networking.hostName = "Gulo-Laptop"; # Define your hostname.
