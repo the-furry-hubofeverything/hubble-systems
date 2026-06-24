@@ -97,8 +97,7 @@
 
         # nix dev stuff
         pkgs.nixpkgs-fmt
-        inputs.nixd.packages.${pkgs.stdenv.hostPlatform.system}.nixd
-
+        pkgs.nixd
         pkgs.unstable.vintagestory
 
         # TODO replace with programs.rclone for 25.05
@@ -113,21 +112,31 @@
 
         pkgs.appimage-run
 
-        (inputs.snekstudio.packages.${pkgs.stdenv.hostPlatform.system}.default.overrideAttrs
-          (f: p: {
-            patches =
-              p.patches
-              ++ [
-                (pkgs.fetchpatch {
-                  url = "https://github.com/ExpiredPopsicle/SnekStudio/pull/166.diff";
-                  hash = "sha256-xW/3tYe5zFfTTwbFUnGRf67kA6socwatzO5B2I7XT/0=";
-                })
-                (pkgs.fetchpatch {
-                  url = "https://github.com/ExpiredPopsicle/SnekStudio/pull/158.diff";
-                  hash = "sha256-5to372jo4uAd/uGiutisAzKHyNKwBRDQUlP8BSO11N4=";
-                })
-              ];
-          }))
+        # (inputs.snekstudio.packages.${pkgs.stdenv.hostPlatform.system}.default.overrideAttrs
+        #   (f: p: {
+        #     patches =
+        #       p.patches
+        #       ++ [
+        #         (pkgs.fetchpatch {
+        #           url = "https://github.com/ExpiredPopsicle/SnekStudio/pull/166.diff";
+        #           hash = "sha256-xW/3tYe5zFfTTwbFUnGRf67kA6socwatzO5B2I7XT/0=";
+        #         })
+        #         (pkgs.fetchpatch {
+        #           url = "https://github.com/ExpiredPopsicle/SnekStudio/pull/158.diff";
+        #           hash = "sha256-5to372jo4uAd/uGiutisAzKHyNKwBRDQUlP8BSO11N4=";
+        #         })
+        #       ];
+        #   }))
+
+        (pkgs.beammp-launcher.overrideAttrs (finalAttrs: {
+          version = "2.8.0";
+          src = pkgs.fetchFromGitHub {
+            owner = "BeamMP";
+            repo = "BeamMP-Launcher";
+            tag = "v${finalAttrs.version}";
+            hash = "sha256-1R45UgufSeTuj0roVxU/+aAmc6pl6A0Xx6j567ZNC/s=";
+          };
+        }))
       ];
 
     pointerCursor = {
@@ -177,9 +186,8 @@
   programs = {
     home-manager.enable = true;
 
-    vscode = {
+    vscodium = {
       enable = true;
-      package = pkgs.vscodium;
     };
 
     ssh = {

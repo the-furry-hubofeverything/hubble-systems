@@ -65,6 +65,9 @@
 
       # Prevents Grafana from phoning home
       analytics.reporting_enabled = false;
+
+      # TODO: rotate later, not priority though
+      security.secret_key = "SW2YcwTIb9zpOOhoPsMm";
     };
   };
 

@@ -9,7 +9,13 @@
   git,
   perl,
   glew,
-  xorg,
+  libx11,
+  libxfixes,
+  libxi,
+  libxrender,
+  libxxf86vm,
+  libsm,
+  libice,
   libxkbcommon,
   libglvnd,
   zlib,
@@ -108,13 +114,13 @@ in
         with pkgs;
           [
             libglvnd
-            xorg.libX11
-            xorg.libXfixes
-            xorg.libXi
-            xorg.libXrender
-            xorg.libXxf86vm
-            xorg.libSM
-            xorg.libICE
+            libx11
+            libxfixes
+            libxi
+            libxrender
+            libxxf86vm
+            libsm
+            libice
             libxkbcommon
             glew
             zlib

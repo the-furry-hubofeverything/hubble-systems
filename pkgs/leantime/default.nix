@@ -4,18 +4,18 @@
   fetchFromGitHub,
   buildNpmPackage,
 }: let
-  version = "v3.6.2";
+  version = "v3.9.5";
   src = fetchFromGitHub {
     owner = "Leantime";
     repo = "leantime";
     tag = version;
-    hash = "sha256-Fzm0UwqbC3MpD3rVHOuSaYpcd9NXWiaXbaSCFhWwVyA=";
+    hash = "sha256-5tlSnrQgb+kW+LA88nzEN+eggwRtJzBi1tUSOl9Ol9w=";
   };
   nodePkg = buildNpmPackage {
     pname = "leantime-assets";
     inherit version;
     inherit src;
-    npmDepsHash = "sha256-5krmSWY8Pl9Y4V4ILvx6+BT4Bn26ybuLa0MlMayILAo=";
+    npmDepsHash = "sha256-AAkt9vquK/NMWzfYGITKMsbDgFCVCeBewzyr181kP0Y=";
     npmFlags = [
       "--legacy-peer-deps"
     ];
@@ -41,7 +41,7 @@ php.buildComposerProject2 (finalAttrs: {
       ./userfiles.patch
     ];
 
-    vendorHash = "sha256-b69rZCaCWfMMaDt+Cki3Xk4YNQJ8T5jRPwFlBDHRnSA=";
+    vendorHash = "sha256-a6nmiflEBcQkALdPyHyGPUu4IsR8u0YDjtI1uovTaPA=";
 
   postInstall = ''
     rm -rf $out/share/php/leantime/public

@@ -8,14 +8,14 @@
 
     # === Main dependencies ===
     # Nixpkgs
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     # Also see the 'unstable-packages' overlay at 'overlays/default.nix'.
     hardware.url = "github:nixos/nixos-hardware";
 
     # Home manager
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.11";
+      url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs"; # use our nixpkgs
     };
 
@@ -42,7 +42,7 @@
 
     # Secure boot
     lanzaboote = {
-      url = "github:nix-community/lanzaboote/v1.0.0";
+      url = "github:nix-community/lanzaboote/v1.1.0";
       inputs.nixpkgs.follows = "nixpkgs"; # use our nixpkgs
     };
 
@@ -70,12 +70,7 @@
       url = "github:thiagokokada/nix-alien";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # Nix language server
-    nixd = {
-      url = "https://flakehub.com/f/nix-community/nixd/*.tar.gz";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
+    
     # === Extra software ===
     # Blender binaries
     blender-bin = {

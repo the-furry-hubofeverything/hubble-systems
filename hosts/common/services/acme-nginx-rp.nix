@@ -33,7 +33,7 @@
     defaults = {
       dnsProvider = "porkbun";
       email = "hubblethewolverine@gmail.com";
-      credentialsFile = "${pkgs.writeText "porkbun-creds" ''
+      environmentFile = "${pkgs.writeText "porkbun-creds" ''
         PORKBUN_API_KEY_FILE=${config.sops.secrets.porkbun-api-key.path}
         PORKBUN_SECRET_API_KEY_FILE=${config.sops.secrets.porkbun-api-sKey.path}
       ''}";

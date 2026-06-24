@@ -1,7 +1,7 @@
-{lib, ...}: {
+{lib,pkgs, ...}: {
   services.ollama = {
     enable = true;
-    acceleration = "cuda";
+    package = pkgs.ollama-cuda;
   };
 
   # Prevents start on boot

@@ -82,6 +82,6 @@
 
   environment.systemPackages = [
     pkgs.protonup-qt
-    pkgs.wineWowPackages.stagingFull
+    pkgs.wineWow64Packages.stagingFull
   ];
 }

@@ -111,7 +111,7 @@ in {
 
   services.resolved = lib.optionalAttrs (hostGroup != "remote" && !config.services.blocky.enable) {
     enable = true;
-    dnsovertls = "opportunistic";
+    settings.Resolve.DNSOverTLS = "opportunistic";
   };
 
   # Logic for public services. Deployed on any machine in the remote host group

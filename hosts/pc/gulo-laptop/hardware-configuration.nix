@@ -17,7 +17,7 @@
   boot.extraModulePackages = [];
 
   fileSystems."/" = {
-    device = "/dev/disk/by-uuid/17648caa-db72-4927-b733-05985a30cfd1";
+    device = "/dev/mapper/luks-5e0abd4a-5371-4ad3-ab11-5b3035b01476";
     fsType = "ext4";
   };
 
@@ -30,7 +30,7 @@
   };
 
   fileSystems."/run/media/hubble/Data" = {
-    device = "/dev/disk/by-uuid/aa1ff7b1-1b4f-45f7-ab3b-09bc2de9da4d";
+    device = "/dev/mapper/luks-56d11093-118b-4120-9675-5567ed5976bd";
     fsType = "ext4";
     options = ["rw" "user" "exec" "errors=remount-ro" "nofail"];
   };

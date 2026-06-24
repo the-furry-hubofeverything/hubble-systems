@@ -16,12 +16,6 @@
 
   xdg.portal.extraPortals = [pkgs.xdg-desktop-portal-gtk];
 
-  programs.eww = {
-    enable = true;
-    enableBashIntegration = true;
-    configDir = ./eww;
-  };
-
   services.playerctld = {
     enable = true;
   };
