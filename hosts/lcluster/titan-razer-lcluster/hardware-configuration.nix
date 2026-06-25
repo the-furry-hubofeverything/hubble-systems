@@ -10,7 +10,6 @@
 }: {
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
-    inputs.hardware.nixosModules.common-gpu-nvidia
   ];
 
   boot.initrd.availableKernelModules = ["xhci_pci" "nvme" "usbhid" "usb_storage" "sd_mod"];
@@ -19,43 +18,43 @@
   boot.extraModulePackages = [];
 
   fileSystems."/" = {
-    device = "/dev/disk/by-uuid/ae87cd90-6ee1-4fd0-8235-2db485507ad4";
+    device = "/dev/disk/by-uuid/cb77d316-3877-449e-b823-935ad9293281";
     fsType = "btrfs";
     options = ["subvol=root" "compress=zstd" "noatime"];
   };
 
   fileSystems."/home" = {
-    device = "/dev/disk/by-uuid/ae87cd90-6ee1-4fd0-8235-2db485507ad4";
+    device = "/dev/disk/by-uuid/cb77d316-3877-449e-b823-935ad9293281";
     fsType = "btrfs";
     options = ["subvol=home" "compress=zstd" "noatime"];
   };
 
   fileSystems."/nix" = {
-    device = "/dev/disk/by-uuid/ae87cd90-6ee1-4fd0-8235-2db485507ad4";
+    device = "/dev/disk/by-uuid/cb77d316-3877-449e-b823-935ad9293281";
     fsType = "btrfs";
     options = ["subvol=nix" "compress=zstd" "noatime"];
   };
 
   fileSystems."/persist" = {
-    device = "/dev/disk/by-uuid/ae87cd90-6ee1-4fd0-8235-2db485507ad4";
+    device = "/dev/disk/by-uuid/cb77d316-3877-449e-b823-935ad9293281";
     fsType = "btrfs";
     neededForBoot = true;
     options = ["subvol=persist" "compress=zstd" "noatime"];
   };
 
   fileSystems."/var/log" = {
-    device = "/dev/disk/by-uuid/ae87cd90-6ee1-4fd0-8235-2db485507ad4";
+    device = "/dev/disk/by-uuid/cb77d316-3877-449e-b823-935ad9293281";
     fsType = "btrfs";
     options = ["subvol=log" "compress=zstd" "noatime"];
     neededForBoot = true;
   };
 
   fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/7BF5-FE52";
+    device = "/dev/disk/by-uuid/2839-9DCC";
     fsType = "vfat";
   };
 
-  swapDevices = [{device = "/dev/disk/by-uuid/ccc43f1d-8cb9-4bdb-883f-6a58662a9719";}];
+  swapDevices = [{device = "/dev/disk/by-uuid/602983d5-7a90-485d-8329-d20ca8d165d3";}];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
@@ -63,6 +62,24 @@
   # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
   networking.useDHCP = lib.mkDefault true;
   # networking.interfaces.wlp59s0.useDHCP = lib.mkDefault true;
+
+boot.extraModprobeConfig = ''
+    blacklist nouveau
+    options nouveau modeset=0
+  '';
+  
+  services.udev.extraRules = ''
+    # Remove NVIDIA USB xHCI Host Controller devices, if present
+    ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x0c0330", ATTR{power/control}="auto", ATTR{remove}="1"
+    # Remove NVIDIA USB Type-C UCSI devices, if present
+    ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x0c8000", ATTR{power/control}="auto", ATTR{remove}="1"
+    # Remove NVIDIA Audio devices, if present
+    ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x040300", ATTR{power/control}="auto", ATTR{remove}="1"
+    # Remove NVIDIA VGA/3D controller devices
+    ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x03[0-9]*", ATTR{power/control}="auto", ATTR{remove}="1"
+  '';
+  boot.blacklistedKernelModules = [ "nouveau" "nvidia" "nvidia_drm" "nvidia_modeset" ];
+
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;

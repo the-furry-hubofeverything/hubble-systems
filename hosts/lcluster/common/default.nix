@@ -121,6 +121,6 @@ in {
 
   # TODO Setup HA sevices
 
-  system.stateVersion = "23.05";
+  system.stateVersion = lib.mkDefault "23.05";
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 }

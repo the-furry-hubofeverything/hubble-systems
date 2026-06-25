@@ -3,14 +3,6 @@ _: {
     ./hardware-configuration.nix
   ];
 
-  hardware.nvidia = {
-    prime = {
-      intelBusId = "PCI:0:2:0";
-      nvidiaBusId = "PCI:1:0:0";
-    };
-    open = true;
-  };
-
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -18,5 +10,5 @@ _: {
   networking.hostName = "titan-razer-lcluster"; # Define your hostname.
   networking.hostId = "5cda25bf";
 
-  system.stateVersion = "23.05";
+  system.stateVersion = "26.05";
 }
