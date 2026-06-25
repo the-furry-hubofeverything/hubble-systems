@@ -1,6 +1,7 @@
 _: {
   imports = [
     ./hardware-configuration.nix
+    ./services/minecraftServers.nix
   ];
 
   # Use the systemd-boot EFI boot loader.

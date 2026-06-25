@@ -5,7 +5,7 @@
   ...
 }: {
   imports = [
-    inputs.musnix.nixosModules.musnix
+    inputs.nix-minecraft.nixosModules.minecraft-servers
   ];
 
   users.users.hubble = {
@@ -15,7 +15,8 @@
       ["networkmanager" "wheel"]
       ++ lib.optionals config.programs.wireshark.enable ["wireshark"]
       ++ lib.optionals config.services.pipewire.enable ["audio"]
-      ++ lib.optionals config.services.displayManager.enable ["video"];
+      ++ lib.optionals config.services.displayManager.enable ["video"]
+      ++ lib.optionals config.services.minecraft-servers.enable [config.services.minecraft-servers.group];
   };
 
   users.motd = "🐾🐾🐾🐾";

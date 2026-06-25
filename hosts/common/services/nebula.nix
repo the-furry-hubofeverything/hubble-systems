@@ -30,21 +30,12 @@
     # Don't forget to also port rule on nebula and the cloud firewall!!
     # Forgot to allow port on cloud firewall counter: 1
 
-    # minecraft servers on ennos
-    "minecraft-smp" = {
+    # minecraft servers on titan
+    "minecraft-guloInd" = {
       sourcePort = 25565;
 
-      destination = "100.86.23.2";
+      destination = "100.86.28.2";
       destinationPort = 25565;
-      proto = "tcp";
-      blocklist = true;
-    };
-
-    "minecraft-create" = {
-      sourcePort = 25567;
-
-      destination = "100.86.23.2";
-      destinationPort = 25567;
       proto = "tcp";
       blocklist = true;
     };
