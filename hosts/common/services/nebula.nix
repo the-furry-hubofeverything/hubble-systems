@@ -40,6 +40,15 @@
       blocklist = true;
     };
 
+    "minecraft-guloInd-svc" = {
+      sourcePort = 24454;
+
+      destination = "100.86.28.2";
+      destinationPort = 24454;
+      proto = "udp";
+      blocklist = true;
+    };
+
     # Git server on Enterprise
     "git" = {
       sourcePort = 37084;

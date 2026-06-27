@@ -6,6 +6,7 @@
   lib,
   ...
 }: let
+  inherit (inputs.nix-minecraft.lib) collectFilesAt;
   guloIndPack = pkgs.fetchModrinthModpack {
     url = "https://github.com/the-furry-hubofeverything/gulo-industries-pack/releases/download/v2.0.1/Gulo.Industries-2.0.1.mrpack";
     packHash = "sha256-pTMzZmuluVJ2EEsS/h0V/2AdA4WsTvqvoaW6z0uZ7sU=";
@@ -116,9 +117,16 @@ in {
           spawn-protection = 0;
           whitelist = true;
         };
-        symlinks = {
-          "mods" = "${guloIndPack}/mods";
-        };
+        symlinks =
+          collectFilesAt guloIndPack "mods"
+          // {
+            "mods/toofast.jar" = pkgs.fetchurl {
+              pname = "toofast";
+              version = "0.4.3.5";
+              url = "https://cdn.modrinth.com/data/w6JSkKSH/versions/pDkjMI8q/toofast-1.21.0-0.4.3.5.jar";
+              hash = "sha256-LEEKgcxwnPM0SH0zH4ifFt+nn7+nCQj9Uk2F1A5ow5Y=";
+            };
+          };
         files = {
           "config" = "${guloIndPack}/config";
         };
@@ -126,12 +134,19 @@ in {
     };
   };
 
+  networking.firewall.allowedUDPPorts = [24454];
+
   services.nebula.networks."hsmn0".firewall.inbound =
     lib.optionals config.services.nebula.networks."hsmn0".enable
     [
       {
         port = "25565";
         proto = "tcp";
+        group = ["remote"];
+      }
+      {
+        port = "24454";
+        proto = "udp";
         group = ["remote"];
       }
     ];
