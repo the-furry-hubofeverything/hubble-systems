@@ -112,8 +112,10 @@
     videoAcceleration = true;
     modesetting.enable = true;
     nvidiaSettings = false;
-    powerManagement.finegrained = true;
-    prime.offload.enable = true;
+    powerManagement = {
+      enable = true;
+      finegrained = true;
+    };
   };
 
   # This value determines the NixOS release from which the default
