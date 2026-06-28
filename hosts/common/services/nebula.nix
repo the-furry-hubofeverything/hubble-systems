@@ -126,8 +126,9 @@ in {
         "${pkgs.ipset}/bin/ipset flush || true"
         "${pkgs.ipset}/bin/ipset restore < /etc/ipset.conf"
         "iptables -I FORWARD 1 -s 73.0.0.0/8 -p tcp -j ACCEPT"
-        "iptables -I FORWARD 2 -m conntrack --ctstate NEW -m set --match-set vps-ranges src -j LOG --log-level 4 --log-prefix \"[vps-ranges][DROP]: \""
-        "iptables -I FORWARD 3 -m conntrack --ctstate NEW -m set ! --match-set vps-ranges src -j LOG --log-level 4 --log-prefix \"[vps-ranges][FORWARD]: \""
+        "iptables -I FORWARD 2 -s 38.87.0.0/19 -p tcp -j ACCEPT"
+        "iptables -I FORWARD 3 -m conntrack --ctstate NEW -m set --match-set vps-ranges src -j LOG --log-level 4 --log-prefix \"[vps-ranges][DROP]: \""
+        "iptables -I FORWARD 4 -m conntrack --ctstate NEW -m set ! --match-set vps-ranges src -j LOG --log-level 4 --log-prefix \"[vps-ranges][FORWARD]: \""
       ]
       ++ lib.mapAttrsToList (
         _: x:
@@ -144,6 +145,7 @@ in {
     extraStopCommands = lib.concatLines (
       [
         "iptables -D FORWARD -s 73.0.0.0/8 -p tcp -j ACCEPT || true"
+        "iptables -D FORWARD -s 38.87.0.0/19 -p tcp -j ACCEPT || true"
       ]
       ++ lib.mapAttrsToList (
         _: x:

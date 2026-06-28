@@ -111,7 +111,6 @@ in {
           enforce-whitelist = true;
           max-world-size = 2999998;
           motd = "§7from §r§6H§r§7+§r§3K§r§7 with <3§r";
-          prevent-proxy-connections = true; # does it with vps-range anyway, might as well reinforce it
           view-distance = 6;
           simulation-distance = 8;
           spawn-protection = 0;
