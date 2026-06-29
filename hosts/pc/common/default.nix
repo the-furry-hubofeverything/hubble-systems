@@ -29,7 +29,6 @@
     ./programs/libvirt.nix
     ./programs/libvirt-win10vm.nix
     ./programs/nix-alien.nix
-    ./programs/ollama.nix
 
     ../../common/security.nix
     ../../common/nix-settings.nix
@@ -85,14 +84,15 @@
         # default is 1 but may keep the builder idle in between builds
         maxJobs = 8;
         # how fast is the builder compared to your local machine
-        speedFactor = 2;
+        speedFactor = 1;
         supportedFeatures = ["nixos-test" "benchmark" "big-parallel" "kvm"];
         mandatoryFeatures = [];
       }
       {
-        hostName = "nixremote@ennos.nebula.gulo.dev";
+        hostName = "nixremote@titan.nebula.gulo.dev";
         system = "x86_64-linux";
         protocol = "ssh-ng";
+        # default is 1 but may keep the builder idle in between builds
         maxJobs = 8;
         speedFactor = 1;
         supportedFeatures = ["nixos-test" "benchmark" "big-parallel" "kvm"];
@@ -102,7 +102,7 @@
         hostName = "nixremote@lily.nebula.gulo.dev";
         system = "x86_64-linux";
         protocol = "ssh-ng";
-        maxJobs = 4;
+        maxJobs = 2;
         speedFactor = 1;
         supportedFeatures = ["nixos-test" "benchmark" "big-parallel" "kvm"];
         mandatoryFeatures = [];
@@ -121,7 +121,7 @@
   };
 
   # For rquickshare in home-manager
-  networking.firewall.allowedTCPPorts = [ 30609 ];
+  networking.firewall.allowedTCPPorts = [30609];
 
   programs.ssh.extraConfig = ''
     Match Host *.nebula.gulo.dev User nixremote
