@@ -70,8 +70,6 @@
 
         easyeffects
 
-        signal-desktop
-
         inkscape
         element-desktop
         gnome-calculator
