@@ -8,8 +8,8 @@
 }: let
   inherit (inputs.nix-minecraft.lib) collectFilesAt;
   guloIndPack = pkgs.fetchModrinthModpack {
-    url = "https://github.com/the-furry-hubofeverything/gulo-industries-pack/releases/download/v2.0.1/Gulo.Industries-2.0.1.mrpack";
-    packHash = "sha256-pTMzZmuluVJ2EEsS/h0V/2AdA4WsTvqvoaW6z0uZ7sU=";
+    url = "https://github.com/the-furry-hubofeverything/gulo-industries-pack/releases/download/v2.1.0/Gulo.Industries-2.1.0.mrpack";
+    packHash = "sha256-7HDqfRu8JJo3N3rPjChJXNZLh/URS/e3LUARkgJ8yhU=";
     side = "server";
   };
 
