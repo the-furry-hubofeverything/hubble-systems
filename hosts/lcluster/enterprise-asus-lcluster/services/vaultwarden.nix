@@ -26,11 +26,18 @@
     backupDir = "/tank/data/vw-backup";
   };
 
+  security.acme.certs = {
+    "vw.gulo.dev" = {
+      domain = "vw.gulo.dev";
+    };
+  };
+
   services.nginx.virtualHosts."vw.gulo.dev" = {
-    useACMEHost = "gulo.dev";
+    useACMEHost = "vw.gulo.dev";
     forceSSL = true;
     locations."/" = {
       proxyPass = "http://127.0.0.1:${toString config.services.vaultwarden.config.ROCKET_PORT}";
+      proxyWebsockets = true;
     };
   };
 }
