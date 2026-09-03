@@ -70,7 +70,29 @@
 
         easyeffects
 
-        inkscape
+        (inkscape-with-extensions.override {
+          inkscapeExtensions = [
+            inkscape-extensions.inkcut
+            (inkscape-extensions.silhouette.overrideAttrs
+              (f: p: {
+                src = pkgs.fetchFromGitHub {
+                  owner = "kvasdopil";
+                  repo = "inkscape-silhouette";
+                  rev = "d84382a55dc907339659202965b37278a416578c";
+                  hash = "sha256-687wqPQjKTPc5ck6GU0r93+1hVCYBFY70zkzXnwEfzM=";
+                };
+                patches = [
+                  ./interpreter.diff
+                ];
+
+                propagatedBuildInputs =
+                  p.propagatedBuildInputs
+                  ++ [
+                    pkgs.python3.pkgs.bleak
+                  ];
+              }))
+          ];
+        })
         element-desktop
         gnome-calculator
         gnome-disk-utility
