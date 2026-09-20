@@ -3,7 +3,15 @@
   lib,
   inputs,
   ...
-}: {
+}: let
+  patchedBwrap = pkgs.bubblewrap.overrideAttrs (o: {
+    patches =
+      (o.patches or [])
+      ++ [
+        ./bwrap.patch
+      ];
+  });
+in {
   imports = [
     inputs.nix-gaming.nixosModules.platformOptimizations
   ];
@@ -15,12 +23,25 @@
 
   programs.steam = {
     enable = true;
+    package = pkgs.steam.override {
+      extraLibraries = p:
+        with p; [
+          libdecor
+        ];
+      buildFHSEnv = args: ((pkgs.buildFHSEnv.override {
+          bubblewrap = patchedBwrap;
+        }) (args
+          // {
+            extraBwrapArgs = (args.extraBwrapArgs or []) ++ ["--cap-add ALL"];
+          }));
+    };
     remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
     dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
     extraPackages = with pkgs; [
       gamescope
       gamescope-wsi
     ];
+
     platformOptimizations.enable = true;
 
     # WIP
