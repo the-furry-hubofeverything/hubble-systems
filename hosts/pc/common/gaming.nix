@@ -67,6 +67,88 @@ in {
   };
 
   services.udev.extraRules = ''
+    # Skip if a remove
+    ACTION=="remove", GOTO="xrhardware_end"
+
+    # Microsoft Windows MR Controller - Bluetooth
+    KERNELS=="0005:045E:065B.*", TAG+="uaccess", ENV{ID_xrhardware}="1", ENV{LIBINPUT_IGNORE_DEVICE}="1"
+
+
+    # Microsoft Windows MR Controller - Bluetooth
+    KERNELS=="0005:045E:065D.*", TAG+="uaccess", ENV{ID_xrhardware}="1", ENV{LIBINPUT_IGNORE_DEVICE}="1"
+
+
+    # Microsoft Windows MR Controller (Reverb G2) - Bluetooth
+    KERNELS=="0005:045E:066A.*", TAG+="uaccess", ENV{ID_xrhardware}="1", ENV{LIBINPUT_IGNORE_DEVICE}="1"
+
+
+    # Microsoft HoloLens Sensors - USB
+    ATTRS{idVendor}=="045e", ATTRS{idProduct}=="0659", TAG+="uaccess", ENV{ID_xrhardware}="1"
+
+
+    # Samsung Odyssey sensors - USB
+    ATTRS{idVendor}=="04e8", ATTRS{idProduct}=="7310", TAG+="uaccess", ENV{ID_xrhardware}="1"
+
+
+    # Samsung Odyssey+ sensors - USB
+    ATTRS{idVendor}=="04e8", ATTRS{idProduct}=="7312", TAG+="uaccess", ENV{ID_xrhardware}="1"
+
+
+    # HP VR1000 - USB
+    ATTRS{idVendor}=="03f0", ATTRS{idProduct}=="0367", TAG+="uaccess", ENV{ID_xrhardware}="1"
+
+
+    # HP Reverb G1 - USB
+    ATTRS{idVendor}=="03f0", ATTRS{idProduct}=="0c6a", TAG+="uaccess", ENV{ID_xrhardware}="1"
+
+
+    # HP Reverb G2 - USB
+    ATTRS{idVendor}=="03f0", ATTRS{idProduct}=="0580", TAG+="uaccess", ENV{ID_xrhardware}="1"
+
+
+    # HP Reverb G2 Omnicept - USB
+    ATTRS{idVendor}=="03f0", ATTRS{idProduct}=="0680", TAG+="uaccess", ENV{ID_xrhardware}="1"
+
+
+    # Lenovo QHMD/Explorer - USB
+    ATTRS{idVendor}=="17ef", ATTRS{idProduct}=="b801", TAG+="uaccess", ENV{ID_xrhardware}="1"
+
+
+    # Lenovo QHMD/Explorer No Controllers - USB
+    ATTRS{idVendor}=="17ef", ATTRS{idProduct}=="b800", TAG+="uaccess", ENV{ID_xrhardware}="1"
+
+
+    # Acer AH100 QHMD - USB
+    ATTRS{idVendor}=="0502", ATTRS{idProduct}=="b0d5", TAG+="uaccess", ENV{ID_xrhardware}="1"
+
+
+    # Acer AH101 QHMD - USB
+    ATTRS{idVendor}=="0502", ATTRS{idProduct}=="b0d6", TAG+="uaccess", ENV{ID_xrhardware}="1"
+
+
+    # Dell Visor VR118 - USB
+    ATTRS{idVendor}=="413c", ATTRS{idProduct}=="b0d5", TAG+="uaccess", ENV{ID_xrhardware}="1"
+
+
+    # Medion Erazer X1000 - USB
+    ATTRS{idVendor}=="0408", ATTRS{idProduct}=="b5d5", TAG+="uaccess", ENV{ID_xrhardware}="1"
+
+
+    # Cypress Semiconductor Corp. (Various WMR) - USB
+    ATTRS{idVendor}=="04b4", ATTRS{idProduct}=="6504", TAG+="uaccess", ENV{ID_xrhardware}="1"
+
+
+    # Exit if we didn't find one
+    ENV{ID_xrhardware}!="1", GOTO="xrhardware_end"
+
+    # XR devices with serial ports aren't modems, modem-manager
+    ENV{ID_xrhardware_USBSERIAL_NAME}!="", SUBSYSTEM=="usb", ENV{ID_MM_DEVICE_IGNORE}="1"
+
+    # Make friendly symlinks for XR USB-Serial devices.
+    ENV{ID_xrhardware_USBSERIAL_NAME}!="", SUBSYSTEM=="tty", SYMLINK+="ttyUSB.$env{ID_xrhardware_USBSERIAL_NAME}"
+
+    LABEL="xrhardware_end"
+
     # Disable DS4 touchpad acting as mouse
     # USB
     ATTRS{name}=="Sony Computer Entertainment Wireless Controller Touchpad", ENV{LIBINPUT_IGNORE_DEVICE}="1"
@@ -117,5 +199,6 @@ in {
   environment.systemPackages = [
     pkgs.protonup-qt
     pkgs.wineWow64Packages.stagingFull
+    patchedBwrap
   ];
 }
