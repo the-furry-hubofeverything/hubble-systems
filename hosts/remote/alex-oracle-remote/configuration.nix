@@ -5,6 +5,7 @@
     ./hardware-configuration.nix
     ./services/znc.nix
     ../../common/impermanence.nix
+    ../../common/services/wg.nix
   ];
 
   boot.tmp.cleanOnBoot = true;

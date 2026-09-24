@@ -1,6 +1,7 @@
 {
   imports = [
     ./hardware-configuration.nix
+    ../../common/services/wg.nix
     ./services/nas.nix
     ./services/grocy.nix
     ./services/vaultwarden.nix
@@ -17,7 +18,7 @@
     };
     open = false;
   };
-
+  networking.nat.externalInterface = "enp3s0";
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
