@@ -70,7 +70,7 @@
       url = "github:thiagokokada/nix-alien";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    
+
     # === Extra software ===
     # Blender binaries
     blender-bin = {
@@ -103,6 +103,11 @@
     omenctl = {
       url = "github:yunusemreyl/OmenCtl/v1.5.3";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+
+    nix-citizen = {
+      url = "github:LovingMelody/nix-citizen";
+      inputs.nix-gaming.follows = "nix-gaming";
     };
   };
 
