@@ -148,15 +148,7 @@
         #       ];
         #   }))
 
-        (pkgs.beammp-launcher.overrideAttrs (finalAttrs: {
-          version = "2.8.0";
-          src = pkgs.fetchFromGitHub {
-            owner = "BeamMP";
-            repo = "BeamMP-Launcher";
-            tag = "v${finalAttrs.version}";
-            hash = "sha256-1R45UgufSeTuj0roVxU/+aAmc6pl6A0Xx6j567ZNC/s=";
-          };
-        }))
+        pkgs.beammp-launcher
       ];
 
     pointerCursor = {
