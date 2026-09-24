@@ -141,6 +141,8 @@
     # pass to it, with each system as an argument
     forAllPlatforms = nixpkgs.lib.genAttrs platforms;
   in {
+    inherit hosts;
+
     # Your custom packages
     # Acessible through 'nix build', 'nix shell', etc
     packages = forAllPlatforms (platform: import ./pkgs nixpkgs.legacyPackages.${platform});

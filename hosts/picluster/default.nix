@@ -8,6 +8,7 @@
 in {
   picluster-common = {
     platform = "aarch64-linux";
+    active = false;
     modules =
       piClusterModules
       ++ [
@@ -17,6 +18,7 @@ in {
 
   brain-pi4-picluster = {
     platform = "aarch64-linux";
+    active = false;
     modules =
       piClusterModules
       ++ [
@@ -26,6 +28,7 @@ in {
   };
   pinky-pi3-picluster = {
     platform = "aarch64-linux";
+    active = false;
     modules =
       piClusterModules
       ++ [

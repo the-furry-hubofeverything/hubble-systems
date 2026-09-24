@@ -8,6 +8,7 @@
 in {
   # TODO: Get impermanance either working or just remove it
   lcluster-common = {
+    active = false;
     platform = "x86_64-linux";
     modules =
       lclusterModules
@@ -18,6 +19,7 @@ in {
 
   titan-razer-lcluster = {
     platform = "x86_64-linux";
+    active = true;
     modules =
       lclusterModules
       ++ [
@@ -28,6 +30,7 @@ in {
 
   enterprise-asus-lcluster = {
     platform = "x86_64-linux";
+    active = true;
     modules =
       lclusterModules
       ++ [

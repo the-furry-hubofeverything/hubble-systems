@@ -8,6 +8,7 @@
 in {
   remote-common = {
     platform = "x86_64-linux";
+    active = false;
     modules =
       remoteModules
       ++ [
@@ -17,6 +18,7 @@ in {
 
   alex-oracle-remote = {
     platform = "aarch64-linux";
+    active = true;
     modules =
       remoteModules
       ++ [
@@ -27,6 +29,7 @@ in {
 
   alan-google-remote = {
     platform = "x86_64-linux";
+    active = true;
     modules =
       remoteModules
       ++ [

@@ -13,6 +13,7 @@
 in {
   pc-common = {
     platform = "x86_64-linux";
+    active = false;
     modules =
       pcModules
       ++ [
@@ -22,6 +23,7 @@ in {
 
   Gulo-Laptop = {
     platform = "x86_64-linux";
+    active = true;
     modules =
       pcModules
       ++ [

@@ -12,6 +12,7 @@
 in {
   imac-common = {
     platform = "x86_64-linux";
+    active = false;
     modules =
       imacModules
       ++ [
@@ -21,6 +22,7 @@ in {
 
   ennos-imac = {
     platform = "x86_64-linux";
+    active = false;
     modules =
       imacModules
       ++ [
@@ -31,6 +33,7 @@ in {
 
   lily-imac = {
     platform = "x86_64-linux";
+    active = true;
     modules =
       imacModules
       ++ [

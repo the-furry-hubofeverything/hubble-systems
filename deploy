@@ -1,29 +1,40 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i python -p python3
+#!nix-shell -i python -p python3 python3Packages.pexpect
 
 import argparse
 import subprocess
 import json
 import difflib
 import platform
+import sys
+import concurrent.futures
+import pexpect
+from getpass import getpass
+from concurrent.futures import ThreadPoolExecutor, wait
+from multiprocessing import cpu_count
 
-def deploy(machine: str, dry: bool, switch: bool):
+
+def deploy(machine: str, dry: bool, switch: bool, passwd: str):
     if machine == "":
-        print("Something went wrong, list of accepted machines are - ", machines)
+        print("Something went wrong, list of accepted machines are - ",
+              machines)
         exit(1)
-    
+
     machine_shortname = (machine.split("-"))[0]
     machine_group = (machine.split("-"))[-1]
 
     if machine == platform.node():
-        print("Unable to comply, this script is not meant for the local machine")
+        print(
+            "Unable to comply, this script is not meant for the local machine")
         exit(1)
     elif machine_group == "common":
         print("Unable to comply, common profiles are not meant to be deployed")
         print("Interpreted machine:", machine)
         exit(1)
     elif machine_group == "picluster":
-        print("Unable to comply, picluster uses generic-extlinux-compatible, which makes sudo rules complicated")
+        print(
+            "Unable to comply, picluster uses generic-extlinux-compatible, which makes sudo rules complicated"
+        )
         print("TODO: create secure sudo rules for this boot method")
         print("Interpreted machine:", machine)
         exit(1)
@@ -31,56 +42,107 @@ def deploy(machine: str, dry: bool, switch: bool):
     if switch:
         action = "switch"
     else:
-        action = "boot" 
-        
-    command = ["nixos-rebuild", action, "--flake", ".#" + machine, "--target-host", "nixremote@" + machine_shortname.lower() + ".nebula.gulo.dev", "--sudo"]
+        action = "boot"
+
+    commandArgs = [
+        action, "--flake", ".#" + machine, "--target-host",
+        "hubble@" + machine_shortname.lower() + ".nebula.gulo.dev", "--sudo",
+        "--ask-sudo-password"
+    ]
 
     if dry:
-        print("Would run:", " ".join(command))
+        print("Would run: nixos-rebuild", " ".join(commandArgs))
     else:
-        subprocess.run(
-            command, check=True
-        )
+        child = pexpect.spawn('nixos-rebuild', commandArgs, encoding='utf-8')
+        child.logfile_read = sys.stdout
+
+        child.waitnoecho()
+        child.sendline(passwd)
+        child.expect(pexpect.EOF, timeout=None)
+
 
 parser = argparse.ArgumentParser(
-                    prog='deploy',
-                    description='Hubble systems deployment helper',
-                    epilog='Overcomplicated runner')
+    prog='deploy',
+    description='Hubble systems deployment helper',
+    epilog='Overcomplicated runner')
 
-parser.add_argument("machine", type=str, help="machine to deploy to")
-parser.add_argument("-d", "--dry", "--dry-run", action='store_true', help="dry run")
-parser.add_argument("-s", "--switch", action='store_true', help="run 'nixos-rebuild switch' instead of 'boot'")
+parser.add_argument(
+    "machine",
+    type=str,
+    nargs='?',
+    help=
+    "optional: machine to deploy to. If unspecified, will deploy to all machines marked active."
+)
+parser.add_argument("-d",
+                    "--dry",
+                    "--dry-run",
+                    action='store_true',
+                    help="dry run")
+parser.add_argument("-s",
+                    "--switch",
+                    action='store_true',
+                    help="run 'nixos-rebuild switch' instead of 'boot'")
+parser.add_argument(
+    "-j",
+    "--jobs",
+    help=
+    "number of workers for parallel deployment. 0 (default) sets to amount of cpu available",
+    default=0,
+    type=int)
 
 # Imports machines via nix eval. Python bindings for nix are still experimental so...
-machines = json.loads((subprocess.run(
-    ["nix", "eval", ".#nixosConfigurations", "--apply", "builtins.attrNames", "--json"], check=True, capture_output=True)).stdout)
+machines = json.loads((subprocess.run([
+    "nix", "eval", ".#nixosConfigurations", "--apply", "builtins.attrNames",
+    "--json"
+],
+                                      check=True,
+                                      capture_output=True)).stdout)
 
 # read the commandline
 argparse = parser.parse_args()
 
-# partial matches (but limited to exact letter sequence)
-selected_machine = list(filter(
-    lambda m: (argparse.machine).lower() in m.lower(), 
-    machines
-    ))
+if argparse.machine != None:
+    # partial matches (but limited to exact letter sequence)
+    selected_machine = list(
+        filter(lambda m: (argparse.machine).lower() in m.lower(), machines))
+    if len(selected_machine) == 0:
+        error_msg = ["Couldn't find", argparse.machine]
 
-if len(selected_machine) == 0:
-    error_msg = ["Couldn't find", argparse.machine]
+        # Get suggestion based on fuzzy match
+        close_match = list(
+            difflib.get_close_matches(argparse.machine, machines, cutoff=0.3))
+        if len(close_match) != 0:
+            error_msg += "\nDid you mean", close_match[0] + "?"
+            if (input(" ".join(error_msg) + " [Y/n] > ")).lower() in ("yes",
+                                                                        "y", ""):
+                deploy(close_match[0], argparse.dry)
+                exit(0)
+            else:
+                print("Aborted")
+                exit(1)
 
-    # Get suggestion based on fuzzy match
-    close_match = list(difflib.get_close_matches(argparse.machine, machines, cutoff=0.3))
-    if len(close_match) != 0:
-        error_msg += "\nDid you mean", close_match[0] + "?"
-        if (input(" ".join(error_msg) + " [Y/n] > ")).lower() in ("yes", "y", ""):
-            deploy(close_match[0], argparse.dry)
-            exit(0)
-        else:
-            print("Aborted")
-            exit(1)
+        print(" ".join(error_msg))
+        exit(1)
 
-    print(" ".join(error_msg))
-    exit(1)
+passwd = getpass(f"sudo password for {selected_machine[0] if argparse.machine != None else "all machines"}: ")
 
-deploy(selected_machine[0], argparse.dry, argparse.switch)
+if argparse.machine == None:
+    active_machines = json.loads(
+        subprocess.run([
+            "nix", "eval", ".#hosts", "--apply",
+            "attr: builtins.filter (x: x != null) (builtins.attrValues (builtins.mapAttrs (n: v: if v.active then n else null) attr))",
+            "--json"
+        ],
+                       check=True,
+                       capture_output=True).stdout)
+    tasks = []
+    with ThreadPoolExecutor(max_workers=(
+            argparse.jobs if argparse.jobs != 0 else cpu_count())) as executor:
+        for i in active_machines:
+            # ignore local machine
+            if i != platform.node():
+                tasks.append(executor.submit(deploy, i, argparse.dry, argparse.switch, passwd))
 
-    
+    wait(tasks, return_when="ALL_COMPLETED")
+else:
+    deploy(selected_machine[0], argparse.dry, argparse.switch, passwd)
