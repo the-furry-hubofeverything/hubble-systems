@@ -131,6 +131,7 @@
         pkgs.wl-mirror
 
         pkgs.appimage-run
+        outputs.packages.${pkgs.stdenv.hostPlatform.system}.markpad
 
         # (inputs.snekstudio.packages.${pkgs.stdenv.hostPlatform.system}.default.overrideAttrs
         #   (f: p: {
