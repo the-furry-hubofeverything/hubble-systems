@@ -17,7 +17,9 @@
       nvidiaBusId = "PCI:1:0:0";
     };
     open = false;
+    branch = "legacy_580";
   };
+  
   networking.nat.externalInterface = "enp3s0";
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
