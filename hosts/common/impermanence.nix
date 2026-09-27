@@ -37,6 +37,9 @@
       ++ lib.optionals config.services.mysql.enable [
         "/var/lib/mysql"
       ]
+      ++ lib.optionals config.services.postgresql.enable [
+        config.services.postgresql.dataDir
+      ]
       ++ lib.optionals (config.services.grafana.enable) (map (x: {
           directory = x;
           group = "grafana";

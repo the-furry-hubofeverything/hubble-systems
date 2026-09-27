@@ -4,6 +4,7 @@
     ../../common/services/wg.nix
     ./services/nas.nix
     ./services/grocy.nix
+    ./services/immich.nix
     ./services/vaultwarden.nix
     ./services/git.nix
     ./services/kopia.nix
@@ -19,7 +20,7 @@
     open = false;
     branch = "legacy_580";
   };
-  
+
   networking.nat.externalInterface = "enp3s0";
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
