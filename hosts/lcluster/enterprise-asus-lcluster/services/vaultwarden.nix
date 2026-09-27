@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  hs-utils,
   ...
 }: {
   assertions = [
@@ -12,10 +13,19 @@
       assertion = builtins.elem "tank" config.boot.zfs.extraPools;
       message = "vaultwarden: zfs pool 'tank' is not imported";
     }
+    {
+      assertion = hs-utils.sops.defaultIsEmpty config.sops;
+      message = "vaultwarden: defaultSopsFile not empty, cannot continue";
+    }
+    {
+      assertion = !hs-utils.sops.isDefault config.sops "vwEnv";
+      message = "vaultwarden: Admin token not defined";
+    }
   ];
 
   services.vaultwarden = {
     enable = true;
+    environmentFile = config.sops.secrets.vwEnv.path;
     config = {
       ROCKET_ADDRESS = "127.0.0.1";
       ROCKET_PORT = 8222;
