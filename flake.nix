@@ -101,7 +101,7 @@
     };
 
     omenctl = {
-      url = "github:yunusemreyl/OmenCtl/v1.5.3";
+      url = "github:yunusemreyl/omen-space";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
