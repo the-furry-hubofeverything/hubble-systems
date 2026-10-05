@@ -22,7 +22,7 @@
     ./desktop-environments/niri.nix
 
     ./hardware/logitechWheelSupport.nix
-    # ./hardware/VR.nix
+    ./hardware/VR.nix
 
     ./programs/kdeconnect.nix
     ./programs/lanzaboote.nix
@@ -61,6 +61,10 @@
     "all"
   ];
 
+  # networking.networkmanager.wifi.backend = "iwd";
+  networking.networkmanager.wifi.powersave = false;
+
+  
   # Configure keymap in X11
   services.xserver.xkb = {
     layout = "us";
