@@ -21,6 +21,10 @@
 
     # === NixOS related dependencies ===
 
+    # chaotic LUG bleeding edge packages
+    chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
+    # DO NOT SET FOLLOW INPUT
+
     # VR related programs
     nixpkgs-xr = {
       url = "github:nix-community/nixpkgs-xr";
