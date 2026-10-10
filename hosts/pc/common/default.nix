@@ -4,7 +4,16 @@
   lib,
   outputs,
   ...
-}: {
+}: let
+  # Mount options for the bind mounts
+  mountOptions = [
+    "ro"
+    "x-gvfs-hide"
+    # Resolves symlinks as if they were real files
+    # Needed for things like OnlyOffice
+    "resolve-symlinks"
+  ];
+in {
   imports = [
     inputs.hardware.nixosModules.common-pc
 
@@ -64,7 +73,6 @@
   # networking.networkmanager.wifi.backend = "iwd";
   networking.networkmanager.wifi.powersave = false;
 
-  
   # Configure keymap in X11
   services.xserver.xkb = {
     layout = "us";
@@ -131,6 +139,27 @@
     Match Host *.nebula.gulo.dev User nixremote
       IdentityFile /home/hubble/.ssh/id_nixremote
   '';
+
+  # Fonts
+  fileSystems."/usr/share/fonts" = {
+    device = "/run/current-system/sw/share/X11/fonts";
+    fsType = "fuse.bindfs";
+    options = mountOptions;
+  };
+
+  # Icons
+  fileSystems."/usr/share/icons" = {
+    device = "/run/current-system/sw/share/icons";
+    fsType = "fuse.bindfs";
+    options = mountOptions;
+  };
+
+  # Themes
+  fileSystems."/usr/share/themes" = {
+    device = "/run/current-system/sw/share/themes";
+    fsType = "fuse.bindfs";
+    options = mountOptions;
+  };
 
   system.stateVersion = "23.05";
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
