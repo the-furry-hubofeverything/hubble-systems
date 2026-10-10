@@ -1,11 +1,14 @@
-{pkgs, config, ...}: let
-
+{
+  pkgs,
+  config,
+  ...
+}: let
 in {
   services.wivrn = {
     enable = true;
-    package = (pkgs.wivrn.override {
+    package = pkgs.wivrn.override {
       cudaSupport = true;
-    });
+    };
     steam = {
       enable = true;
       package = config.programs.steam.package;
@@ -13,6 +16,10 @@ in {
     };
     highPriority = true;
     openFirewall = true;
-
   };
+
+  environment.systemPackages = [ 
+    pkgs.wayvr
+  ];
+
 }
