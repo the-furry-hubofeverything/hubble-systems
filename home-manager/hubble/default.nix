@@ -23,6 +23,7 @@
     # ./vr.nix
     ./niri.nix
     ./clockChime.nix
+    ./unity.nix
   ];
 
   sops = {
