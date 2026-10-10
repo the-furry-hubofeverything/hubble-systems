@@ -27,7 +27,7 @@
     pkgs.playerctl
     pkgs.pwvucontrol
     pkgs.wdisplays
-    pkgs.waybar
+    (pkgs.waybar.override { stdenv = pkgs.gcc16Stdenv; }) # fix tz issue by changing gcc to 16.2+
     pkgs.swaynotificationcenter
     pkgs.adw-bluetooth
     pkgs.labwc
