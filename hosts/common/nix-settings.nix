@@ -33,7 +33,8 @@
       # Deduplicate and optimize nix store
       auto-optimise-store = true;
       # let builders use substitutes
-      builders-use-substitutes = true;
+      # Disabled since we can't keep track of all the different binary caches lol
+      # builders-use-substitutes = true;
     };
     gc.automatic = true;
     gc.options = "--delete-older-than 7d";
