@@ -161,6 +161,8 @@
     };
   };
 
+  fonts.fontconfig.enable = true;
+
   xdg.dataFile."dev.mandre.rquickshare/.settings.json".text = ''
     {
       "visibility": 0,

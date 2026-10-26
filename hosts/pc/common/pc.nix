@@ -141,9 +141,10 @@
 
   # For compatibility with flatpak etc.
   fonts.fontDir.enable = true;
-
-  fonts.fontconfig.defaultFonts.sansSerif = ["Inter"];
-
+  fonts.fontconfig = {
+    enable = true;
+    defaultFonts.sansSerif = ["Inter"];
+  };
   # lid switch handling
   services.logind.settings.Login = {
     HandleLidSwitch = "suspend-then-hibernate";
