@@ -19,7 +19,25 @@ in {
 
   programs.gamemode = {
     enable = true;
-    settings.general.renice = 10;
+    enableRenice = true;
+    settings = {
+      general.renice = 10;
+
+      gpu = {
+        apply_gpu_optimisations = "accept-responsibility";
+        gpu_device = 0;
+        nv_powermizer_mode = 1;
+      };
+
+      custom = {
+        start = "${pkgs.libnotify}/bin/notify-send 'GameMode started'";
+        end = "${pkgs.libnotify}/bin/notify-send 'GameMode ended'";
+      };
+    };
+  };
+
+  environment.variables = {
+    GAMEMODERUNEXEC = "env PIPEWIRE_LATENCY=128/48000 PROTON_USE_NTSYNC=1 __NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia __VK_LAYER_NV_optimus=NVIDIA_only";
   };
 
   programs.steam = {
@@ -27,7 +45,7 @@ in {
     package = pkgs.steam.override {
       extraEnv = {
         # steamvr uses nvidia gpu
-        __NV_PRIME_RENDER_OFFLOAD = 1;
+        __NV_PRIME_RENDER_OFFLOAD = "1";
         __NV_PRIME_RENDER_OFFLOAD_PROVIDER = "NVIDIA-G0";
         __GLX_VENDOR_LIBRARY_NAME = "nvidia";
         __VK_LAYER_NV_optimus = "NVIDIA_only";
@@ -44,8 +62,15 @@ in {
             extraBwrapArgs = (args.extraBwrapArgs or []) ++ ["--cap-add ALL"];
           }));
     };
+
+    extraCompatPackages = with pkgs; [
+      proton-ge-rtsp-bin
+    ];
     remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
     dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+
+    protontricks.enable = true;
+
     extraPackages = with pkgs; [
       gamescope
       gamescope-wsi
@@ -61,15 +86,23 @@ in {
         DXVK_HDR = "1";
       };
       args = [
-        "-w 2560"
-        "-h 1440"
-        "--enable-hdr"
+        "-W 2560"
+        "-H 1440"
+        "-e"
+        "-r 240"
+        "--immediate-flips"
+        "--hdr-enabled"
         "--adaptive-sync"
         "--hdr-itm-enable"
         "--hdr-itm-target-nits 600"
         "--hdr-itm-sdr-nits 100"
         "--hdr-sdr-content-nits 400"
-        "-O DP-2"
+        "-O DP-1"
+        "--prefer-vk-device 10de:2191"
+      ];
+      steamArgs = [
+        "-steamos3"
+        "-pipewire-dmabuf"
       ];
     };
   };
@@ -171,6 +204,14 @@ in {
 
   programs.gamescope = {
     enable = true;
+    env = {
+      # use nvidia GPU for compositor
+      __NV_PRIME_RENDER_OFFLOAD = "1";
+      __NV_PRIME_RENDER_OFFLOAD_PROVIDER = "NVIDIA-G0";
+      __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+      __VK_LAYER_NV_optimus = "NVIDIA_only";
+    };
+    # enableWsi = true;
   };
 
   security.pam.loginLimits = lib.mkBefore [
