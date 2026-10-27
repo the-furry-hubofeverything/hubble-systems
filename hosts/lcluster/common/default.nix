@@ -16,8 +16,6 @@ in {
     # ACME+nginx reverse proxy
     ../../common/services/acme-nginx-rp.nix
 
-    # DNS server/ad-blocker with DoH
-    ./services/blocky.nix
 
     # k3s
     # ./services/k3s.nix

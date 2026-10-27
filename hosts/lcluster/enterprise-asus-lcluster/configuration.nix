@@ -1,5 +1,8 @@
 {
   imports = [
+    # DNS server/ad-blocker with DoH
+    ../../common/services/blocky.nix
+
     ./hardware-configuration.nix
     ../../common/services/wg.nix
     ./services/nas.nix

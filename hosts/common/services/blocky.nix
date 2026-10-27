@@ -36,9 +36,10 @@ in {
             "https://anycast.uncensoreddns.org/dns-query"
           ];
         };
+        init = {
+          strategy = "blocking";
+        };
       };
-
-      startVerifyUpstream = true;
 
       bootstrapDns = [
         {
@@ -62,10 +63,13 @@ in {
       ];
 
       blocking = {
-        blackLists = {
+        denylists = {
           ads = [
             # Migrated from Pihole
             "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts"
+            
+            "https://s3.amazonaws.com/lists.disconnect.me/simple_ad.txt"
+            "https://s3.amazonaws.com/lists.disconnect.me/simple_tracking.txt"
           ];
         };
         clientGroupsBlock = {
@@ -106,7 +110,7 @@ in {
     wants = ["network-online.target" "nss-lookup.target"];
 
     serviceConfig = {
-      restartSec = "500ms";
+      restartSec = "20s";
     };
   };
 

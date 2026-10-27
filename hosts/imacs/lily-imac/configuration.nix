@@ -8,6 +8,9 @@
     inputs.hardware.nixosModules.common-cpu-intel
     inputs.hardware.nixosModules.common-hidpi
     ./hardware-configuration.nix
+
+    # DNS server/ad-blocker with DoH
+    ../../common/services/blocky.nix
   ];
 
   boot = {
