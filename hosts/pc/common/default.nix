@@ -36,7 +36,7 @@ in {
     ./programs/kdeconnect.nix
     ./programs/lanzaboote.nix
     ./programs/libvirt.nix
-    ./programs/libvirt-win10vm.nix
+    # ./programs/libvirt-win10vm.nix
     ./programs/nix-alien.nix
 
     ../../common/security.nix
