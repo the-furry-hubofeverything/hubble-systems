@@ -1,0 +1,13 @@
+diff --git a/src/xrt/auxiliary/render/shaders/CMakeLists.txt b/src/xrt/auxiliary/render/shaders/CMakeLists.txt
+index 03b780988..074134baf 100644
+--- a/src/xrt/auxiliary/render/shaders/CMakeLists.txt
++++ b/src/xrt/auxiliary/render/shaders/CMakeLists.txt
+@@ -57,7 +57,7 @@ add_custom_target(render_shader_specialization DEPENDS ${SHADER_SPECIALIZATION_H
+ spirv_shaders(
+ 	SHADER_HEADERS
+ 	SPIRV_VERSION
+-	1.0 # Currently targeting Vulkan 1.0
++	1.3 # Currently targeting Vulkan 1.1
+ 	SOURCES
+ 	${SHADERS}
+ 	DEPENDS

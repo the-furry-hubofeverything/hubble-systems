@@ -1,0 +1,24 @@
+diff --git a/server/CMakeLists.txt b/server/CMakeLists.txt
+index dcfc2117..7ee0a0a7 100644
+--- a/server/CMakeLists.txt
++++ b/server/CMakeLists.txt
+@@ -55,6 +55,7 @@ set(XRT_FEATURE_OPENXR_LAYER_COLOR_SCALE_BIAS    ON)
+ set(XRT_FEATURE_OPENXR_LAYER_DEPTH              OFF)
+ set(XRT_FEATURE_OPENXR_VARJO_QUAD_VIEWS         OFF)
+ set(XRT_FEATURE_OPENXR_SPACE_UNBOUNDED          OFF)
++set(XRT_FEATURE_OPENXR_LAYER_FB_SETTINGS         ON)
+ 
+ set(XRT_HAVE_BLUETOOTH               OFF)
+ set(XRT_HAVE_GST                     OFF)
+diff --git a/server/compositor/layer_squasher.cpp b/server/compositor/layer_squasher.cpp
+index a04af086..988a48b9 100644
+--- a/server/compositor/layer_squasher.cpp
++++ b/server/compositor/layer_squasher.cpp
+@@ -551,6 +551,7 @@ layer_squasher::do_layers(
+ 				        .angle_down = std::min(layer_fov.angle_down, all_layers_fov.angle_down),
+ 				};
+ 			ubo.layers[cur_layer].layer_data.unpremultiplied_alpha = is_layer_unpremultiplied(&layer.data);
++			ubo.layers[cur_layer].layer_data.sample_count = layer.data.sample_count;
+ 			apply_bias_and_scale_from_layer(
+ 			        &data,
+ 			        &ubo.layers[cur_layer].color_scale,
