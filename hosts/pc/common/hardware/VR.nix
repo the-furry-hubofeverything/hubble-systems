@@ -1,7 +1,6 @@
 {
   pkgs,
   config,
-  inputs,
   ...
 }: let
   xrizer-patched = pkgs.xrizer.overrideAttrs {
@@ -97,7 +96,12 @@ in {
   };
 
   environment.systemPackages = [
-    pkgs.wayvr
+    (pkgs.wayvr.overrideAttrs (p: {
+      postPatch = p.postPatch + ''                             
+          sed -i 's/Exec=wayvr/Exec=env OXR_FORCE_SUPER_SAMPLING=8 wayvr/' wayvr/wayvr.desktop
+      '';          
+    }))
+    pkgs.cage
     pkgs.oscavmgr
   ];
 
