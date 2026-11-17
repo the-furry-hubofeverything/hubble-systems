@@ -24,9 +24,7 @@ in {
         (pkgs.wivrn.overrideAttrs  (f: p: {
           inherit version;
           src = pkgs.applyPatches {
-            src = pkgs.fetchFromGitHub {
-              owner = "wivrn";
-              repo = "wivrn";
+            src = p.src.overrideAttrs {
               rev = version;
               hash = "sha256-kTkdgpGVyamAspssfersLsPEWyb6IUis4hXfBDsqX/o=";
             };
