@@ -31,6 +31,8 @@
     defaultSopsFile = ../../hosts/common/.sops.yaml;
   };
 
+  nix.gc.automatic = true;
+
   nixpkgs = {
     # You can add overlays here
     overlays = [
